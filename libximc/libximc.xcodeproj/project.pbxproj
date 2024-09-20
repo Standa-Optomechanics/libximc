@@ -1,0 +1,376 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8108B74C1847FA57007E9F48 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8108B74B1847FA57007E9F48 /* CoreFoundation.framework */; };
+		8108B74E1847FA60007E9F48 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8108B74D1847FA60007E9F48 /* IOKit.framework */; };
+		810AC684277219B30021F1C9 /* udp-posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 810AC683277219B30021F1C9 /* udp-posix.c */; };
+		817A4C6827A03DF000E88CFA /* tcp-posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 817A4C6727A03DF000E88CFA /* tcp-posix.c */; };
+		819182A4170B3124001B93C8 /* sglib.h in Headers */ = {isa = PBXBuildFile; fileRef = 819182A3170B3124001B93C8 /* sglib.h */; };
+		81B35D701A32482000980E24 /* wrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 81B35D6F1A32482000980E24 /* wrapper.h */; };
+		81B86F6A1A35CC9F00636CE4 /* libbindy.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 819BD0741A3597C200238B33 /* libbindy.dylib */; };
+		81B86F6C1A35CF0600636CE4 /* libbindy.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 819BD0741A3597C200238B33 /* libbindy.dylib */; };
+		81B86F6F1A35D11C00636CE4 /* libxiwrapper.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B86F6E1A35D11C00636CE4 /* libxiwrapper.dylib */; };
+		81B86F701A35D12D00636CE4 /* libxiwrapper.dylib in Copy Files */ = {isa = PBXBuildFile; fileRef = 81B86F6E1A35D11C00636CE4 /* libxiwrapper.dylib */; };
+		81BAFE871ACB26A10096F411 /* devvirt.c in Sources */ = {isa = PBXBuildFile; fileRef = 81BAFE851ACB26A10096F411 /* devvirt.c */; };
+		81BAFE881ACB26A10096F411 /* fwprotocol.c in Sources */ = {isa = PBXBuildFile; fileRef = 81BAFE861ACB26A10096F411 /* fwprotocol.c */; };
+		81C68A791551BDA7002E377F /* ximc-gen.c in Sources */ = {isa = PBXBuildFile; fileRef = 81C68A771551BDA7002E377F /* ximc-gen.c */; };
+		81C68A7A1551BDA7002E377F /* ximc-gen.h in Headers */ = {isa = PBXBuildFile; fileRef = 81C68A781551BDA7002E377F /* ximc-gen.h */; };
+		81D1543716811E4F0075B4B8 /* devenum.c in Sources */ = {isa = PBXBuildFile; fileRef = 81D1543416811E4F0075B4B8 /* devenum.c */; };
+		81D1543816811E4F0075B4B8 /* platform-posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 81D1543516811E4F0075B4B8 /* platform-posix.c */; };
+		81D1543916811E4F0075B4B8 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = 81D1543616811E4F0075B4B8 /* platform.h */; };
+		81D3E4EA0F87F36D0059F088 /* ximc.h in Headers */ = {isa = PBXBuildFile; fileRef = 81D3E4E90F87F36D0059F088 /* ximc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81E9E173175E96FB0032ECAF /* metadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 81E9E172175E96FB0032ECAF /* metadata.h */; };
+		81F6942514F002A9003EEC3C /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F6941914F002A9003EEC3C /* common.h */; };
+		81F6942614F002A9003EEC3C /* loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 81F6941A14F002A9003EEC3C /* loader.c */; };
+		81F6942714F002A9003EEC3C /* loader.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F6941B14F002A9003EEC3C /* loader.h */; };
+		81F6942A14F002A9003EEC3C /* protosup.c in Sources */ = {isa = PBXBuildFile; fileRef = 81F6941E14F002A9003EEC3C /* protosup.c */; };
+		81F6942B14F002A9003EEC3C /* protosup.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F6941F14F002A9003EEC3C /* protosup.h */; };
+		81F6942E14F002A9003EEC3C /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 81F6942214F002A9003EEC3C /* util.c */; };
+		81F6942F14F002A9003EEC3C /* util.h in Headers */ = {isa = PBXBuildFile; fileRef = 81F6942314F002A9003EEC3C /* util.h */; };
+		84CCFC32297123E0004AE5DB /* libminiupnpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84CCFC31297123E0004AE5DB /* libminiupnpc.a */; };
+		8D07F2C40486CC7A007CD1D0 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB77AAFE841565C02AAC07 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		81B86F691A35CC9200636CE4 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				81B86F6A1A35CC9F00636CE4 /* libbindy.dylib in Copy Files */,
+				81B86F701A35D12D00636CE4 /* libxiwrapper.dylib in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		8108B74B1847FA57007E9F48 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		8108B74D1847FA60007E9F48 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		810AC683277219B30021F1C9 /* udp-posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "udp-posix.c"; path = "src/udp-posix.c"; sourceTree = "<group>"; };
+		817A4C6727A03DF000E88CFA /* tcp-posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "tcp-posix.c"; path = "src/tcp-posix.c"; sourceTree = "<group>"; };
+		819182A3170B3124001B93C8 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sglib.h; path = src/sglib.h; sourceTree = "<group>"; };
+		8195605114EFF39100C65881 /* libximc.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = libximc.xcconfig; sourceTree = SOURCE_ROOT; };
+		8195608214EFFFCF00C65881 /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = SOURCE_ROOT; };
+		819BD0741A3597C200238B33 /* libbindy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbindy.dylib; path = ../deps/xiwrapper/libbindy.dylib; sourceTree = "<group>"; };
+		81B35D6F1A32482000980E24 /* wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wrapper.h; path = ../deps/xiwrapper/wrapper.h; sourceTree = "<group>"; };
+		81B86F6E1A35D11C00636CE4 /* libxiwrapper.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxiwrapper.dylib; path = ../deps/xiwrapper/libxiwrapper.dylib; sourceTree = "<group>"; };
+		81BAFE851ACB26A10096F411 /* devvirt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = devvirt.c; path = src/devvirt.c; sourceTree = "<group>"; };
+		81BAFE861ACB26A10096F411 /* fwprotocol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fwprotocol.c; path = src/fwprotocol.c; sourceTree = "<group>"; };
+		81C68A771551BDA7002E377F /* ximc-gen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "ximc-gen.c"; path = "src/ximc-gen.c"; sourceTree = "<group>"; };
+		81C68A781551BDA7002E377F /* ximc-gen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ximc-gen.h"; path = "src/ximc-gen.h"; sourceTree = "<group>"; };
+		81D1543416811E4F0075B4B8 /* devenum.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = devenum.c; path = src/devenum.c; sourceTree = "<group>"; };
+		81D1543516811E4F0075B4B8 /* platform-posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "platform-posix.c"; path = "src/platform-posix.c"; sourceTree = "<group>"; };
+		81D1543616811E4F0075B4B8 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = src/platform.h; sourceTree = "<group>"; };
+		81D3E4E90F87F36D0059F088 /* ximc.h */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.c.h; name = ximc.h; path = include/ximc.h; sourceTree = "<group>"; };
+		81E9E172175E96FB0032ECAF /* metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metadata.h; path = src/metadata.h; sourceTree = "<group>"; };
+		81F6941914F002A9003EEC3C /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = src/common.h; sourceTree = "<group>"; };
+		81F6941A14F002A9003EEC3C /* loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = loader.c; path = src/loader.c; sourceTree = "<group>"; };
+		81F6941B14F002A9003EEC3C /* loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = loader.h; path = src/loader.h; sourceTree = "<group>"; };
+		81F6941E14F002A9003EEC3C /* protosup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = protosup.c; path = src/protosup.c; sourceTree = "<group>"; };
+		81F6941F14F002A9003EEC3C /* protosup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = protosup.h; path = src/protosup.h; sourceTree = "<group>"; };
+		81F6942214F002A9003EEC3C /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = util.c; path = src/util.c; sourceTree = "<group>"; };
+		81F6942314F002A9003EEC3C /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = src/util.h; sourceTree = "<group>"; };
+		81F6943614F0035A003EEC3C /* libximc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libximc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		84CCFC31297123E0004AE5DB /* libminiupnpc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libminiupnpc.a; path = ../deps/miniupnpc/lib/libminiupnpc.a; sourceTree = "<group>"; };
+		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D07F2C30486CC7A007CD1D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B86F6F1A35D11C00636CE4 /* libxiwrapper.dylib in Frameworks */,
+				8108B74E1847FA60007E9F48 /* IOKit.framework in Frameworks */,
+				8108B74C1847FA57007E9F48 /* CoreFoundation.framework in Frameworks */,
+				8D07F2C40486CC7A007CD1D0 /* Carbon.framework in Frameworks */,
+				81B86F6C1A35CF0600636CE4 /* libbindy.dylib in Frameworks */,
+				84CCFC32297123E0004AE5DB /* libminiupnpc.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0867D691FE84028FC02AAC07 /* libximc */ = {
+			isa = PBXGroup;
+			children = (
+				81B35D711A32483200980E24 /* xiwrapper */,
+				8195607F14EFFED200C65881 /* xcconfigs */,
+				81D3E4850F87E8B50059F088 /* API */,
+				08FB77ACFE841707C02AAC07 /* Source */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				81F6943714F00397003EEC3C /* Products */,
+			);
+			name = libximc;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				84CCFC31297123E0004AE5DB /* libminiupnpc.a */,
+				81B86F6E1A35D11C00636CE4 /* libxiwrapper.dylib */,
+				819BD0741A3597C200238B33 /* libbindy.dylib */,
+				8108B74D1847FA60007E9F48 /* IOKit.framework */,
+				8108B74B1847FA57007E9F48 /* CoreFoundation.framework */,
+				08FB77AAFE841565C02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D07F2C70486CC7A007CD1D0 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				817A4C6727A03DF000E88CFA /* tcp-posix.c */,
+				810AC683277219B30021F1C9 /* udp-posix.c */,
+				81BAFE851ACB26A10096F411 /* devvirt.c */,
+				81BAFE861ACB26A10096F411 /* fwprotocol.c */,
+				81E9E172175E96FB0032ECAF /* metadata.h */,
+				819182A3170B3124001B93C8 /* sglib.h */,
+				81D1543416811E4F0075B4B8 /* devenum.c */,
+				81D1543516811E4F0075B4B8 /* platform-posix.c */,
+				81D1543616811E4F0075B4B8 /* platform.h */,
+				81C68A771551BDA7002E377F /* ximc-gen.c */,
+				81C68A781551BDA7002E377F /* ximc-gen.h */,
+				81F6941914F002A9003EEC3C /* common.h */,
+				81F6941A14F002A9003EEC3C /* loader.c */,
+				81F6941B14F002A9003EEC3C /* loader.h */,
+				81F6941E14F002A9003EEC3C /* protosup.c */,
+				81F6941F14F002A9003EEC3C /* protosup.h */,
+				81F6942214F002A9003EEC3C /* util.c */,
+				81F6942314F002A9003EEC3C /* util.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		8195607F14EFFED200C65881 /* xcconfigs */ = {
+			isa = PBXGroup;
+			children = (
+				8195608214EFFFCF00C65881 /* version.xcconfig */,
+				8195605114EFF39100C65881 /* libximc.xcconfig */,
+			);
+			name = xcconfigs;
+			sourceTree = "<group>";
+		};
+		81B35D711A32483200980E24 /* xiwrapper */ = {
+			isa = PBXGroup;
+			children = (
+				81B35D6F1A32482000980E24 /* wrapper.h */,
+			);
+			name = xiwrapper;
+			sourceTree = "<group>";
+		};
+		81D3E4850F87E8B50059F088 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				81D3E4E90F87F36D0059F088 /* ximc.h */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		81F6943714F00397003EEC3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81F6943614F0035A003EEC3C /* libximc.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8D07F2BD0486CC7A007CD1D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81B35D701A32482000980E24 /* wrapper.h in Headers */,
+				81D3E4EA0F87F36D0059F088 /* ximc.h in Headers */,
+				81F6942514F002A9003EEC3C /* common.h in Headers */,
+				81F6942714F002A9003EEC3C /* loader.h in Headers */,
+				81F6942B14F002A9003EEC3C /* protosup.h in Headers */,
+				81F6942F14F002A9003EEC3C /* util.h in Headers */,
+				81C68A7A1551BDA7002E377F /* ximc-gen.h in Headers */,
+				81D1543916811E4F0075B4B8 /* platform.h in Headers */,
+				819182A4170B3124001B93C8 /* sglib.h in Headers */,
+				81E9E173175E96FB0032ECAF /* metadata.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D07F2BC0486CC7A007CD1D0 /* libximc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "libximc" */;
+			buildPhases = (
+				8D07F2BD0486CC7A007CD1D0 /* Headers */,
+				8D07F2BF0486CC7A007CD1D0 /* Resources */,
+				8D07F2C10486CC7A007CD1D0 /* Sources */,
+				81B86F691A35CC9200636CE4 /* Copy Files */,
+				8D07F2C30486CC7A007CD1D0 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libximc;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = libximc;
+			productReference = 81F6943614F0035A003EEC3C /* libximc.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "libximc" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* libximc */;
+			productRefGroup = 0867D691FE84028FC02AAC07 /* libximc */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D07F2BC0486CC7A007CD1D0 /* libximc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D07F2BF0486CC7A007CD1D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D07F2C10486CC7A007CD1D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81F6942614F002A9003EEC3C /* loader.c in Sources */,
+				81F6942A14F002A9003EEC3C /* protosup.c in Sources */,
+				81F6942E14F002A9003EEC3C /* util.c in Sources */,
+				81BAFE871ACB26A10096F411 /* devvirt.c in Sources */,
+				81BAFE881ACB26A10096F411 /* fwprotocol.c in Sources */,
+				810AC684277219B30021F1C9 /* udp-posix.c in Sources */,
+				81C68A791551BDA7002E377F /* ximc-gen.c in Sources */,
+				81D1543716811E4F0075B4B8 /* devenum.c in Sources */,
+				81D1543816811E4F0075B4B8 /* platform-posix.c in Sources */,
+				817A4C6827A03DF000E88CFA /* tcp-posix.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4FADC24308B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8195605114EFF39100C65881 /* libximc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../deps/xiwrapper",
+					"$(PROJECT_DIR)/../deps/miniupnpc/lib",
+				);
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		4FADC24408B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8195605114EFF39100C65881 /* libximc.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../deps/xiwrapper",
+					"$(PROJECT_DIR)/../deps/miniupnpc/lib",
+				);
+				VALID_ARCHS = x86_64;
+			};
+			name = Release;
+		};
+		4FADC24708B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8195605114EFF39100C65881 /* libximc.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				HEADER_SEARCH_PATHS = ../deps/miniupnpc/include;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks";
+				VALID_ARCHS = x86_64;
+			};
+			name = Debug;
+		};
+		4FADC24808B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8195605114EFF39100C65881 /* libximc.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				HEADER_SEARCH_PATHS = ../deps/miniupnpc/include;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/Frameworks";
+				VALID_ARCHS = x86_64;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "libximc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24308B4156D00ABE55E /* Debug */,
+				4FADC24408B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "libximc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24708B4156D00ABE55E /* Debug */,
+				4FADC24808B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

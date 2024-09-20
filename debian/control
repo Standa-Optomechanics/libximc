@@ -1,0 +1,29 @@
+Source: libximc7
+Priority: extra
+Maintainer: XIMC Labs <info@ximc.ru>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, doxygen, bison, flex
+Standards-Version: 3.8.4
+Section: libs
+Homepage: http://www.ximc.ru
+
+Package: libximc7-dev
+Section: libdevel
+Architecture: any
+Depends: libximc7 (= ${binary:Version}), ${misc:Depends}, libc6 (>= 2.1)
+Replaces: libximc6-dev
+Breaks: libximc6-dev
+Description: Library for controlling stepper and other motors.
+ It provides a simple C interface for controlling and configuring 
+ engine and controller.  It uses a common virtual serial port driver 
+ embedded in all OS.
+
+Package: libximc7
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Replaces: libximc6
+Breaks: libximc6
+Description: Library for controlling stepper and other motors.
+ It provides a simple C interface for controlling and configuring 
+ engine and controller.  It uses a common virtual serial port driver 
+ embedded in all OS.

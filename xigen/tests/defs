@@ -1,0 +1,176 @@
+testname=`echo "$0" | sed 's,^.*/,,'`
+basename=`echo "$testname" | sed 's,\.test$,,'`
+
+echo Running test $testname
+
+file_ok="$basename.ok"
+file_out="$basename.out"
+file_err="$basename.err"
+file_code_out="$basename.code.out"
+file_header_out="$basename.header.out"
+
+if [ -z "$file_input" ] ; then
+	file_input="$srcdir/$basename.xi"
+fi
+file_expected="$srcdir/$basename.expected"
+
+need_cleanup=yes
+tmpfiles="$file_ok $file_out $file_err $file_code_out $file_header_out"
+
+cleanup()
+{
+	if [ "x$need_cleanup" = xyes ] ; then
+		rm -f $tmpfiles
+	fi
+}
+trap "cleanup" exit
+
+if [ ! -f "$file_input" ] ; then
+	echo "Can't open test data $file_input"
+	exit 1
+fi
+
+perform()
+{
+	${XIGEN} $* -i $file_input 2>$file_err
+}
+
+careful_diff()
+{
+	file1=$1
+	file2=$2
+	diff -qwB $file1 $file2 > /dev/null
+	result=$?
+	if [ "$result" != "0" ] ; then
+		diff -wB $file1 $file2
+		need_cleanup=no
+		exit 1
+	fi
+}
+
+expect_success_impl()
+{
+	echo Success test >&2
+	perform $* > $file_out
+	result=$?
+	if [ "$result" != "0" ] ; then
+		echo Command failed
+		cat $file_err 1>&2
+		need_cleanup=no
+		exit 1
+	fi
+	careful_diff $file_ok $file_out
+}
+
+expect_out_code()
+{
+	expect_success_impl '--gen-code -n' 
+}
+
+expect_out_header()
+{
+	expect_success_impl '--gen-header -n' 
+}
+
+expect_out_header_wdocs()
+{
+	expect_success_impl '--gen-header' 
+}
+
+expect_out_fwheader()
+{
+	expect_success_impl '--gen-fw-header -n'
+}
+
+expect_out_csharp()
+{
+	expect_success_impl '--gen-csharp -n' 
+}
+
+expect_out_pascal()
+{
+	expect_success_impl '--gen-pascal -n' 
+}
+
+expect_out_jni()
+{
+	expect_success_impl '--gen-jni -n'
+}
+
+expect_out_python()
+{
+	expect_success_impl '--gen-python -n'
+}
+
+expect_out_def()
+{
+	expect_success_impl '--gen-def -n' 
+}
+
+expect_out_wiki()
+{
+	expect_success_impl '--gen-wiki -n'
+}
+
+expect_out_internal_header()
+{
+	expect_success_impl '--gen-internal-header -n' 
+}
+
+expect_success()
+{
+	expect_success_impl
+}
+
+expect_error()
+{
+	echo Error test >&2
+	perform > $file_out
+	result=$?
+	if [ "$result" != "0" ] ; then
+		echo Command failed
+		cat $file_err 1>&2
+		need_cleanup=no
+		exit 1
+	fi
+	diff -q $file_ok $file_out > /dev/null
+	result=$?
+	if [ "$result" = "0" ] ; then
+		need_cleanup=no
+		exit 1
+	fi
+}
+
+expect_fail()
+{
+	echo Fail test >&2
+	perform > $file_out
+	result=$?
+	if [ "$result" != "0" ] ; then
+		echo Failed as expected
+	fi
+	exit 1
+}
+
+filter_decl()
+{
+	# special handling is for naming calibrate variables differently in function declarations
+	perform $* | grep 'result_t XIMC_API' | sed '/_calb (device/{s/float c/float /g;s/float\* c/float* /g;}'
+	result=$?
+	if [ "$result" != "0" ] ; then
+		echo Command failed
+		cat $file_err 1>&2
+		need_cleanup=no
+		exit 1
+	fi
+}
+
+expect_consistent()
+{
+	echo Consistent test >&2
+	filter_decl '--gen-code' | sed 's/$/;/' > $file_code_out
+	filter_decl '--gen-header' > $file_header_out
+	careful_diff $file_code_out $file_header_out
+}
+
+# vim: ft=sh

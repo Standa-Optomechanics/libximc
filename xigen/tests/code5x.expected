@@ -1,0 +1,666 @@
+result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar)
+{
+	result_t result;
+	byte command[40], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sfoo" );
+	push_int32( &p, foobar->position );
+	push_int16( &p, foobar->uposition );
+	push_int16( &p, foobar->test );
+	push_data( &p, foobar->strfoo, 6 );
+	for (i = 0; i < 8; ++i)
+		push_int16( &p, foobar->arr[i] );
+	push_data( &p, foobar->strbar, 4 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_foobar_calb (device_t id, const foobar_calb_t* foobar_calb, const calibration_t* calibration)
+{
+	foobar_t inner;
+	unsigned int i;
+	XI_calibrate_to_normal(foobar_calb->position, inner.position, inner.uposition, calibration);
+	inner.test = foobar_calb->test;
+	for (i = 0; i < 6; ++i)
+		inner.strfoo[i] = foobar_calb->strfoo[i];
+	for (i = 0; i < 8; ++i)
+		inner.arr[i] = foobar_calb->arr[i];
+	for (i = 0; i < 4; ++i)
+		inner.strbar[i] = foobar_calb->strbar[i];
+
+	return set_foobar(id, &inner);
+}
+
+result_t XIMC_API get_foobar (device_t id, foobar_t* foobar)
+{
+	result_t result;
+	byte response[40], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfoo", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	foobar->position = pop_int32( &p );
+	foobar->uposition = pop_int16( &p );
+	foobar->test = pop_int16( &p );
+	pop_str( &p, foobar->strfoo, 6 );
+	for (i = 0; i < 8; ++i)
+		foobar->arr[i] = pop_int16( &p );
+	pop_str( &p, foobar->strbar, 4 );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_foobar_calb (device_t id, foobar_calb_t* foobar_calb, const calibration_t* calibration)
+{
+	result_t result;
+	foobar_t inner;
+	unsigned int i;
+
+	if ((result = get_foobar(id, &inner)) != result_ok)
+		return result;
+
+	XI_normal_to_calibrate(foobar_calb->position, inner.position, inner.uposition, calibration);
+	foobar_calb->test = inner.test;
+	for (i = 0; i < 6; ++i)
+		foobar_calb->strfoo[i] = inner.strfoo[i];
+	for (i = 0; i < 8; ++i)
+		foobar_calb->arr[i] = inner.arr[i];
+	for (i = 0; i < 4; ++i)
+		foobar_calb->strbar[i] = inner.strbar[i];
+
+	return result;
+}
+
+result_t XIMC_API set_bazqux (device_t id, int position, int uposition, int test, const int* arr)
+{
+	result_t result;
+	byte command[30], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "squx" );
+	push_int32( &p, position );
+	push_int16( &p, uposition );
+	push_int16( &p, test );
+	for (i = 0; i < 8; ++i)
+		push_int16( &p, arr[i] );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_bazqux_calb (device_t id, float cposition, int test, const int* arr, const calibration_t* calibration)
+{
+	int position;
+	int uposition;
+	unsigned int i;
+	XI_calibrate_to_normal(cposition, position, uposition, calibration);
+
+	return set_bazqux(id, position, uposition, test, arr);
+}
+
+result_t XIMC_API get_bazqux (device_t id, int* position, int* uposition, int* test, int* arr)
+{
+	result_t result;
+	byte response[30], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gqux", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	*position = pop_int32( &p );
+	*uposition = pop_int16( &p );
+	*test = pop_int16( &p );
+	for (i = 0; i < 8; ++i)
+		*arr[i] = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_bazqux_calb (device_t id, float* cposition, int* test, int* arr, const calibration_t* calibration)
+{
+	result_t result;
+	int position;
+	int uposition;
+	unsigned int i;
+
+	if ((result = get_bazqux(id, &position, &uposition, test, arr)) != result_ok)
+		return result;
+
+	XI_normal_to_calibrate(cposition, position, uposition, calibration);
+
+	return result;
+}
+
+result_t XIMC_API set_repeated (device_t id, int position, int uposition, int test, int speed, int uspeed, float another)
+{
+	result_t result;
+	byte command[24], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "srpt" );
+	push_int32( &p, position );
+	push_int16( &p, uposition );
+	push_int16( &p, test );
+	push_int32( &p, speed );
+	push_int16( &p, uspeed );
+	push_float( &p, another );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_repeated_calb (device_t id, float cposition, int test, float cspeed, float another, const calibration_t* calibration)
+{
+	int position;
+	int uposition;
+	int speed;
+	int uspeed;
+	XI_calibrate_to_normal(cposition, position, uposition, calibration);
+	XI_calibrate_to_normal(cspeed, speed, uspeed, calibration);
+
+	return set_repeated(id, position, uposition, test, speed, uspeed, another);
+}
+
+result_t XIMC_API get_repeated (device_t id, int* position, int* uposition, int* test, int* speed, int* uspeed, float* another)
+{
+	result_t result;
+	byte response[24], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "grpt", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	*position = pop_int32( &p );
+	*uposition = pop_int16( &p );
+	*test = pop_int16( &p );
+	*speed = pop_int32( &p );
+	*uspeed = pop_int16( &p );
+	*another = pop_float( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_repeated_calb (device_t id, float* cposition, int* test, float* cspeed, float* another, const calibration_t* calibration)
+{
+	result_t result;
+	int position;
+	int uposition;
+	int speed;
+	int uspeed;
+
+	if ((result = get_repeated(id, &position, &uposition, test, &speed, &uspeed, another)) != result_ok)
+		return result;
+
+	XI_normal_to_calibrate(cposition, position, uposition, calibration);
+	XI_normal_to_calibrate(cspeed, speed, uspeed, calibration);
+
+	return result;
+}
+
+result_t XIMC_API set_foobar2 (device_t id, int position, int test, const int* arr)
+{
+	result_t result;
+	byte command[28], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sfoo" );
+	push_int32( &p, position );
+	push_int16( &p, test );
+	for (i = 0; i < 8; ++i)
+		push_int16( &p, arr[i] );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_foobar2_calb (device_t id, float cposition, int test, const int* arr, const calibration_t* calibration)
+{
+	int position;
+	unsigned int i;
+	XI_calibrate_to_normal_short(cposition, position, calibration);
+
+	return set_foobar2(id, position, test, arr);
+}
+
+result_t XIMC_API get_foobar2 (device_t id, int* position, int* test, int* arr)
+{
+	result_t result;
+	byte response[28], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfoo", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	*position = pop_int32( &p );
+	*test = pop_int16( &p );
+	for (i = 0; i < 8; ++i)
+		*arr[i] = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_foobar2_calb (device_t id, float* cposition, int* test, int* arr, const calibration_t* calibration)
+{
+	result_t result;
+	int position;
+	unsigned int i;
+
+	if ((result = get_foobar2(id, &position, test, arr)) != result_ok)
+		return result;
+
+	XI_normal_to_calibrate_short(cposition, position, calibration);
+
+	return result;
+}
+
+result_t XIMC_API set_foobar3 (device_t id, int position, int speed, int microspeed, int test, const int* arr)
+{
+	result_t result;
+	byte command[36], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sfoo" );
+	push_int32( &p, position );
+	push_int32( &p, speed );
+	push_int32( &p, microspeed );
+	push_int16( &p, test );
+	for (i = 0; i < 8; ++i)
+		push_int16( &p, arr[i] );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_foobar3_calb (device_t id, float cposition, float cspeed, int test, const int* arr, const calibration_t* calibration)
+{
+	int position;
+	int speed;
+	int microspeed;
+	unsigned int i;
+	XI_calibrate_to_normal_short(cposition, position, calibration);
+	XI_calibrate_to_normal(cspeed, speed, microspeed, calibration);
+
+	return set_foobar3(id, position, speed, microspeed, test, arr);
+}
+
+result_t XIMC_API get_foobar3 (device_t id, int* position, int* speed, int* microspeed, int* test, int* arr)
+{
+	result_t result;
+	byte response[36], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfoo", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	*position = pop_int32( &p );
+	*speed = pop_int32( &p );
+	*microspeed = pop_int32( &p );
+	*test = pop_int16( &p );
+	for (i = 0; i < 8; ++i)
+		*arr[i] = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_foobar3_calb (device_t id, float* cposition, float* cspeed, int* test, int* arr, const calibration_t* calibration)
+{
+	result_t result;
+	int position;
+	int speed;
+	int microspeed;
+	unsigned int i;
+
+	if ((result = get_foobar3(id, &position, &speed, &microspeed, test, arr)) != result_ok)
+		return result;
+
+	XI_normal_to_calibrate_short(cposition, position, calibration);
+	XI_normal_to_calibrate(cspeed, speed, microspeed, calibration);
+
+	return result;
+}
+
+result_t XIMC_API set_arr1 (device_t id, const int* position, const int* microposition, int test)
+{
+	result_t result;
+	byte command[72], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sarr" );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, position[i] );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, microposition[i] );
+	push_int16( &p, test );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_arr1_calb (device_t id, const float* cposition, int test, const calibration_t* calibration)
+{
+	int position[8];
+	int microposition[8];
+	unsigned int i;
+	for (i = 0; i < 8; ++i)
+	{
+		XI_calibrate_to_normal(cposition[i], position[i], microposition[i], calibration);
+	};
+
+	return set_arr1(id, position, position, microposition, test);
+}
+
+result_t XIMC_API get_arr1 (device_t id, int* position, int* microposition, int* test)
+{
+	result_t result;
+	byte response[72], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "garr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	for (i = 0; i < 8; ++i)
+		*position[i] = pop_int32( &p );
+	for (i = 0; i < 8; ++i)
+		*microposition[i] = pop_int32( &p );
+	*test = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_arr1_calb (device_t id, float* cposition, int* test, const calibration_t* calibration)
+{
+	result_t result;
+	int position[8];
+	int microposition[8];
+	unsigned int i;
+
+	if ((result = get_arr1(id, position, position, microposition, test)) != result_ok)
+		return result;
+
+	for (i = 0; i < 8; ++i)
+	{
+		XI_normal_to_calibrate(cposition[i], position[i], microposition[i], calibration);
+	};
+
+	return result;
+}
+
+result_t XIMC_API set_arr2 (device_t id, const arr2_t* arr2)
+{
+	result_t result;
+	byte command[72], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sarr" );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, arr2->position[i] );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, arr2->microposition[i] );
+	push_int16( &p, arr2->test );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_arr2_calb (device_t id, const arr2_calb_t* arr2_calb, const calibration_t* calibration)
+{
+	arr2_t inner;
+	unsigned int i;
+	for (i = 0; i < 8; ++i)
+	{
+		XI_calibrate_to_normal(arr2_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	inner.test = arr2_calb->test;
+
+	return set_arr2(id, &inner);
+}
+
+result_t XIMC_API get_arr2 (device_t id, arr2_t* arr2)
+{
+	result_t result;
+	byte response[72], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "garr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	for (i = 0; i < 8; ++i)
+		arr2->position[i] = pop_int32( &p );
+	for (i = 0; i < 8; ++i)
+		arr2->microposition[i] = pop_int32( &p );
+	arr2->test = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_arr2_calb (device_t id, arr2_calb_t* arr2_calb, const calibration_t* calibration)
+{
+	result_t result;
+	arr2_t inner;
+	unsigned int i;
+
+	if ((result = get_arr2(id, &inner)) != result_ok)
+		return result;
+
+	for (i = 0; i < 8; ++i)
+	{
+		XI_normal_to_calibrate(arr2_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	arr2_calb->test = inner.test;
+
+	return result;
+}
+
+result_t XIMC_API set_arr3 (device_t id, const arr3_t* arr3)
+{
+	result_t result;
+	byte command[48], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sarr" );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, arr3->position[i] );
+	for (i = 0; i < 8; ++i)
+		push_int8( &p, arr3->microposition[i] );
+	push_int16( &p, arr3->test );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_arr3_calb (device_t id, const arr3_calb_t* arr3_calb, const calibration_t* calibration)
+{
+	arr3_t inner;
+	unsigned int i;
+	for (i = 0; i < 8; ++i)
+	{
+		XI_calibrate_to_normal(arr3_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	inner.test = arr3_calb->test;
+
+	return set_arr3(id, &inner);
+}
+
+result_t XIMC_API get_arr3 (device_t id, arr3_t* arr3)
+{
+	result_t result;
+	byte response[48], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "garr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	for (i = 0; i < 8; ++i)
+		arr3->position[i] = pop_int32( &p );
+	for (i = 0; i < 8; ++i)
+		arr3->microposition[i] = pop_int8( &p );
+	arr3->test = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_arr3_calb (device_t id, arr3_calb_t* arr3_calb, const calibration_t* calibration)
+{
+	result_t result;
+	arr3_t inner;
+	unsigned int i;
+
+	if ((result = get_arr3(id, &inner)) != result_ok)
+		return result;
+
+	for (i = 0; i < 8; ++i)
+	{
+		XI_normal_to_calibrate(arr3_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	arr3_calb->test = inner.test;
+
+	return result;
+}
+
+result_t XIMC_API set_byted (device_t id, const byted_t* byted)
+{
+	result_t result;
+	byte command[64], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "sbyt" );
+	for (i = 0; i < 8; ++i)
+		push_int32( &p, byted->position[i] );
+	for (i = 0; i < 8; ++i)
+		push_int8( &p, byted->microposition[i] );
+	for (i = 0; i < 16; ++i)
+		push_uint8( &p, byted->key[i] );
+	push_int16( &p, byted->test );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_byted_calb (device_t id, const byted_calb_t* byted_calb, const calibration_t* calibration)
+{
+	byted_t inner;
+	unsigned int i;
+	for (i = 0; i < 8; ++i)
+	{
+		XI_calibrate_to_normal(byted_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	for (i = 0; i < 16; ++i)
+		inner.key[i] = byted_calb->key[i];
+	inner.test = byted_calb->test;
+
+	return set_byted(id, &inner);
+}
+
+result_t XIMC_API get_byted (device_t id, byted_t* byted)
+{
+	result_t result;
+	byte response[64], *p  = response;
+	unsigned int i;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gbyt", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	for (i = 0; i < 8; ++i)
+		byted->position[i] = pop_int32( &p );
+	for (i = 0; i < 8; ++i)
+		byted->microposition[i] = pop_int8( &p );
+	for (i = 0; i < 16; ++i)
+		byted->key[i] = pop_uint8( &p );
+	byted->test = pop_int16( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_byted_calb (device_t id, byted_calb_t* byted_calb, const calibration_t* calibration)
+{
+	result_t result;
+	byted_t inner;
+	unsigned int i;
+
+	if ((result = get_byted(id, &inner)) != result_ok)
+		return result;
+
+	for (i = 0; i < 8; ++i)
+	{
+		XI_normal_to_calibrate(byted_calb->position[i], inner.position[i], inner.microposition[i], calibration);
+	};
+	for (i = 0; i < 16; ++i)
+		byted_calb->key[i] = inner.key[i];
+	byted_calb->test = inner.test;
+
+	return result;
+}
+

@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libximc", "libximc\libximc.vcxproj", "{5774A060-FABB-4195-855D-1A17F45DE392}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xigen", "xigen\xigen.vcxproj", "{666F535C-4CA3-4604-B151-CC84A9B1BC76}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjximc", "wrappers\java\libjximc.vcxproj", "{1F26B802-1B69-4A42-BA67-EC78A1CEB502}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Debug|Any CPU.ActiveCfg = Release|x64
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Debug|Win32.Build.0 = Debug|Win32
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Debug|x64.ActiveCfg = Debug|x64
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Debug|x64.Build.0 = Debug|x64
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Release|Any CPU.ActiveCfg = Release|x64
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Release|Win32.ActiveCfg = Release|Win32
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Release|Win32.Build.0 = Release|Win32
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Release|x64.ActiveCfg = Release|x64
+		{5774A060-FABB-4195-855D-1A17F45DE392}.Release|x64.Build.0 = Release|x64
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Debug|Any CPU.ActiveCfg = Release|x64
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Debug|Win32.ActiveCfg = Debug|Win32
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Debug|Win32.Build.0 = Debug|Win32
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Debug|x64.ActiveCfg = Debug|x64
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Debug|x64.Build.0 = Debug|x64
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Release|Any CPU.ActiveCfg = Release|Win32
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Release|Win32.ActiveCfg = Release|Win32
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Release|Win32.Build.0 = Release|Win32
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Release|x64.ActiveCfg = Release|x64
+		{666F535C-4CA3-4604-B151-CC84A9B1BC76}.Release|x64.Build.0 = Release|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Debug|Any CPU.ActiveCfg = Release|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Debug|Win32.Build.0 = Debug|Win32
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Debug|x64.ActiveCfg = Debug|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Debug|x64.Build.0 = Debug|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Release|Any CPU.ActiveCfg = Release|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Release|Win32.ActiveCfg = Release|Win32
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Release|Win32.Build.0 = Release|Win32
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Release|x64.ActiveCfg = Release|x64
+		{1F26B802-1B69-4A42-BA67-EC78A1CEB502}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

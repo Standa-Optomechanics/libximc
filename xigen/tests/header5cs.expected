@@ -1,0 +1,219 @@
+
+/*
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+*/
+	public static class Flags
+	{
+
+	}; // flags
+
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct foobar_t
+	{
+		public int position;
+		public int uposition;
+		public int test;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 7)]
+		public string strfoo;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] arr;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 5)]
+		public string strbar;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct foobar_calb_t
+	{
+		public float position;
+		public int test;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 7)]
+		public string strfoo;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] arr;
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 5)]
+		public string strbar;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct arr2_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] position;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] microposition;
+		public int test;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct arr2_calb_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public float[] position;
+		public int test;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct arr3_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] position;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] microposition;
+		public int test;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct arr3_calb_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public float[] position;
+		public int test;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct byted_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] position;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public int[] microposition;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public byte[] key;
+		public int test;
+	};
+
+	[StructLayout(LayoutKind.Sequential, CharSet=CharSet.Ansi)]
+	public struct byted_calb_t
+	{
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+		public float[] position;
+		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+		public byte[] key;
+		public int test;
+	};
+
+/*
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+*/
+
+	public partial class API
+	{
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar (int id, ref foobar_t foobar);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar_calb (int id, ref foobar_calb_t foobar_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar (int id, out foobar_t foobar);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar_calb (int id, out foobar_calb_t foobar_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_bazqux (int id, int position, int uposition, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_bazqux_calb (int id, float position, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_bazqux (int id, out int position, out int uposition, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_bazqux_calb (int id, out float position, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_repeated (int id, int position, int uposition, int test, int speed, int uspeed, float another);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_repeated_calb (int id, float position, int test, float speed, float another, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_repeated (int id, out int position, out int uposition, out int test, out int speed, out int uspeed, out float another);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_repeated_calb (int id, out float position, out int test, out float speed, out float another, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar2 (int id, int position, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar2_calb (int id, float position, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar2 (int id, out int position, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar2_calb (int id, out float position, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar3 (int id, int position, int speed, int microspeed, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_foobar3_calb (int id, float position, float speed, int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar3 (int id, out int position, out int speed, out int microspeed, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_foobar3_calb (int id, out float position, out float speed, out int test, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] arr, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr1 (int id, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] position, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] int[] microposition, int test);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr1_calb (int id, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] float[] position, int test, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr1 (int id, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] position, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out int[] microposition, out int test);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr1_calb (int id, [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)] out float[] position, out int test, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr2 (int id, ref arr2_t arr2);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr2_calb (int id, ref arr2_calb_t arr2_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr2 (int id, out arr2_t arr2);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr2_calb (int id, out arr2_calb_t arr2_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr3 (int id, ref arr3_t arr3);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_arr3_calb (int id, ref arr3_calb_t arr3_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr3 (int id, out arr3_t arr3);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_arr3_calb (int id, out arr3_calb_t arr3_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_byted (int id, ref byted_t byted);
+
+		[DllImport("libximc.dll")]
+		public static extern Result set_byted_calb (int id, ref byted_calb_t byted_calb, ref calibration_t calibration);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_byted (int id, out byted_t byted);
+
+		[DllImport("libximc.dll")]
+		public static extern Result get_byted_calb (int id, out byted_calb_t byted_calb, ref calibration_t calibration);
+	};
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

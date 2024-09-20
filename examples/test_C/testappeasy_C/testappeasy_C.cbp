@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="testappeasy_C" />
+		<Option makefile="makefile" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="cb_bin/Debug/testappeasy_C" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="cb_bin/Debug" />
+				<Option object_output="cb_obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="cb_bin/Release/testappeasy_C" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="cb_bin/Release" />
+				<Option object_output="cb_obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="win32">
+				<Option platforms="Windows;" />
+				<Option output="cb_compiled-win32/testappeasy_C" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="cb_compiled-win32" />
+				<Option object_output="cb_obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-m32" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m32" />
+					<Add option="-static-libgcc -static-libstdc++" />
+					<Add library="../../../ximc/win32/libximc.lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win32\bindy.dll&quot; &quot;cb_compiled-win32\&quot;' />
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win32\xiwrapper.dll&quot; &quot;cb_compiled-win32\&quot;' />
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win32\libximc.dll&quot; &quot;cb_compiled-win32\&quot;' />
+				</ExtraCommands>
+			</Target>
+			<Target title="win64">
+				<Option platforms="Windows;" />
+				<Option output="cb_compiled-win64/testappeasy_C" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="cb_compiled-win64" />
+				<Option object_output="cb_obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-m64" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-m64" />
+					<Add option="-static-libgcc -static-libstdc++" />
+					<Add library="../../../ximc/win64/libximc.lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win64\bindy.dll&quot; &quot;cb_compiled-win64\&quot;' />
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win64\xiwrapper.dll&quot; &quot;cb_compiled-win64\&quot;' />
+					<Add after='cmd /c copy /Y &quot;..\..\..\ximc\win64\libximc.dll&quot; &quot;cb_compiled-win64\&quot;' />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="../../../ximc" />
+			<Add directory="../../../ximc/win32" />
+		</Compiler>
+		<Unit filename="testappeasy_C.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

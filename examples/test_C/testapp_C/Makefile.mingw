@@ -1,0 +1,27 @@
+# makefile for mingw
+# heavily unsupported, could break
+
+CC = gcc
+CFLAGS += -O3 -I..\..\..\ximc -DWIN32 -DNDEBUG -D_WINDOWS 	
+LDFLAGS = -mconsole
+
+LIB_PATHS = -L..\..\..\ximc\win32 -llibximc
+
+
+EXE_C_SRC = testapp_C.c
+
+EXE_OBJECTS = $(EXE_C_SRC:%.c=%.o) 
+
+# How to make a C file
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+.PHONY: all clean
+
+all: testapp_C.exe
+
+testapp_C.exe: $(EXE_OBJECTS)
+	$(CC) $(LDFLAGS) $(EXE_OBJECTS) $(LIB_PATHS) $(EXE_LIBS) -o testapp_C.exe
+
+clean:
+	del /Q /F $(EXE_OBJECTS) testapp_C.exe

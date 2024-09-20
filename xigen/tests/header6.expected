@@ -1,0 +1,114 @@
+
+/** @cond DO_NOT_WANT */
+#define LIBXIMC_PROTOCOL_VERSION 1
+/** @endcond */
+
+
+/*
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+*/
+
+/** 
+Usual doxygen struct
+	* @see get_testdoc1, set_testdoc1
+*/
+	typedef struct
+	{
+		int foo;
+	} testdoc1_t;
+
+/** 
+Usual doxygen struct
+	* @see get_testdoc2, set_testdoc2
+*/
+	typedef struct
+	{
+		int foo;
+	} testdoc2_t;
+
+/** 
+Usual doxygen struct
+	* @see get_testdoc3
+*/
+	typedef struct
+	{
+		int foo;
+	} testdoc3_t;
+
+/** 
+Usual doxygen struct
+	* @see get_testdoc4, set_testdoc4
+*/
+	typedef struct
+	{
+		int foo;
+		int ufoo;
+	} testdoc4_t;
+
+/** 
+Usual doxygen struct calb
+	* @see get_testdoc4, set_testdoc4
+*/
+	typedef struct
+	{
+		float foo;
+	} testdoc4_calb_t;
+
+/*
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+*/
+/** 
+Usual doxygen write
+*/
+	result_t XIMC_API set_testdoc1 (device_t id, const testdoc1_t* testdoc1);
+
+/** 
+Usual doxygen read
+*/
+	result_t XIMC_API get_testdoc1 (device_t id, testdoc1_t* testdoc1);
+
+/** 
+Usual doxygen write
+*/
+	result_t XIMC_API set_testdoc2 (device_t id, const testdoc2_t* testdoc2);
+
+/** 
+Usual doxygen read
+*/
+	result_t XIMC_API get_testdoc2 (device_t id, testdoc2_t* testdoc2);
+
+/** 
+Usual doxygen read
+*/
+	result_t XIMC_API get_testdoc3 (device_t id, testdoc3_t* testdoc3);
+
+/** 
+Usual doxygen write
+*/
+	result_t XIMC_API set_testdoc4 (device_t id, const testdoc4_t* testdoc4);
+
+/** 
+Usual doxygen write calb
+*/
+	result_t XIMC_API set_testdoc4_calb (device_t id, const testdoc4_calb_t* testdoc4_calb, const calibration_t* calibration);
+
+/** 
+Usual doxygen read
+*/
+	result_t XIMC_API get_testdoc4 (device_t id, testdoc4_t* testdoc4);
+
+/** 
+Usual doxygen read calb
+*/
+	result_t XIMC_API get_testdoc4_calb (device_t id, testdoc4_calb_t* testdoc4_calb, const calibration_t* calibration);
+
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

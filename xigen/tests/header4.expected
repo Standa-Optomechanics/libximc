@@ -1,0 +1,82 @@
+
+/** @cond DO_NOT_WANT */
+#define LIBXIMC_PROTOCOL_VERSION 1
+/** @endcond */
+
+
+/*
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+*/
+
+	typedef struct
+	{
+		unsigned int speed;
+	} foo1_settings_t;
+
+/** 
+ * struct
+	* @see get_foobar, set_foobar
+ */
+	typedef struct
+	{
+		int position;
+	} foobar_t;
+
+	typedef struct
+	{
+		int velocity;
+	} bazbaz_t;
+
+	typedef struct
+	{
+		int velocity;
+	} quxqux_t;
+
+	typedef struct
+	{
+		unsigned int speed;
+	} foo2_settings_t;
+
+/*
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+*/
+	result_t XIMC_API set_foo1_settings (device_t id, const foo1_settings_t* foo1_settings);
+
+	result_t XIMC_API get_foo1_settings (device_t id, foo1_settings_t* foo1_settings);
+
+	result_t XIMC_API set_foobar_unsynced (device_t id, const foobar_t* foobar);
+
+/** 
+ * writer
+ */
+	result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar);
+
+	result_t XIMC_API get_foobar_unsynced (device_t id, foobar_t* foobar);
+
+/** 
+ * reader
+ */
+	result_t XIMC_API get_foobar (device_t id, foobar_t* foobar);
+
+	result_t XIMC_API get_bazbaz_unsynced (device_t id, bazbaz_t* bazbaz);
+
+	result_t XIMC_API get_bazbaz (device_t id, bazbaz_t* bazbaz);
+
+	result_t XIMC_API get_quxqux_impl_unsynced (device_t id, quxqux_t* quxqux);
+
+	result_t XIMC_API get_quxqux_impl (device_t id, quxqux_t* quxqux);
+
+	result_t XIMC_API set_foo2_settings (device_t id, const foo2_settings_t* foo2_settings);
+
+	result_t XIMC_API get_foo2_settings (device_t id, foo2_settings_t* foo2_settings);
+
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

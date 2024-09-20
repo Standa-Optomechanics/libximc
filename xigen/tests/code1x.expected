@@ -1,0 +1,289 @@
+result_t XIMC_API command_move (device_t id, int position, int uposition)
+{
+	result_t result;
+	byte command[18], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "move" );
+	push_int32( &p, position );
+	push_int16( &p, uposition );
+	push_garbage( &p, 6 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar)
+{
+	result_t result;
+	byte command[18], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "sfbr" );
+	push_int32( &p, foobar->position );
+	push_int16( &p, foobar->uposition );
+	push_garbage( &p, 6 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API get_foobar (device_t id, foobar_t* foobar)
+{
+	result_t result;
+	byte response[18], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfbr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	foobar->position = pop_int32( &p );
+	foobar->uposition = pop_int16( &p );
+	pop_garbage( &p, 6 );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_foobarbaz (device_t id, get_foobarbaz_t* the_get_foobarbaz)
+{
+	result_t result;
+	byte response[18], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfbb", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	the_get_foobarbaz->position = pop_int32( &p );
+	the_get_foobarbaz->uposition = pop_int16( &p );
+	pop_garbage( &p, 6 );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_macguffin (device_t id, macguffin_t* macguffin)
+{
+	result_t result;
+	byte response[26], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gmcg", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	macguffin->field1 = pop_uint32( &p );
+	macguffin->field2 = pop_int32( &p );
+	macguffin->field3 = pop_uint16( &p );
+	macguffin->field4 = pop_int16( &p );
+	macguffin->field5 = pop_uint8( &p );
+	macguffin->field6 = pop_int8( &p );
+	macguffin->additional_flags = pop_uint16( &p );
+	macguffin->foobar = pop_float( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API command_left (device_t id)
+{
+	lock( id );
+	return unlocker( id, command_checked_echo_str( id, "left" ) );
+}
+
+
+result_t XIMC_API command_leftX (device_t id)
+{
+	return command_checked_echo_str( id, "left" );
+}
+
+
+result_t XIMC_API set_serial_number (device_t id, unsigned int serial, unsigned int key)
+{
+	result_t result;
+	byte command[14], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "sser" );
+	push_uint32( &p, serial );
+	push_uint32( &p, key );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API get_serial_number (device_t id, unsigned int* serial)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gser", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	*serial = pop_uint32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_stringified (device_t id, stringified_t* stringified)
+{
+	result_t result;
+	byte response[36], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "geti", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	pop_str( &p, stringified->manufacturer, 4 );
+	pop_str( &p, stringified->manufacturer_id, 2 );
+	pop_str( &p, stringified->product_description, 8 );
+	pop_garbage( &p, 16 );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_stringifiedX (device_t id, stringifiedX_t* stringifiedX)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	if ((result = command_checked_str( id, "geti", response, sizeof(response) )) != result_ok)
+		return result;
+	p += 4;
+
+	stringifiedX->foobar = pop_uint32( &p );
+
+	return check_in_overrun( id, p-response, sizeof(response), response );
+}
+
+result_t XIMC_API command_reset (device_t id)
+{
+	return command_checked_str( id, "rest", NULL, 0 );
+}
+
+
+result_t get_non_public_struct_private1 (device_t id, non_public_struct_private1_t* non_public_struct_private1)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "get1", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	non_public_struct_private1->foo = pop_uint32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t get_non_public_struct_private2 (device_t id, non_public_struct_private2_t* non_public_struct_private2)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "get2", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	non_public_struct_private2->foo = pop_uint32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t get_non_public_struct_public (device_t id, non_public_struct_public_t* non_public_struct_public)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "get3", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	non_public_struct_public->foo = pop_uint32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API set_inlinearray (device_t id, const unsigned int* arr, unsigned int extra)
+{
+	result_t result;
+	byte command[40], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "winl" );
+	for (i = 0; i < 8; ++i)
+		push_uint32( &p, arr[i] );
+	push_uint16( &p, extra );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_inlinearray2 (device_t id, const uint8_t* arr)
+{
+	result_t result;
+	byte command[14], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "winm" );
+	for (i = 0; i < 8; ++i)
+		push_uint8( &p, arr[i] );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_truearray (device_t id, const truearray_t* truearray)
+{
+	result_t result;
+	byte command[14], *p  = command;
+	unsigned int i;
+
+	lock( id );
+
+	push_str( &p, "trua" );
+	for (i = 0; i < 8; ++i)
+		push_uint8( &p, truearray->foo[i] );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+

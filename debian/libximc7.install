@@ -1,0 +1,11 @@
+usr/lib/libximc*.so.*
+usr/lib/libjximc*.so.*
+usr/lib/libjximc*.so
+usr/lib/libbindy.so
+usr/lib/libxiwrapper.so
+usr/share/java/libjximc.jar
+usr/share/doc/libximc7/doc-ru/libximc7-ru.pdf
+usr/share/doc/libximc7/doc-ru/html/*
+usr/share/doc/libximc7/doc-en/libximc7-en.pdf
+usr/share/doc/libximc7/doc-en/html/*
+usr/share/doc/libximc7/doc-java/html/*

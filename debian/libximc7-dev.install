@@ -1,0 +1,3 @@
+usr/include/*
+usr/lib/libximc*.a
+usr/lib/libximc*.so

@@ -1,0 +1,34 @@
+# makefile for mingw
+# don't work due to linkage problems
+
+CC = gcc
+WINDRES := windres
+CFLAGS += -O3 -I..\include -DWIN32 -DNDEBUG -D_WINDOWS -D_USRDLL -DLIBXIMC_EXPORTS
+LDFLAGS = -mwindows
+
+LIB_PATHS = -lsetupapi -ladvapi32
+
+RC_SRC = libximc.rc
+
+DLL_C_SRC = loader.c lock.c protosup.c serial.c util.c ximc.c
+
+DLL_OBJECTS = $(DLL_C_SRC:%.c=%.o) $(RC_SRC:%.rc=%.o)
+
+# How to make a C file
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# How to make an RC file
+%.o: %.rc
+	$(WINDRES) -i $< -o $@
+
+.PHONY: all clean
+
+all: libximc.dll
+
+libximc.lib libximc.dll: $(DLL_OBJECTS)
+	$(CC) -shared $(DLL_OBJECTS) $(LIB_PATHS) $(LDFLAGS) -Wl,--out-implib,libximc.lib -o libximc.dll
+	dlltool -U -d libximc.def -l libximc.dll
+
+clean:
+	del /Q /F $(DLL_OBJECTS) libximc.lib libximc.dll

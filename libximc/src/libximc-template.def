@@ -1,0 +1,36 @@
+LIBRARY "libximc"
+EXPORTS
+/* @@GENERATED_CODE@@ */
+	goto_firmware @500
+	has_firmware @501
+	command_update_firmware @502
+	write_key @503
+	open_device @504
+	load_correction_table @505
+	close_device @506
+	probe_device @507
+	enumerate_devices @508
+	free_enumerate_devices @509
+	set_correction_table @510
+	reset_locks @511
+	msec_sleep @512
+	get_status @513
+	get_device_information @514
+	command_reset @515
+	set_logging_callback @516
+	get_device_count @517
+	get_device_name @518
+	ximc_version @520
+	logging_callback_stderr_wide @521
+	logging_callback_stderr_narrow @522
+	ximc_fix_usbser_sys @529
+	get_enumerate_device_serial @530
+	get_enumerate_device_information @531
+	get_status_calb @533
+	command_clear_fram @534
+	get_enumerate_device_controller_name @535
+	get_enumerate_device_stage_name @536
+	get_enumerate_device_network_information @537
+	command_wait_for_stop @538
+	command_homezero @539
+	set_bindy_key @540

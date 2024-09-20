@@ -1,0 +1,23 @@
+
+	#define XIMC_METALEN_SERVICE_COMMAND_METACOMM_DATA 8
+
+	result_t command_updf (device_t id);
+
+	result_t service_command_write_key_impl (device_t id, unsigned int key);
+
+	result_t service_command_goto_firmware_impl (device_t id, service_result_t*sresult);
+
+	result_t service_command_has_firmware_impl (device_t id, service_result_t*sresult);
+
+	result_t service_command_connect (device_t id);
+
+	result_t service_command_disconnect (device_t id);
+
+	result_t service_command_write_data (device_t id, unsigned int datalen, const uint8_t* data);
+
+	result_t service_command_write_data1 (device_t id, const uint8_t* data);
+
+	result_t service_command_new_section (device_t id, const uint8_t* data);
+
+	result_t service_command_metacomm (device_t id, const uint8_t* data);
+

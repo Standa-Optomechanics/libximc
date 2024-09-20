@@ -1,0 +1,144 @@
+
+{
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+}
+
+const
+
+type foobar_t = record
+		position: integer;
+		uposition: integer;
+		test: integer;
+		strfoo: PAnsiChar;
+		arr: array [0..7] of integer;
+		strbar: PAnsiChar;
+end;
+
+type foobar_calb_t = record
+		position: single;
+		test: integer;
+		strfoo: PAnsiChar;
+		arr: array [0..7] of integer;
+		strbar: PAnsiChar;
+end;
+
+type arr2_t = record
+		position: array [0..7] of integer;
+		microposition: array [0..7] of integer;
+		test: integer;
+end;
+
+type arr2_calb_t = record
+		position: array [0..7] of single;
+		test: integer;
+end;
+
+type arr3_t = record
+		position: array [0..7] of integer;
+		microposition: array [0..7] of integer;
+		test: integer;
+end;
+
+type arr3_calb_t = record
+		position: array [0..7] of single;
+		test: integer;
+end;
+
+type byted_t = record
+		position: array [0..7] of integer;
+		microposition: array [0..7] of integer;
+		key: array [0..15] of byte;
+		test: integer;
+end;
+
+type byted_calb_t = record
+		position: array [0..7] of single;
+		key: array [0..15] of byte;
+		test: integer;
+end;
+
+{
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+}
+
+function set_foobar (id: Device; var foobar: foobar_t) : XimcResult; stdcall; external XimcDll;
+
+function set_foobar_calb (id: Device; var foobar_calb: foobar_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar (id: Device; out foobar: foobar_t) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar_calb (id: Device; out foobar_calb: foobar_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_bazqux (id: Device; position: integer; uposition: integer; test: integer; arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function set_bazqux_calb (id: Device; position: single; test: integer; arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_bazqux (id: Device; out position: integer; out uposition: integer; out test: integer; out arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function get_bazqux_calb (id: Device; out position: single; out test: integer; out arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_repeated (id: Device; position: integer; uposition: integer; test: integer; speed: integer; uspeed: integer; another: single) : XimcResult; stdcall; external XimcDll;
+
+function set_repeated_calb (id: Device; position: single; test: integer; speed: single; another: single; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_repeated (id: Device; out position: integer; out uposition: integer; out test: integer; out speed: integer; out uspeed: integer; out another: single) : XimcResult; stdcall; external XimcDll;
+
+function get_repeated_calb (id: Device; out position: single; out test: integer; out speed: single; out another: single; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_foobar2 (id: Device; position: integer; test: integer; arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function set_foobar2_calb (id: Device; position: single; test: integer; arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar2 (id: Device; out position: integer; out test: integer; out arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar2_calb (id: Device; out position: single; out test: integer; out arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_foobar3 (id: Device; position: integer; speed: integer; microspeed: integer; test: integer; arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function set_foobar3_calb (id: Device; position: single; speed: single; test: integer; arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar3 (id: Device; out position: integer; out speed: integer; out microspeed: integer; out test: integer; out arr: array of integer) : XimcResult; stdcall; external XimcDll;
+
+function get_foobar3_calb (id: Device; out position: single; out speed: single; out test: integer; out arr: array of integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_arr1 (id: Device; position: array of integer; microposition: array of integer; test: integer) : XimcResult; stdcall; external XimcDll;
+
+function set_arr1_calb (id: Device; position: array of single; test: integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_arr1 (id: Device; out position: array of integer; out microposition: array of integer; out test: integer) : XimcResult; stdcall; external XimcDll;
+
+function get_arr1_calb (id: Device; out position: array of single; out test: integer; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_arr2 (id: Device; var arr2: arr2_t) : XimcResult; stdcall; external XimcDll;
+
+function set_arr2_calb (id: Device; var arr2_calb: arr2_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_arr2 (id: Device; out arr2: arr2_t) : XimcResult; stdcall; external XimcDll;
+
+function get_arr2_calb (id: Device; out arr2_calb: arr2_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_arr3 (id: Device; var arr3: arr3_t) : XimcResult; stdcall; external XimcDll;
+
+function set_arr3_calb (id: Device; var arr3_calb: arr3_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_arr3 (id: Device; out arr3: arr3_t) : XimcResult; stdcall; external XimcDll;
+
+function get_arr3_calb (id: Device; out arr3_calb: arr3_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function set_byted (id: Device; var byted: byted_t) : XimcResult; stdcall; external XimcDll;
+
+function set_byted_calb (id: Device; var byted_calb: byted_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+function get_byted (id: Device; out byted: byted_t) : XimcResult; stdcall; external XimcDll;
+
+function get_byted_calb (id: Device; out byted_calb: byted_calb_t; var calibration: calibration_t) : XimcResult; stdcall; external XimcDll;
+
+{
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+}

@@ -1,0 +1,85 @@
+For build and usage instructions please consult documentation
+at libximc/docs/doc-en or libximc/docs/doc-ru. Files are generated during library build. 
+Source files for documentation can be found at libximc/docs/doc-en/docmainpage or libximc/docs/doc-ru/docmainpage.
+
+Building a library for Windows
+
+Dependencies
+
+* Download and install GIT from https://git-scm.com in C:\Program Files\Git (should be the default).
+* Download and install CMake https://cmake.org in C:\Program Files (x86)\CMake. 
+You can put the 64 bit version in C:\Program Files\CMake, and then just copy it to C:\Program Files (x86).
+* Installing cygwin
+The installation must be done in the C:\cygwin (this is the default).
+It is necessary to select flex, bison, bash packages for installation. 
+The archive with the verified version can be downloaded at https://files.xisupport.com/libximc_dependencies/cygwin_ci.7z, 
+then just unpack the archive on the C:\drive.
+* Install JDK 7-9 64 bits if not installed. A proven Java distribution can be downloaded 
+https://sourceforge.net/projects/javaclientmsiinstallers/files/Java%20JDK%209%20Update%20464/jdk9.0.464.zip/download
+or https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html. Authorization is required to download from the second link.
+Prescribe the variable JDK_PATH
+Example: JDK is installed in C:\Program Files\Java\jdk-9.0.4 
+=> Start -> PC Software Computer -> Properties -> Additional system parameters -> Environment Variables -> System variables,
+there we create a variable JDK_HOME and JDK32_HOME with the value C:\Program Files\Java\jdk-9.0.4
+* It is necessary to install Microsoft Visual Studio 2013.
+
+Building a library for Ubuntu (Debian based)
+
+The following instruction has been tested on Ubuntu 14.04, Ubuntu 20.04 and Ubuntu 23.04.
+
+I. Install dependencies
+
+    1. Install lsb_release:
+        sudo apt install lsb-release
+
+    2. Install build essentials:
+        sudo apt install build-essential
+
+    3. Install git:
+        sudo apt install git
+
+    4. Install make and cmake:
+        sudo apt install make
+        sudo apt install cmake
+
+        Note: if you are using Ubuntu 14, instead of "sudo apt install cmake" use
+        "sudo apt install cmake3"
+
+    5. Install autotools:
+        sudo apt install autoconf autotools-dev libtool libglib2.0-dev
+
+    6. Install flex and bison:
+        sudo apt install flex bison
+
+    7. Install doxygen and latex:
+        sudo apt install doxygen
+        sudo apt install texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
+
+    8. Install Java:
+        8.1. Install Java 8:
+            sudo apt install openjdk-8-jdk
+	
+        8.2. Or in case Java 8 is unavailable, install Java 7:
+            sudo apt install openjdk-7-jdk
+
+        Note: You should use Java 7 or 8. So in case your system use another version, after installation
+        of Java 7(8) one extra action may be needed -- set default Java version to 7 (or 8) using
+        "update-alternatives --config java".
+
+II. Build
+
+    * Only library:
+        ./build.sh libfast
+    
+    * Library and its docs:
+        ./build.sh lib
+
+
+Working with the library
+
+* Cloning the repository: 
+  git clone https://github.com/EPC-MSU/libximc
+* We switch to the desired state using git checkout
+* From the library folder, run the: 
+  build.bat
+* The result of the assembly can be taken in \ximc

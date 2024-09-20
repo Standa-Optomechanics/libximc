@@ -1,0 +1,30 @@
+if HAVE_DOCS
+
+# some ideas borrowed from libexif automake
+
+# adding doxygen support
+include $(top_srcdir)/aminclude.am
+
+doxygen.stamp:
+	$(MAKE) $(AM_MAKEFLAGS) doxygen-run doxygen-pdf
+	echo > $@
+
+all-local: doxygen.stamp
+
+CLEANFILES = Doxyfile doxygen.stamp $(DX_CLEANFILES)
+
+clean-local:
+	-rm -rf docs
+
+install-data-local: doxygen.stamp
+	mkdir -p "$(DESTDIR)$(docdir)/doc-$(AM_DOCSUFFIX)"
+	cp "@DX_DOCDIR@/@PACKAGE@-$(AM_DOCSUFFIX).pdf" "$(DESTDIR)$(docdir)/doc-$(AM_DOCSUFFIX)"
+	(unset CDPATH; cd "@DX_DOCDIR@" && tar cpf - html) \
+		| (cd "$(DESTDIR)$(docdir)/doc-$(AM_DOCSUFFIX)" && tar xpf -)
+
+uninstall-local:
+	rm -rf "$(DESTDIR)$(docdir)/doc-$(AM_DOCSUFFIX)"
+
+endif
+
+# vim: ft=automake

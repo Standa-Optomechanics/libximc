@@ -1,0 +1,7 @@
+# makefile for mingw
+
+all:
+	$(MAKE) -C ./src -f Makefile.mingw
+
+clean:
+	$(MAKE) -C ./src -f Makefile.mingw clean

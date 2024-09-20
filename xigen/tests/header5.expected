@@ -1,0 +1,155 @@
+
+/** @cond DO_NOT_WANT */
+#define LIBXIMC_PROTOCOL_VERSION 1
+/** @endcond */
+
+
+/*
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+*/
+
+	typedef struct
+	{
+		int position;
+		int uposition;
+		int test;
+		char strfoo[7];
+		int arr[8];
+		char strbar[5];
+	} foobar_t;
+
+	typedef struct
+	{
+		float position;
+		int test;
+		char strfoo[7];
+		int arr[8];
+		char strbar[5];
+	} foobar_calb_t;
+
+	typedef struct
+	{
+		int position[8];
+		int microposition[8];
+		int test;
+	} arr2_t;
+
+	typedef struct
+	{
+		float position[8];
+		int test;
+	} arr2_calb_t;
+
+	typedef struct
+	{
+		int position[8];
+		int microposition[8];
+		int test;
+	} arr3_t;
+
+	typedef struct
+	{
+		float position[8];
+		int test;
+	} arr3_calb_t;
+
+	typedef struct
+	{
+		int position[8];
+		int microposition[8];
+		uint8_t key[16];
+		int test;
+	} byted_t;
+
+	typedef struct
+	{
+		float position[8];
+		uint8_t key[16];
+		int test;
+	} byted_calb_t;
+
+/*
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+*/
+	result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar);
+
+	result_t XIMC_API set_foobar_calb (device_t id, const foobar_calb_t* foobar_calb, const calibration_t* calibration);
+
+	result_t XIMC_API get_foobar (device_t id, foobar_t* foobar);
+
+	result_t XIMC_API get_foobar_calb (device_t id, foobar_calb_t* foobar_calb, const calibration_t* calibration);
+
+	result_t XIMC_API set_bazqux (device_t id, int position, int uposition, int test, const int* arr);
+
+	result_t XIMC_API set_bazqux_calb (device_t id, float position, int test, const int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API get_bazqux (device_t id, int* position, int* uposition, int* test, int* arr);
+
+	result_t XIMC_API get_bazqux_calb (device_t id, float* position, int* test, int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API set_repeated (device_t id, int position, int uposition, int test, int speed, int uspeed, float another);
+
+	result_t XIMC_API set_repeated_calb (device_t id, float position, int test, float speed, float another, const calibration_t* calibration);
+
+	result_t XIMC_API get_repeated (device_t id, int* position, int* uposition, int* test, int* speed, int* uspeed, float* another);
+
+	result_t XIMC_API get_repeated_calb (device_t id, float* position, int* test, float* speed, float* another, const calibration_t* calibration);
+
+	result_t XIMC_API set_foobar2 (device_t id, int position, int test, const int* arr);
+
+	result_t XIMC_API set_foobar2_calb (device_t id, float position, int test, const int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API get_foobar2 (device_t id, int* position, int* test, int* arr);
+
+	result_t XIMC_API get_foobar2_calb (device_t id, float* position, int* test, int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API set_foobar3 (device_t id, int position, int speed, int microspeed, int test, const int* arr);
+
+	result_t XIMC_API set_foobar3_calb (device_t id, float position, float speed, int test, const int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API get_foobar3 (device_t id, int* position, int* speed, int* microspeed, int* test, int* arr);
+
+	result_t XIMC_API get_foobar3_calb (device_t id, float* position, float* speed, int* test, int* arr, const calibration_t* calibration);
+
+	result_t XIMC_API set_arr1 (device_t id, const int* position, const int* microposition, int test);
+
+	result_t XIMC_API set_arr1_calb (device_t id, const float* position, int test, const calibration_t* calibration);
+
+	result_t XIMC_API get_arr1 (device_t id, int* position, int* microposition, int* test);
+
+	result_t XIMC_API get_arr1_calb (device_t id, float* position, int* test, const calibration_t* calibration);
+
+	result_t XIMC_API set_arr2 (device_t id, const arr2_t* arr2);
+
+	result_t XIMC_API set_arr2_calb (device_t id, const arr2_calb_t* arr2_calb, const calibration_t* calibration);
+
+	result_t XIMC_API get_arr2 (device_t id, arr2_t* arr2);
+
+	result_t XIMC_API get_arr2_calb (device_t id, arr2_calb_t* arr2_calb, const calibration_t* calibration);
+
+	result_t XIMC_API set_arr3 (device_t id, const arr3_t* arr3);
+
+	result_t XIMC_API set_arr3_calb (device_t id, const arr3_calb_t* arr3_calb, const calibration_t* calibration);
+
+	result_t XIMC_API get_arr3 (device_t id, arr3_t* arr3);
+
+	result_t XIMC_API get_arr3_calb (device_t id, arr3_calb_t* arr3_calb, const calibration_t* calibration);
+
+	result_t XIMC_API set_byted (device_t id, const byted_t* byted);
+
+	result_t XIMC_API set_byted_calb (device_t id, const byted_calb_t* byted_calb, const calibration_t* calibration);
+
+	result_t XIMC_API get_byted (device_t id, byted_t* byted);
+
+	result_t XIMC_API get_byted_calb (device_t id, byted_calb_t* byted_calb, const calibration_t* calibration);
+
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

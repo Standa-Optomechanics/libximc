@@ -1,0 +1,5 @@
+#!/bin/sh
+file_input="$srcdir/code1.xi"
+. $srcdir/defs
+
+expect_consistent

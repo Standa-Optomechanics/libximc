@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5774A060-FABB-4195-855D-1A17F45DE392}</ProjectGuid>
+    <RootNamespace>libximc</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(Configuration)-$(Platform)\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <LibraryWPath>$(WindowsSDK_MetadataPath);</LibraryWPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(Configuration)-$(Platform)\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <LibraryWPath>$(WindowsSDK_MetadataPath);</LibraryWPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(Configuration)-$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)$(Configuration)-$(Platform)\</OutDir>
+    <IntDir>$(Configuration)-$(Platform)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent />
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\deps\win32\miniupnpc\include;$(SolutionDir)\deps\win32\xiwrapper;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBXIMC_EXPORTS;HAVE_XIWRAPPER;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/w34311 /w34302 %(AdditionalOptions)</AdditionalOptions>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Setupapi.lib;xiwrapper.lib;Ws2_32.lib;libminiupnpc.lib;IPHlpApi.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\libximc.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)\deps\win32\miniupnpc\lib;$(SolutionDir)\deps\win32\xiwrapper\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Generating sources from protocol</Message>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Message>Generating sources from protocol</Message>
+      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\deps\win32\miniupnpc\include;$(SolutionDir)\deps\win32\xiwrapper;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBXIMC_EXPORTS;HAVE_XIWRAPPER;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/w34311 /w34302 %(AdditionalOptions)</AdditionalOptions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Setupapi.lib;xiwrapper.lib;Ws2_32.lib;libminiupnpc.lib;IPHlpApi.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\libximc.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)\deps\win32\miniupnpc\lib;$(SolutionDir)\deps\win32\xiwrapper\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PreBuildEvent />
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\deps\win64\miniupnpc\include;$(SolutionDir)\deps\win64\xiwrapper;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;_USRDLL;LIBXIMC_EXPORTS;HAVE_XIWRAPPER;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/w34311 /w34302 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Setupapi.lib;xiwrapper.lib;Ws2_32.lib;libminiupnpc.lib;IPHlpApi.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\libximc.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)\deps\win64\miniupnpc\lib;$(SolutionDir)\deps\win64\xiwrapper\$(Configuration)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Generating sources from protocol</Message>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PreBuildEvent />
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\deps\win64\miniupnpc\include;$(SolutionDir)\deps\win64\xiwrapper;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;_USRDLL;LIBXIMC_EXPORTS;HAVE_XIWRAPPER;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalOptions>/w34311 /w34302 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Setupapi.lib;xiwrapper.lib;libminiupnpc.lib;Ws2_32.lib;IPHlpApi.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>src\libximc.def</ModuleDefinitionFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+      <AdditionalLibraryDirectories>$(SolutionDir)\deps\win64\miniupnpc\lib;$(SolutionDir)\deps\win64\xiwrapper\$(Configuration)</AdditionalLibraryDirectories>
+    </Link>
+    <PreBuildEvent>
+      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
+$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Generating sources from protocol</Message>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\devenum.c" />
+    <ClCompile Include="src\devvirt.c" />
+    <ClCompile Include="src\fwprotocol.c" />
+    <ClCompile Include="src\loader.c" />
+    <ClCompile Include="src\platform-win32.c" />
+    <ClCompile Include="src\protosup.c" />
+    <ClCompile Include="src\tcp-win.c" />
+    <ClCompile Include="src\udp-win.c" />
+    <ClCompile Include="src\util.c" />
+    <ClCompile Include="src\ximc-gen-template.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\ximc-gen.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ximc.h" />
+    <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\loader.h" />
+    <ClInclude Include="src\metadata.h" />
+    <ClInclude Include="src\platform.h" />
+    <ClInclude Include="src\protosup.h" />
+    <ClInclude Include="src\sglib.h" />
+    <ClInclude Include="src\util.h" />
+    <ClInclude Include="src\wrapper.h" />
+    <CustomBuild Include="src\ximc-gen-template.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <ClInclude Include="src\ximc-gen.h" />
+    <CustomBuild Include="src\ximc-template.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\libximc.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\libximc-template.def">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <None Include="src\libximc.def" />
+    <CustomBuild Include="src\protocol.xi">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xigen\xigen.vcxproj">
+      <Project>{666f535c-4ca3-4604-b151-cc84a9b1bc76}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

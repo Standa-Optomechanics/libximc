@@ -1,0 +1,28 @@
+
+h3. Command GFOO
+
+<pre><code>result_t get_foo_settings (device_t id, foo_settings_t* foo_settings)</code></pre>Command code (CMD): "gfoo" or 0x6F6F6667.
+
+*Request:* (4 bytes)
+
+|INT32U|CMD|Command|
+
+*Answer:* (22 bytes)
+
+|INT32U|CMD|Command (answer)|
+|INT16U|JoyLowEnd|Joystick lower end position.|
+|INT16U|JoyCenter|Joystick center position.|
+|INT16U|JoyHighEnd|Joystick higher end position.|
+|INT8U|ExpFactor|Exponential nonlinearity factor.|
+|INT8U|DeadZone|Joystick dead zone.|
+|INT8U|JoyFlags|Joystick control flags.|
+|INT8U|Reserved [7]|Reserved (7 bytes)|
+|INT16U|CRC|Checksum|
+
+*Description:*
+Read settings of joystick. If joystick position is outside DeadZone limits from the central position a movement with speed, defined by the joystick DeadZone edge to 100% deviation, begins. Joystick positions inside DeadZone limits correspond to zero speed (soft stop of motion) and positions beyond Low and High limits correspond MaxSpeed [i] or -MaxSpeed [i] (see command SCTL), where i = 0 by default and can be changed with left/right buttons (see command SCTL). This is illustrated on the following picture.
+!/attachments/download/3092/ExpJoystick.png!
+The relationship between the deviation and the rate is exponential, allowing no switching speed combine high mobility and accuracy. The following picture illustrates this:
+!/attachments/download/3092/ExpJoystick.png!
+The nonlinearity parameter is adjustable. Setting it to zero makes deviation/speed relation linear.
+

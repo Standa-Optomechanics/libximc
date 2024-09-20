@@ -1,0 +1,60 @@
+
+class foobar_t(Structure):
+	_fields_ = [
+		("position", c_int),
+		("uposition", c_int),
+		("test", c_int),
+		("strfoo", c_char * 7),
+		("arr", c_int * 8),
+		("strbar", c_char * 5),
+	]
+
+class foobar_calb_t(Structure):
+	_fields_ = [
+		("position", c_float),
+		("test", c_int),
+		("strfoo", c_char * 7),
+		("arr", c_int * 8),
+		("strbar", c_char * 5),
+	]
+
+class arr2_t(Structure):
+	_fields_ = [
+		("position", c_int * 8),
+		("microposition", c_int * 8),
+		("test", c_int),
+	]
+
+class arr2_calb_t(Structure):
+	_fields_ = [
+		("position", c_float * 8),
+		("test", c_int),
+	]
+
+class arr3_t(Structure):
+	_fields_ = [
+		("position", c_int * 8),
+		("microposition", c_int * 8),
+		("test", c_int),
+	]
+
+class arr3_calb_t(Structure):
+	_fields_ = [
+		("position", c_float * 8),
+		("test", c_int),
+	]
+
+class byted_t(Structure):
+	_fields_ = [
+		("position", c_int * 8),
+		("microposition", c_int * 8),
+		("key", c_ubyte * 16),
+		("test", c_int),
+	]
+
+class byted_calb_t(Structure):
+	_fields_ = [
+		("position", c_float * 8),
+		("key", c_ubyte * 16),
+		("test", c_int),
+	]

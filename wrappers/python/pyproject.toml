@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "libximc"
+version = "X.X.X"
+authors = [
+  { name="STANDA LTD", email="8smc4@standa.lt" },
+]
+description = "Package for operating STANDA 8SMC5 controllers"
+description-file = "README.md"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+

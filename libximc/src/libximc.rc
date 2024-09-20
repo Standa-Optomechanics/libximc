@@ -1,0 +1,44 @@
+#include <windows.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#define LIBXIMC_RELEASE_FLAG 0
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,14,27,100
+ PRODUCTVERSION 2,14,27,100
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS (VER_DEBUG|LIBXIMC_RELEASE_FLAG)
+#else
+ FILEFLAGS (0x0L|LIBXIMC_RELEASE_FLAG)
+#endif
+ FILEOS 0x4L
+ FILETYPE VFT_DLL
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "XIMC"
+            VALUE "FileDescription", "libximc"
+            VALUE "FileVersion", "2.14.27\0"
+            VALUE "InternalName", "libximc"
+            VALUE "LegalCopyright", "Copyright (C) 2014 XIMC"
+            VALUE "OriginalFilename", "ximc.dll"
+            VALUE "ProductName", "libximc"
+            VALUE "ProductVersion", "2.14.27\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

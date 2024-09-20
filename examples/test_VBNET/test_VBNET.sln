@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "test_VBNET", "test_VBNET.vbproj", "{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Debug|Win32.ActiveCfg = Debug|x86
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Debug|Win32.Build.0 = Debug|x86
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Debug|x64.ActiveCfg = Debug|x64
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Debug|x64.Build.0 = Debug|x64
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Release|Win32.ActiveCfg = Release|x86
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Release|Win32.Build.0 = Release|x86
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Release|x64.ActiveCfg = Release|x64
+		{ED617BF0-F4BB-4C5C-9042-65CC0CA2B433}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,66 @@
+result_t XIMC_API set_foobar_unsynced (device_t id, const foobar_t* foobar)
+{
+	result_t result;
+	byte command[10], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "sfbr" );
+	push_int32( &p, foobar->position );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo_unsynced( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar)
+{
+	result_t result;
+	byte command[10], *p  = command;
+
+	lock( id );
+
+	push_str( &p, "sfbr" );
+	push_int32( &p, foobar->position );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return unlocker( id, result );
+
+	return unlocker( id, command_checked_echo( id, command, sizeof(command)) );
+}
+
+result_t XIMC_API get_foobar_unsynced (device_t id, foobar_t* foobar)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str_unsynced( id, "gfbr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	foobar->position = pop_int32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+
+result_t XIMC_API get_foobar (device_t id, foobar_t* foobar)
+{
+	result_t result;
+	byte response[10], *p  = response;
+
+	lock( id );
+
+	if ((result = command_checked_str( id, "gfbr", response, sizeof(response) )) != result_ok)
+		return unlocker( id, result );
+	p += 4;
+
+	foobar->position = pop_int32( &p );
+
+	return unlocker( id, check_in_overrun( id, p-response, sizeof(response), response ) );
+}
+

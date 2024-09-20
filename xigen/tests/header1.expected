@@ -1,0 +1,81 @@
+
+/** @cond DO_NOT_WANT */
+#define LIBXIMC_PROTOCOL_VERSION 1
+/** @endcond */
+
+
+	typedef struct
+	{
+		int position;
+		int uposition;
+	} foobar_t;
+
+	typedef struct
+	{
+		int position;
+		int uposition;
+	} get_foobarbaz_t;
+
+	typedef struct
+	{
+		unsigned int field1;
+		int field2;
+		unsigned int field3;
+		int field4;
+		unsigned int field5;
+		int field6;
+		unsigned int additional_flags;
+		float foobar;
+	} macguffin_t;
+
+	typedef struct
+	{
+		char manufacturer[5];
+		char manufacturer_id[3];
+		char product_description[9];
+	} stringified_t;
+
+	typedef struct
+	{
+		unsigned int foobar;
+	} stringifiedX_t;
+
+	typedef struct
+	{
+		unsigned int foo;
+	} non_public_struct_public_t;
+
+	typedef struct
+	{
+		unsigned int foo[8];
+	} truearray_t;
+	result_t XIMC_API command_move (device_t id, int position, int uposition);
+
+	result_t XIMC_API set_foobar (device_t id, const foobar_t* foobar);
+
+	result_t XIMC_API get_foobar (device_t id, foobar_t* foobar);
+
+	result_t XIMC_API get_foobarbaz (device_t id, get_foobarbaz_t* the_get_foobarbaz);
+
+	result_t XIMC_API get_macguffin (device_t id, macguffin_t* macguffin);
+
+	result_t XIMC_API command_left (device_t id);
+
+	result_t XIMC_API command_leftX (device_t id);
+
+	result_t XIMC_API set_serial_number (device_t id, unsigned int serial, unsigned int key);
+
+	result_t XIMC_API get_serial_number (device_t id, unsigned int* serial);
+
+	result_t XIMC_API get_stringified (device_t id, stringified_t* stringified);
+
+	result_t XIMC_API get_stringifiedX (device_t id, stringifiedX_t* stringifiedX);
+
+	result_t XIMC_API command_reset (device_t id);
+
+	result_t XIMC_API set_inlinearray (device_t id, const unsigned int* arr, unsigned int extra);
+
+	result_t XIMC_API set_inlinearray2 (device_t id, const uint8_t* arr);
+
+	result_t XIMC_API set_truearray (device_t id, const truearray_t* truearray);
+

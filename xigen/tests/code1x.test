@@ -1,0 +1,8 @@
+#!/bin/sh
+file_input="$srcdir/header1.xi"
+. $srcdir/defs
+
+cat < $file_expected > $file_ok
+
+expect_out_code
+expect_consistent

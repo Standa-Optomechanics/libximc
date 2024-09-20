@@ -1,0 +1,461 @@
+
+/*
+ -------------------------------------------
+   BEGIN OF GENERATED function definitions
+ -------------------------------------------
+*/
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_command_1move
+	(JNIEnv *env, jclass cthis, jint id, jint position, jshort uposition)
+{
+	result_t result;
+	XIMC_UNUSED(cthis);
+
+
+	result = command_move(id, position, uposition);
+
+	handle_result(env, result);
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1foobar
+	(JNIEnv *env, jclass cthis, jint id, jobject foobar)
+{
+	result_t result;
+	foobar_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$foobar_t");
+	if (clazz == NULL)
+		return;
+
+	fid = (*env)->GetFieldID(env, clazz, "position", "I");
+	if (fid == NULL) return;
+	data.position = (*env)->GetIntField(env, foobar, fid);
+
+	fid = (*env)->GetFieldID(env, clazz, "uposition", "S");
+	if (fid == NULL) return;
+	data.uposition = (*env)->GetShortField(env, foobar, fid);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	result = set_foobar(id, &data);
+
+	handle_result(env, result);
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1foobar
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	foobar_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_foobar(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$foobar_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	fid = (*env)->GetFieldID(env, clazz, "position", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.position);
+
+	fid = (*env)->GetFieldID(env, clazz, "uposition", "S");
+	if (fid == NULL) return NULL;
+	(*env)->SetShortField(env, ret_data, fid, data.uposition);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1foobarbaz
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	get_foobarbaz_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_foobarbaz(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$get_foobarbaz_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	fid = (*env)->GetFieldID(env, clazz, "position", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.position);
+
+	fid = (*env)->GetFieldID(env, clazz, "uposition", "S");
+	if (fid == NULL) return NULL;
+	(*env)->SetShortField(env, ret_data, fid, data.uposition);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1macguffin
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	macguffin_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_macguffin(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$macguffin_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	fid = (*env)->GetFieldID(env, clazz, "field1", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.field1);
+
+	fid = (*env)->GetFieldID(env, clazz, "field2", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.field2);
+
+	fid = (*env)->GetFieldID(env, clazz, "field3", "S");
+	if (fid == NULL) return NULL;
+	(*env)->SetShortField(env, ret_data, fid, data.field3);
+
+	fid = (*env)->GetFieldID(env, clazz, "field4", "S");
+	if (fid == NULL) return NULL;
+	(*env)->SetShortField(env, ret_data, fid, data.field4);
+
+	fid = (*env)->GetFieldID(env, clazz, "field5", "B");
+	if (fid == NULL) return NULL;
+	(*env)->SetByteField(env, ret_data, fid, data.field5);
+
+	fid = (*env)->GetFieldID(env, clazz, "field6", "B");
+	if (fid == NULL) return NULL;
+	(*env)->SetByteField(env, ret_data, fid, data.field6);
+
+	fid = (*env)->GetFieldID(env, clazz, "additional_flags", "S");
+	if (fid == NULL) return NULL;
+	(*env)->SetShortField(env, ret_data, fid, data.additional_flags);
+
+	fid = (*env)->GetFieldID(env, clazz, "foobar", "F");
+	if (fid == NULL) return NULL;
+	(*env)->SetFloatField(env, ret_data, fid, data.foobar);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_command_1left
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	XIMC_UNUSED(cthis);
+	handle_result(env, command_left(id));
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_command_1leftX
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	XIMC_UNUSED(cthis);
+	handle_result(env, command_leftX(id));
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1serial_1number
+	(JNIEnv *env, jclass cthis, jint id, jint serial, jint key)
+{
+	result_t result;
+	XIMC_UNUSED(cthis);
+
+
+	result = set_serial_number(id, serial, key);
+
+	handle_result(env, result);
+}
+
+JNIEXPORT jint JNICALL Java_ru_ximc_libximc_JXimc_get_1serial_1number
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	unsigned int serial;
+	XIMC_UNUSED(cthis);
+
+
+	result = get_serial_number(id, &serial);
+
+	if (!handle_result(env, result))
+		return 0;
+
+	return (jint)serial;
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1stringified
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	stringified_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_stringified(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$stringified_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	if (!set_string_field(env, clazz, ret_data, "manufacturer", data.manufacturer, sizeof(data.manufacturer)))
+		return NULL;
+
+	if (!set_string_field(env, clazz, ret_data, "manufacturer_id", data.manufacturer_id, sizeof(data.manufacturer_id)))
+		return NULL;
+
+	if (!set_string_field(env, clazz, ret_data, "product_description", data.product_description, sizeof(data.product_description)))
+		return NULL;
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1stringifiedX
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	stringifiedX_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_stringifiedX(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$stringifiedX_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	fid = (*env)->GetFieldID(env, clazz, "foobar", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.foobar);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_command_1reset
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	XIMC_UNUSED(cthis);
+	handle_result(env, command_reset(id));
+}
+
+JNIEXPORT jobject JNICALL Java_ru_ximc_libximc_JXimc_get_1non_1public_1struct_1public
+	(JNIEnv *env, jclass cthis, jint id)
+{
+	result_t result;
+	non_public_struct_public_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ret_data;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	result = get_non_public_struct_public(id, &data);
+
+	if (!handle_result(env, result))
+		return NULL;
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$non_public_struct_public_t");
+	if (clazz == NULL)
+		return NULL;
+	cid = (*env)->GetMethodID(env, clazz, "<init>", "()V");
+	if (cid == NULL)
+		return NULL;
+	ret_data = (*env)->NewObject(env, clazz, cid);
+	if (ret_data == NULL)
+		return NULL;
+
+	fid = (*env)->GetFieldID(env, clazz, "foo", "I");
+	if (fid == NULL) return NULL;
+	(*env)->SetIntField(env, ret_data, fid, data.foo);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	return ret_data;
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1inlinearray
+	(JNIEnv *env, jclass cthis, jint id, jintArray arr, jshort extra)
+{
+	result_t result;
+	jint* c_arr;
+	XIMC_UNUSED(cthis);
+
+	c_arr = (*env)->GetIntArrayElements(env, arr, NULL);
+	if (!c_arr)
+		return;
+
+	result = set_inlinearray(id, c_arr, extra);
+
+	(*env)->ReleaseIntArrayElements(env, arr, c_arr, 0);
+
+	handle_result(env, result);
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1inlinearray2
+	(JNIEnv *env, jclass cthis, jint id, jbyteArray arr)
+{
+	result_t result;
+	jbyte* c_arr;
+	XIMC_UNUSED(cthis);
+
+	c_arr = (*env)->GetByteArrayElements(env, arr, NULL);
+	if (!c_arr)
+		return;
+
+	result = set_inlinearray2(id, c_arr);
+
+	(*env)->ReleaseByteArrayElements(env, arr, c_arr, 0);
+
+	handle_result(env, result);
+}
+
+JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1truearray
+	(JNIEnv *env, jclass cthis, jint id, jobject truearray)
+{
+	result_t result;
+	truearray_t data;
+
+	jclass clazz;
+	jmethodID cid;
+	jfieldID fid;
+	jobject ofield;
+
+	XIMC_UNUSED(cid);
+	XIMC_UNUSED(fid);
+	XIMC_UNUSED(cthis);
+
+	clazz = (*env)->FindClass(env, "ru/ximc/libximc/JXimc$truearray_t");
+	if (clazz == NULL)
+		return;
+
+	fid = (*env)->GetFieldID(env, clazz, "foo", "[B");
+	if (fid == NULL) return;
+	ofield = (*env)->GetObjectField(env, truearray, fid);
+	if (!ofield) return;
+	(*env)->GetByteArrayRegion(env, ofield,
+		0, sizeof(data.foo)/sizeof(data.foo[0]), (jbyte*)data.foo);
+
+
+	(*env)->DeleteLocalRef(env, clazz);
+
+	result = set_truearray(id, &data);
+
+	handle_result(env, result);
+}
+
+
+
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

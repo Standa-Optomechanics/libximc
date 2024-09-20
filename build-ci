@@ -1,0 +1,176 @@
+#!/bin/sh
+# jenkins build (not checked with hudson, different variable names)
+set -e
+
+build_debian()
+{
+	./build.sh cleandist
+	./build.sh libdeb
+}
+
+build_opensuse()
+{
+	./build.sh cleandist
+	./build.sh librpm
+}
+
+build_macosx()
+{
+	[ -z "`command -v pdflatex`" ] && PATH=$PATH:/usr/texbin
+	./build.sh cleandist
+	./build.sh libosxci
+}
+
+build_docs()
+{
+	./build.sh cleandist
+	./build.sh onlydocs
+}
+
+makedist()
+{
+	./build.sh makedist
+}
+
+# ---------------------
+# entry point
+
+[ -n "$GIT" ] || GIT=git
+
+echo Using jenkins at $JENKINS_HOME, node $NODE_NAME, buildos $BUILDOS
+echo Using parameters $NODE_LABELS, starter $0, command line $*
+echo Use git revision $XIMC_REVISION
+
+echo git effective version:
+$GIT log -1 HEAD
+
+# dist override all other
+if [ "$1" = "unpack-stashes" ] ; then
+	ls -1 results-*.tar | xargs -L1 -t tar xfv
+	echo Before
+	ls -lR ximc || true
+	chmod -R u+rX ximc
+	echo After
+	ls -lR ximc || true
+	# Unpacking debs
+	for arch in amd64 i386 armhf ; do
+		namearch=$(find ximc/deb -name "libximc7_*_$arch.deb")
+		namearch_dev=$(find ximc/deb -name "libximc7-dev_*_$arch.deb")
+		echo $namearch
+		if [ -f "$namearch" ]
+		then
+			mkdir -p ximc/deb/$arch
+			mkdir -p ximc/deb/dev-$arch
+			mkdir -p ximc/debian-$arch
+
+			ar -x $namearch data.tar.gz 
+			mv -f data.tar.gz ximc/deb/$arch
+			tar -C ximc/deb/$arch/ -zxf  ximc/deb/$arch/data.tar.gz
+			
+			ar -x $namearch_dev data.tar.gz
+			mv -f data.tar.gz ximc/deb/dev-$arch
+			tar -C ximc/deb/dev-$arch/ -zxf  ximc/deb/dev-$arch/data.tar.gz
+		
+			cp -R ximc/deb/$arch/usr/lib/*.* ximc/debian-$arch/
+			cp -R ximc/deb/dev-$arch/usr/lib/*.* ximc/debian-$arch/
+			
+			rm -rf ximc/deb/$arch
+			rm -rf ximc/deb/dev-$arch
+		else
+			echo No archive file
+		fi
+	done
+elif [ "$1" = "dist" ] ; then
+	makedist
+elif [ "$1" = "docs" ] ; then
+	build_docs
+	tar cf results-dist-docs.tar ximc
+elif [ "$1" = "abicc-dump" ] ; then
+	./build.sh abicc-dump
+
+elif [ "$1" = "build" ] ; then
+	./build.sh cleandist
+	# modern CI build without using implicit labels
+	buildos=$BUILDOS
+	if [ "$buildos" = "debian64" ] || [ "$buildos" = "debian32" ] || [ "$buildos" = "debianarm" ] ; then
+		build_debian
+	elif [ "$buildos" = "suse64" ] || [ "$buildos" = "suse32" ] ; then
+		build_opensuse
+	elif [ "$buildos" = "osx" ] ; then
+		build_macosx
+	else
+		echo "No name in $BUILDOS"
+		exit 1
+	fi
+	tar cf results-dist-$buildos.tar ximc
+elif [ "$1" = "py-binding" ] ; then
+	VER=$(sed 'q' ./version)
+	sed -i -e "s/^version = \"X.X.X\"$/version = \"$VER\"/" wrappers/python/pyproject.toml
+
+	LIBFILESDIR=wrappers/python/src/libximc/library-files
+
+	# Win32
+	mkdir -p $LIBFILESDIR/win32
+	cp ximc/win32/*.dll $LIBFILESDIR/win32
+	cp ximc/win32/*.lib $LIBFILESDIR/win32
+
+	# Win64
+	mkdir -p $LIBFILESDIR/win64
+	cp ximc/win64/*.dll $LIBFILESDIR/win64
+	cp ximc/win64/*.lib $LIBFILESDIR/win64
+
+	# Debian-i386
+	mkdir -p $LIBFILESDIR/debian-i386
+	cp ximc/debian-i386/* $LIBFILESDIR/debian-i386
+
+	# Debian-armhf (it's optional)
+	if [ -d "ximc/debian-armhf" ] ; then
+		mkdir -p $LIBFILESDIR/debian-armhf
+		cp ximc/debian-armhf/* $LIBFILESDIR/debian-armhf
+	else
+		echo ATTENTION: No ARM *.so was found. Probably the build has no WITH_ARM param.
+	fi
+
+	# Debian-amd64
+	mkdir -p $LIBFILESDIR/debian-amd64
+	cp ximc/debian-amd64/* $LIBFILESDIR/debian-amd64
+
+	# TODO: Add MacOS support
+	# mkdir -p $LIBFILESDIR/macosx
+	# cp -R ximc/macosx/libximc.framework $LIBFILESDIR/macosx/
+
+	cd wrappers/python
+	# Temporarily move explaning pyximc.py substitution *.txt file out of building dir
+	mv where-did-pyximc.py-go.txt ..
+	echo Building python binding with
+	echo $(python3 --version)
+	echo $(python3 -m build --version)
+	python3 -m build --skip-dependency-check
+	# Move explaning pyximc.py substitution *.txt file back
+	mv ../where-did-pyximc.py-go.txt .
+	
+	cd -
+else
+	# usual build. node labels are passed by env variable
+	for label in $NODE_LABELS
+	do
+		if [ "$label" = "debian" ] ; then
+			[ -n "$NODE_NAME" ] || NODE_NAME=$label
+			build_debian
+			tar cf results-dist-$NODE_NAME.tar ximc
+			break
+		elif [ "$label" = "suse" ] ; then
+			[ -n "$NODE_NAME" ] || NODE_NAME=$label
+			build_opensuse
+			tar cf results-dist-$NODE_NAME.tar ximc
+			break
+		elif [ "$label" = "osx" ] ; then
+			[ -n "$NODE_NAME" ] || NODE_NAME=$label
+			build_macosx
+			tar cf results-dist-$NODE_NAME.tar ximc
+			break
+		fi
+	done
+fi
+
+echo Build completed

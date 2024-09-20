@@ -1,0 +1,330 @@
+result_t XIMC_API command_reset (device_t id)
+{
+	return command_checked_str( id, "rest", NULL, 0 );
+}
+
+
+result_t command_updf (device_t id)
+{
+	return command_checked_echo_str( id, "updf" );
+}
+
+
+result_t service_command_write_key_impl (device_t id, unsigned int key)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[18];
+	byte response[15];
+	byte* p = command;
+
+	push_str( &p, "wkey" );
+	push_uint32( &p, key );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, sizeof(command), response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_write_key_impl", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+
+result_t service_command_goto_firmware_impl (device_t id, service_result_t* sresult)
+{
+	result_t result;
+	byte command[4];
+	byte response[15];
+	byte* p = command;
+
+	push_str( &p, "gofw" );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked_str( id, "gofw", response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	*sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	return check_in_overrun_without_crc( id, p-response, sizeof(response), response );
+}
+
+result_t service_command_has_firmware_impl (device_t id, service_result_t* sresult)
+{
+	result_t result;
+	byte command[4];
+	byte response[15];
+	byte* p = command;
+
+	push_str( &p, "hasf" );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked_str( id, "hasf", response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	*sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	return check_in_overrun_without_crc( id, p-response, sizeof(response), response );
+}
+
+result_t service_command_connect (device_t id)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[14];
+	byte response[15];
+	byte* p = command;
+
+	push_str( &p, "conn" );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, sizeof(command), response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_connect", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+
+result_t service_command_disconnect (device_t id)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[14];
+	byte response[15];
+	byte* p = command;
+
+	push_str( &p, "disc" );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, sizeof(command), response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_disconnect", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+
+result_t service_command_write_data (device_t id, unsigned int datalen, const uint8_t* data)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[143];
+	byte response[15];
+	byte* p = command;
+	unsigned int i;
+
+	push_str( &p, "wdat" );
+	push_uint8( &p, datalen );
+	for (i = 0; i < datalen; ++i)
+		push_uint8( &p, data[i] );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_atleast_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, p - command, response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_write_data", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+
+result_t service_command_write_data1 (device_t id, const uint8_t* data)
+{
+	result_t result;
+	byte command[142], *p  = command;
+	unsigned int i;
+
+	push_str( &p, "wdax" );
+	for (i = 0; i < 128; ++i)
+		push_uint8( &p, data[i] );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked_echo( id, command, sizeof(command))) != result_ok)
+		return result;
+
+	return result;
+}
+
+result_t service_command_new_section (device_t id, const uint8_t* data)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[22];
+	byte response[15];
+	byte* p = command;
+	unsigned int i;
+
+	push_str( &p, "nsec" );
+	for (i = 0; i < 8; ++i)
+		push_uint8( &p, data[i] );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, sizeof(command), response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_new_section", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+
+result_t service_command_metacomm (device_t id, const uint8_t* data)
+{
+	result_t result;
+	service_result_t sresult;
+	byte command[22];
+	byte response[15];
+	byte* p = command;
+	unsigned int i;
+
+	push_str( &p, "msec" );
+	for (i = 0; i < 8; ++i)
+		push_uint8( &p, data[i] );
+	push_garbage( &p, 8 );
+	push_crc( &p, command, p-command );
+
+	if ((result = check_out_overrun( p-command, sizeof(command) )) != result_ok)
+		return result;
+
+	if ((result = command_checked( id, command, sizeof(command), response, sizeof(response) )) != result_ok)
+		return result;
+
+	p = response;
+	p += 4;
+	sresult = (service_result_t)pop_uint8( &p );
+	pop_garbage( &p, 8 );
+
+	if ((result = check_in_overrun( id, p-response, sizeof(response), response )) != result_ok)
+		return result_error;
+	
+	switch (sresult)
+	{
+		case RESULT_OK: 
+			result = result_ok;
+			break;
+		default: 
+			dump_service_result( L"service_command_metacomm", sresult );
+			result = result_error;
+			break;
+	}
+
+	return result;
+}
+

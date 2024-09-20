@@ -1,0 +1,1241 @@
+libximc7 (2.14.27-1) unstable; urgency=low
+
+  * Version bump
+  * Add pauses into examples, #99322
+  * Mark USB voltage and current values as deprecated, #103346
+
+ -- XIMC <info@ximc.ru>  Wed, 28 Aug 2024 16:36:02 +0300
+
+libximc7 (2.14.26-1) unstable; urgency=low
+
+  * Version bump
+  * Change README
+
+ -- XIMC <info@ximc.ru>  Tue, 06 Aug 2024 16:07:42 +0300
+
+libximc7 (2.14.25-1) unstable; urgency=low
+
+  * Version bump
+  * Fix PyPI summary bug, #102659
+
+ -- XIMC <info@ximc.ru>  Mon, 05 Aug 2024 12:46:48 +0300
+
+libximc7 (2.14.24-1) unstable; urgency=low
+
+  * Version bump
+  * Change README.md to README.txt in Python Jupyter example
+  * Improve documentation for joystick_settings and enumerate_devices, #97384
+  * Update READMEs for examples, #99321
+  * Add 'Deprecated' note in ximc_fix_usbser_sys documentation, #90338
+  * Fix testpython.py, #99244
+  * Add local imports, #95890
+  * Fix debian related bug of wrong shared objects directory, #99322
+  * Add pauses in C examples, #99322
+
+ -- XIMC <info@ximc.ru>  Wed, 17 Jul 2024 17:00:45 +0300
+
+libximc7 (2.14.23-1) unstable; urgency=low
+
+  * Version bump
+  * Bug: Fix enumeration bug, #99039
+  * Feture: added jupyter readme, #99084
+  * Bug: Fix indecies bug, #99109
+
+ -- XIMC <info@ximc.ru>  Tue, 28 May 2024 20:03:04 +0300
+
+libximc7 (2.14.22-1) unstable; urgency=low
+
+  * Version bump
+  * Bug: fix xi-net bug, #97428
+
+ -- XIMC <info@ximc.ru>  Tue, 23 Apr 2024 18:01:45 +0300
+
+libximc7 (2.14.21-1) unstable; urgency=low
+
+  * Version bump
+  * Add the python binding principles to the README.md
+  * Feature: Rewrite python examples using new binding, #89826
+  * Bug: Add integer-comparison support for enums, #92182
+  * Feature: Add deprecation warning to ximc_fix_usbser_sys, #90338
+  * Feature: Add instruction for Linux build, #60546
+
+ -- XIMC <info@ximc.ru>  Tue, 05 Mar 2024 17:53:20 +0300
+
+libximc7 (2.14.20-1) unstable; urgency=low
+
+  * Version bump
+  * add new python binding
+  * fix docs
+
+ -- XIMC <info@ximc.ru>  Thu, 28 Dec 2023 11:49:58 +0300
+
+libximc7 (2.14.19-1) unstable; urgency=low
+
+  * Version bump
+  * remove PyPI builder out of the repo, #85896
+  * complete working on APIv2 binding, #86075
+  * fix english documentation, #87709
+  * change UserPassword type to char[]
+
+
+ -- XIMC <info@ximc.ru>  Mon, 13 Nov 2023 11:54:15 +0300
+
+libximc7 (2.14.18-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #85091 Taking position calculation out to the place before
+  * all command execution (before switch statement)
+  * Feature #84179 Now use only absolute paths for virtual controllers
+
+ -- XIMC <info@ximc.ru>  Tue, 12 Sep 2023 11:24:00 +0300
+
+libximc7 (2.14.17-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #84285 Incorrect virtual controllers
+
+ -- XIMC <info@ximc.ru>  Wed, 23 Aug 2023 14:34:36 +0300
+
+libximc7 (2.14.16-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #83712 mDrive enumerate enumerate and discovery errors fixed 
+
+ -- XIMC <info@ximc.ru>  Mon, 21 Aug 2023 14:16:00 +0300
+
+libximc7 (2.14.15-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #83712 mDrive enumerate and discovery added
+
+ -- XIMC <info@ximc.ru>  Tue, 25 Jul 2023 19:34:58 +0300
+
+libximc7 (2.14.14-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #70712 jupiter libximc improved
+  * Feature #74546 readme added to the pypi libximc example
+  * Feature #75619 hints argument description corrected
+  * Feature #76913 Documentation start pages reviewed
+  * Feature #79128 libximc .sh scripts improved
+
+ -- XIMC <info@ximc.ru>  Thu, 22 Jun 2023 13:56:12 +0300
+
+libximc7 (2.14.13-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #77391 Wrong position returned in virtual controllers fixed
+
+ -- XIMC <info@ximc.ru>  Thu, 11 May 2023 11:55:23 +0300
+
+libximc7 (2.14.11-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #74036 additionally: set_bindy_key calls removed from examples
+
+ -- XIMC <info@ximc.ru>  Tue, 07 Mar 2023 18:56:56 +0300
+
+libximc7 (2.14.10-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #74028 Updated wiring diagrams
+  * Feature #74036 keyfile.sqlite removed
+  * Feature #74552 Nagle algorithm off in xi-tcp
+  * Feature #74671 Unused files removed from example projects
+  * Feature #74594 Jupiter_demo added
+  * Feature #70732 Virtual controller updated
+  * Feature #74575 emumerate_device function made multithreaded
+  * Feature #74580 Miniupnpc using improved  
+
+ -- XIMC <info@ximc.ru>  Fri, 17 Feb 2023 12:21:46 +0300
+
+libximc7 (2.14.9-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #72852 XIMC-device net discovering added (miniupnpc used)
+
+ -- XIMC <info@ximc.ru>  Fri, 20 Jan 2023 13:41:06 +0300
+
+libximc7 (2.14.8-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #53770 calibration_t struct description changed
+  * Feature #72516 C example moved to test_C directory
+  * Feature #71035 python jupiter example improved
+  * Feature #72241 libximc virtual controller updated
+  * Feature #65676 The same separator applied for all correction tables
+
+ -- XIMC <info@ximc.ru>  Wed, 28 Dec 2022 13:49:23 +0300
+
+libximc7 (2.14.7-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #69053 extendtest example bug fixed
+  * Feature #67205 jupiter example added
+  * Feature #69542 extendspython example: netifaces module changed for ifaddr
+
+ -- XIMC <info@ximc.ru>  Wed, 09 Nov 2022 17:56:14 +0300
+
+libximc7 (2.14.6-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #67711 Network settings control via USB added 
+  * Feature #67712 Network settings control via web added
+
+ -- XIMC <info@ximc.ru>  Wed, 07 Sep 2022 13:48:57 +0300
+
+libximc7 (2.14.5-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #64745 Code blocks examples refactoring made
+
+ -- XIMC <info@ximc.ru>  Thu, 01 Sep 2022 18:21:37 +0300
+
+libximc7 (2.14.4-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #67844 Fix warnings issued on GCC 11.2
+
+ -- XIMC <info@ximc.ru>  Thu, 18 Aug 2022 15:05:43 +0300
+
+libximc7 (2.14.3-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #64133 Distribute enumerate feature on tcp-, udp-connected devices
+
+ -- XIMC <info@ximc.ru>  Fri, 24 Jun 2022 13:57:01 +0300
+
+libximc7 (2.13.6-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #63763 Refinement of libximc sample tests
+  * Bug #60244 Select the stand folder with caps in libximc/ximc/c-profiles
+
+ -- XIMC <info@ximc.ru>  Mon, 20 Jun 2022 21:17:44 +0300
+
+libximc7 (2.13.5-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #61174 Restore the functionality of the libximc with micro manager
+  * Feature #48566 Automated testing system for our python examples
+  * Feature #60555 Add an example with a virtual controller to the Labview
+  * Feature #60556 Test libximc-2.10.5 c micromanager-2.0gamma
+  * Feature #60559 Add to the with LabVIEW examples .exe and write a readme
+  * Feature #62671 Respond to Pull Request in libximc
+  * Bug #53163 Translation of XIMC_API in the libximc manual
+  * Bug #56883 Update the libximc assembly instructions
+  * Bug #60244 Select the stand folder with caps in libximc/ximc/c-profiles
+  * Bug #61174 Restore libximc functionality with micromanager
+
+ -- XIMC <info@ximc.ru>  Mon, 18 Apr 2022 19:01:43 +0300
+
+libximc7 (2.14.2-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #50500 Organize the addition of UDP support to libximc
+  * Feature #58865 Bring XIMC network management with built-in Ethernet
+  * Feature #59871 Bring Windows 11 support to official status
+  * Bug #62093 The build on Jenkins does not work
+
+ -- XIMC <info@ximc.ru>  Mon, 18 Apr 2022 17:04:25 +0300
+
+libximc7 (2.13.4-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #55735 The Java example from the libximc library is not going to
+  * Bug #55638 Fix the description of the "reset_locks" function
+  * Bug #55439 The local libximc build from the GIT repository does not work
+  * Bug #53162 Building and running C examples on linux
+  * Feature #58545 Note the stop command resets the alarm
+  * Feature #57646 Update the C and Python profiles in the libximc library
+  * Feature #57131 An example for the BUILDER C++ environment
+  * Feature #48566 Automatic testing of our python examples
+
+ -- XIMC <info@ximc.ru>  Mon, 31 Jan 2022 18:00:04 +0300
+
+libximc7 (2.14.1-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #53786 Control of adding UDP support to libximc
+  * Feature #59317 Add tcp support to libximc
+
+ -- XIMC <info@ximc.ru>  Wed, 26 Jan 2022 10:36:44 +0300
+
+libximc7 (2.14.0-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #54792 Change the description of the flags in the protocol
+  * Feature #56922 Add UDP support to libximc
+
+ -- XIMC <info@ximc.ru>  Tue, 28 Dec 2021 23:08:32 +0300
+
+libximc7 (2.13.3-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #51788 Clean up the Bindy branches
+  * Bug #51208 Make examples on linux working
+  * Bug #51557 Fix the description of the BITS flag group
+  * Bug #52853 Fix comments on our matlab examples
+  * Bug #54266 Jenkins assembly on Cubieboard broke
+  * Bug #54677 The old driver gets into the archives with the library
+  * Bug #55439 The local libximc build from the GIT repository does not work
+  * Bug #55638 Fix the description of the "reset_locks" function
+  * Bug #55735 The Java example from the libximc library is not going to
+
+ -- XIMC <info@ximc.ru>  Mon, 29 Nov 2021 14:25:29 +0300
+
+libximc7 (2.13.2-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #51208 Make the examples on linux working
+  * Bug #51557 Fix the description of the BITS flag group
+  * Feature #48562 Specify that libximc is thread-safe
+  * Feature #51971 Running examples out of the box for linux
+  * Feature #53139 Add unpacked libraries to the linux build
+
+ -- XIMC <info@ximc.ru>  Wed, 08 Sep 2021 23:51:43 +0300
+
+libximc7 (2.13.1-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #46853 Try to fix the Python 3.9 examples on Win10
+  * Feature #49922 The python profile didn't include the wiring diagram
+
+ -- XIMC <info@ximc.ru>  Mon, 24 May 2021 11:59:34 +0300
+
+libximc7 (2.13.0-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #48565 Implement compatibility of our examples for python 3.9
+  * Bug #47662 Fix typos in the libximc manual
+  * Bug #48141 Remove Makefile. mingw from testapp and testappeasy
+  * Bug #48266 Fix errors in the examples
+  * Bug #48272 Fix the header in the profile generator to work under Mac OS
+  * Bug #48582 Migrate Bindy socket leak fix to libximc
+  * Feature #46853 Try to fix the Python 3.9 examples on Win10
+  * Feature #47464 Rename the examples and add dependencies for labwindows
+  * Feature #48562 Specify on the main page libximc-thread-safe
+  * Feature #48564 Processing a missing library msvc120.dll/msvcp120.dll
+
+ -- XIMC <info@ximc.ru>  Wed, 31 Mar 2021 14:30:41 +0300
+
+libximc7 (2.12.10-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #47473 Refine it testpythonprofile and fix the folder structure
+
+ -- XIMC <info@ximc.ru>  Mon, 22 Mar 2021 15:10:24 +0300
+
+libximc7 (2.12.8-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #46939 Add dependencies to the collected libximc examples
+  * Feature #43812 Make a python profile
+  * Feature #42920 In bindi, make enumerate with the network adapter
+  * Feature #42234 To update the examples and the site
+  * Bug #46049 Rename the loader_correction_table function
+
+ -- XIMC <info@ximc.ru>  Tue, 02 Mar 2021 16:02:54 +0300
+
+libximc7 (2.12.7-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #44374 Add an example on labwindows to the libximc library
+  * Feature #19483 Unified COM device addressing scheme
+  * Feature #42234 To update the examples and the site
+  * Feature #42275 Make a readme for our examples
+
+ -- XIMC <info@ximc.ru>  Wed, 10 Feb 2021 14:17:36 +0300
+
+libximc7 (2.12.6-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #42246 Release a new version of bindi
+  * Bug #42286 In the SSNO and GSNO commands with ASIA
+  * Bug #42738 Fix the device_id parameter in the load_correction_table
+  * Feature #36618 Update the data types for the firmware in the xigen
+  * Feature #42234 Update examples and site
+  * Feature #42920 In bindi, make an enumerate with the address of network
+
+ -- XIMC <info@ximc.ru>  Fri, 22 Jan 2021 13:59:57 +0300
+
+libximc7 (2.12.5-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #41682 added flag indicating that the speed is entered in mili rpm
+  * Bug #41221 remove the mention of detecting the motor connection
+  * Feature #40845 improved the extended Python example
+  * Feature #42275 added a description file for the extended example
+
+ -- XIMC <info@ximc.ru>  Tue, 20 Oct 2020 14:30:29 +0300
+
+libximc7 (2.12.4-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #33899 Changing the Protocol description
+  * Bug #40925 command "command_add_sync_in_action" set private
+  * command "command_change_motor" delete
+
+ -- XIMC <info@ximc.ru>  Mon, 17 Aug 2020 14:57:37 +0300
+
+libximc7 (2.12.2-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #28005: Add a file check to set_bindy_key
+  * Deploying libximc on Github
+  * Feature #40580: Added a detailed Python example
+
+ -- XIMC <info@ximc.ru>  Thu, 23 Jul 2020 14:14:45 +0300
+
+libximc7 (2.12.1-1) unstable; urgency=low
+
+  * Version bump
+  * Changed the Protocol version to 20.1
+
+ -- XIMC <info@ximc.ru>  Thu, 19 Mar 2020 15:10:47 +0300
+
+libximc7 (2.12.0-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #35244: License changed to BSD 2-Clause
+  * Updated version of the Protocol
+  * Feature #36920: Create 2 new configuration structures in libximc
+
+ -- XIMC <info@ximc.ru>  Sun, 15 Dec 2019 10:33:55 +0300
+
+libximc7 (2.11.4-1) unstable; urgency=low
+
+  * Version bump
+  * Added processing of increments for the correction table.
+  * Added a description to the documentation for correction table.
+
+ -- XIMC <info@ximc.ru>  Fri, 06 Sep 2019 10:40:34 +0300
+
+libximc7 (2.11.3-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #31347 Modification testapp
+  * Bug #31495 Fix the library
+
+ -- XIMC <info@ximc.ru>  Fri, 05 Jul 2019 12:23:26 +0300
+
+libximc7 (2.11.2-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #29076: Adding a calibration table
+
+ -- XIMC <info@ximc.ru>  Thu, 27 Jun 2019 11:20:53 +0300
+
+libximc7 (2.11.1-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #27133: Make flags for all alarms
+
+ -- XIMC <info@ximc.ru>  Thu, 06 Jun 2019 12:20:01 +0300
+
+libximc7 (2.11.0-1) unstable; urgency=low
+
+  * Version bump
+  * feature #26953: Encoder mediated flag added, documentation updates
+
+ -- XIMC <info@ximc.ru>  Mon, 20 May 2019 10:25:18 +0300
+ 
+libximc7 (2.10.5-1) unstable; urgency=low
+
+  * Version bump
+  * merge with 2.9
+  * fix codeblocks example, build codeblocks on Jenkins
+
+ -- XIMC <info@ximc.ru>  Fri, 08 Jun 2018 12:30:45 +0300
+
+libximc7 (2.10.4-1) unstable; urgency=low
+
+  * Version bump
+  * merge with 2.9
+
+ -- XIMC <info@ximc.ru>  Thu, 01 Mar 2018 14:02:12 +0300
+
+libximc7 (2.10.3-1) unstable; urgency=low
+
+  * Version bump
+  * add c-profiles
+  * Feature #8871
+  * get\start measurements command in protocol
+  * new protocol version
+
+ -- XIMC <info@ximc.ru>  Wed, 27 Sep 2017 16:30:44 +0300
+
+libximc7 (2.10.2-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Thu, 17 Aug 2017 16:10:24 +0300
+
+libximc7 (2.10.1-1) unstable; urgency=low
+
+  * Version bump
+  * feature #17319: Protocol 18.1 support
+
+ -- XIMC <info@ximc.ru>  Wed, 21 Jun 2017 19:22:41 +0300
+
+libximc7 (2.10.0-1) unstable; urgency=low
+
+  * Version bump
+  * feature #17221: Protocol 18.0 support
+
+ -- XIMC <info@ximc.ru>  Thu, 15 Jun 2017 18:04:45 +0300
+
+libximc7 (2.9.8-1) unstable; urgency=low
+
+  * Version bump
+  * feature #15152: New motor status flags added
+
+ -- XIMC <info@ximc.ru>  Thu, 09 Mar 2017 10:54:09 +0300
+
+libximc7 (2.9.7-1) unstable; urgency=low
+
+  * Version bump
+  * bug #15050: Updated cryptopp to cmake bindy build
+
+ -- XIMC <info@ximc.ru>  Tue, 21 Feb 2017 17:35:19 +0300
+
+libximc7 (2.9.6-1) unstable; urgency=low
+
+  * Version bump
+  * bug #14953: Hang or segfault in enumerate
+
+ -- XIMC <info@ximc.ru>  Wed, 15 Feb 2017 15:20:08 +0300
+
+libximc7 (2.9.5-1) unstable; urgency=low
+
+  * Version bump
+  * fixed bindy keyfile compatibility
+
+ -- XIMC <info@ximc.ru>  Thu, 02 Feb 2017 16:08:56 +0300
+
+libximc7 (2.9.4-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Thu, 15 Dec 2016 16:12:44 +0300
+
+libximc7 (2.9.3-1) unstable; urgency=low
+
+  * Version bump
+  * feature #13036: Protocol 17.2 support
+
+ -- XIMC <info@ximc.ru>  Thu, 17 Nov 2016 14:48:10 +0300
+
+libximc7 (2.8.9-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7779: 64-bit dotNET wrapper
+  * feature #8646: check device_enumeration_t validity
+  * bug #10299: fixed python calibrated functions
+  * bug #10999: fixed WinXP support
+
+ -- XIMC <info@ximc.ru>  Mon, 04 Jul 2016 18:38:34 +0300
+
+libximc7 (2.8.8-1) unstable; urgency=low
+
+  * Version bump
+  * feature #9963: Option to enter Alarm on ExtIO
+  * feature #9968: Protocol 16.11 support
+
+ -- XIMC <info@ximc.ru>  Mon, 28 Mar 2016 18:08:05 +0300
+
+libximc7 (2.9.2-1) unstable; urgency=low
+
+  * Version bump
+  * feature #9423: added support for GNVM/SNVM in virtual controllers
+
+ -- XIMC <info@ximc.ru>  Thu, 18 Feb 2016 12:45:36 +0300
+
+libximc7 (2.9.1-1) unstable; urgency=low
+
+  * Version bump
+  * Updated libximc to use bindy-sqlite
+
+ -- XIMC <info@ximc.ru>  Thu, 28 Jan 2016 19:58:12 +0300
+
+libximc7 (2.8.7-1) unstable; urgency=low
+
+  * Version bump
+  * bug #8651: Disconnect recovery
+
+ -- XIMC <info@ximc.ru>  Wed, 16 Dec 2015 18:57:35 +0300
+
+libximc7 (2.9.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #8651: Disconnect recovery
+  * bug #8714: Memory leak in open_device
+  * bug #8731: Memory leak on virtual controller open
+
+ -- XIMC <info@ximc.ru>  Thu, 10 Dec 2015 17:13:53 +0300
+
+libximc7 (2.8.6-1) unstable; urgency=low
+
+  * Version bump
+  * bug #7812: Doxygen java documentation
+  * bug #7813: Supported examples documentation
+  * bug #8275: Fixed broadcast discovery on MacOS
+  * bug #8571: Device discovery on OS X 10.11
+
+ -- XIMC <info@ximc.ru>  Mon, 02 Nov 2015 12:43:04 +0300
+
+libximc7 (2.8.5-1) unstable; urgency=low
+
+  * Version bump
+  * feature #6766: Labview simple example added
+  * feature #7778: Python support
+  * feature #8123: Disabled SSE to support very old CPUs
+  * bug #8275: Fixed broadcast discovery on Linux
+
+ -- XIMC <info@ximc.ru>  Tue, 29 Sep 2015 18:36:15 +0300
+
+libximc7 (2.8.4-1) unstable; urgency=low
+
+  * Version bump
+  * feature #6204: Added wait_for_stop function
+
+ -- XIMC <info@ximc.ru>  Wed, 19 Aug 2015 14:30:31 +0300
+
+libximc7 (2.8.3-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7971: Network enumerate obeys library timeouts now
+
+ -- XIMC <info@ximc.ru>  Mon, 17 Aug 2015 18:42:42 +0300
+
+libximc7 (2.8.2-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7971: Added multithreaded multiserver network enumerate
+
+ -- XIMC <info@ximc.ru>  Thu, 30 Jul 2015 17:57:37 +0300
+
+libximc7 (2.8.1-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7017: Added broadcast discovery option for network controllers
+
+ -- XIMC <info@ximc.ru>  Thu, 09 Jul 2015 12:03:41 +0300
+
+libximc7 (2.8.0-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Thu, 04 Jun 2015 11:23:35 +0300
+
+libximc7 (2.7.8-1) unstable; urgency=low
+
+  * Version bump
+  * bug #7694: fix libximc memory allocation error
+
+ -- XIMC <info@ximc.ru>  Mon, 01 Jun 2015 14:23:11 +0300
+
+libximc7 (2.7.7-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7024: fixed bindy (network controllers)
+
+ -- XIMC <info@ximc.ru>  Wed, 27 May 2015 15:32:46 +0300
+
+libximc7 (2.7.6-1) unstable; urgency=low
+
+  * Version bump
+  * feature #4863: virtual controllers
+  * feature #7292: binary version changed to 7
+
+ -- XIMC <info@ximc.ru>  Thu, 14 May 2015 13:35:28 +0300
+
+libximc6 (2.7.5-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Tue, 28 Apr 2015 20:24:44 +0300
+
+libximc6 (2.7.4-1) unstable; urgency=low
+
+  * Version bump
+  * feature #7015: transition to ximc network protocol v1
+
+ -- XIMC <info@ximc.ru>  Thu, 23 Apr 2015 20:21:52 +0300
+
+libximc6 (2.7.3-1) unstable; urgency=low
+
+  * Version bump
+  * feature #6737: File logging option added
+  * feature #7224: fwprotocol generator updated
+  * bug #7085: get_controller_name() call caused Access Violation
+
+ -- XIMC <info@ximc.ru>  Tue, 07 Apr 2015 20:44:47 +0300
+
+libximc6 (2.7.2-1) unstable; urgency=low
+
+  * Version bump
+  * feature #6738: API changes
+
+ -- XIMC <info@ximc.ru>  Tue, 17 Mar 2015 15:39:10 +0300
+
+libximc6 (2.7.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #6253: Matlab example fixed
+
+ -- XIMC <info@ximc.ru>  Wed, 25 Feb 2015 16:51:31 +0300
+
+libximc6 (2.7.0-1) unstable; urgency=low
+
+  * Version bump
+  * feature #6006: Bindy support
+  * bug #6735: Buffering inside libximc
+
+ -- XIMC <info@ximc.ru>  Fri, 13 Feb 2015 23:55:01 +0300
+
+libximc6 (2.5.1-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Tue, 10 Feb 2015 13:43:54 +0300
+
+libximc6 (2.3.2-1) unstable; urgency=low
+
+  * Version bump
+  * bug #5691: C# protected memory exception, revised
+
+ -- XIMC <info@ximc.ru>  Tue, 02 Sep 2014 19:10:54 +0400
+
+libximc6 (2.3.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #5691: C# protected memory exception
+
+ -- XIMC <info@ximc.ru>  Thu, 28 Aug 2014 12:08:15 +0400
+
+libximc6 (2.5.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #4624: Profile section deduplication
+  * feature #4730: Protocol 16.8 support
+
+ -- XIMC <info@ximc.ru>  Mon, 26 May 2014 10:41:59 +0400
+
+libximc6 (2.4.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #4323: Change ASIA command structure
+  * feature #4687: Add DBGW command
+
+ -- XIMC <info@ximc.ru>  Mon, 24 Mar 2014 11:02:00 +0400
+
+libximc6 (2.3.0-1) unstable; urgency=low
+
+  * Version bump
+  * feature #3508: Multithreading
+
+ -- XIMC <info@ximc.ru>  Mon, 27 Jan 2014 12:59:24 +0400
+
+libximc6 (2.2.2-1) unstable; urgency=low
+
+  * Version bump
+  * bug #4220: Support 64-bit types for LabVIEW
+
+ -- XIMC <info@ximc.ru>  Fri, 29 Nov 2013 00:29:52 +0400
+
+libximc6 (2.2.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #4143: Fixed synchronization function
+
+ -- XIMC <info@ximc.ru>  Tue, 19 Nov 2013 17:08:57 +0400
+
+libximc6 (2.2.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #2953: java generator support
+  * feature #4010: profile assembler update
+
+ -- XIMC <info@ximc.ru>  Sat, 02 Nov 2013 23:00:02 +0400
+
+libximc6 (2.1.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3988: Fix typing errors
+
+ -- XIMC <info@ximc.ru>  Thu, 17 Oct 2013 19:00:00 +0400
+
+libximc6 (2.1.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3959: _impl in wiki doc
+  * bug #3610: Calibrations for CSharp and Delphi
+  * bug #3573: Readibility of libximc doc
+  * bug #3318: Bugs with virtual macosx
+  * bug #2956: Build with build.sh / build-ci from different branches
+  * bug #2918: No links to flags from function docs
+  * feature #3446: Examples of calibrated functions usage
+
+ -- XIMC <info@ximc.ru>  Tue, 15 Oct 2013 23:19:58 +0400
+
+libximc6 (2.0.9-1) unstable; urgency=low
+
+  * Version bump
+  * feature #3785: Protocol 16.4 support
+
+ -- XIMC <info@ximc.ru>  Tue, 24 Sep 2013 13:00:00 +0400
+
+libximc6 (2.0.8-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3610: Calibration for c#, delphi wrappers
+  * feature #3499: Documentation with new block tags
+
+ -- XIMC <info@ximc.ru>  Fri, 20 Sep 2013 15:03:52 +0400
+
+libximc6 (2.0.7-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3514: libximc is built differently
+  * feature #3497: Calibrated commands without microstep
+  * feature #3498: Arrays as calibrated fields
+  * feature #3501: Calibrated fields of velocities
+
+ -- XIMC <info@ximc.ru>  Thu, 15 Aug 2013 09:43:18 +0400
+
+libximc6 (2.0.6-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Wed, 07 Aug 2013 18:00:00 +0400
+
+libximc6 (2.0.5-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3347: Firmware structs contains calibrated values
+  * feature #3022: Calibration to units
+  * feature #3286: Markers of documentation
+
+ -- XIMC <info@ximc.ru>  Wed, 17 Jul 2013 23:05:53 +0100
+
+libximc6 (2.0.4-1) unstable; urgency=low
+
+  * Version bump
+  * bug #3132: DEBUG_TRACE causes buffer overflow
+  * bug #1567: Hangs on start (on port query)
+  * bug #2722: Library 2.00 on linux
+  * feature #2937: Fix examples
+  * feature #2999: Virtual controllers support
+  * feature #2786: Open devices by serial number
+  * feature #2936: Rewrite examples
+  * feature #2934: Test flashing on Linux
+
+ -- XIMC <info@ximc.ru>  Sat, 22 Jun 2013 02:08:11 +0400
+
+libximc6 (2.0.3-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1566: Connection loss after a hour of work
+  * feature #2786: Open devices by serial number
+
+ -- XIMC <info@ximc.ru>  Sun, 19 May 2013 15:37:03 +0400
+
+libximc6 (2.0.2-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Mon, 06 May 2013 13:04:16 +0400
+
+libximc6 (2.0.1-1) unstable; urgency=low
+
+  * Version bump
+  * feature #2275: Make a QScript generator
+  * feature #2450: Support ERRV answers
+  * feature #2842: Support 64-bit numbers in protocol
+
+ -- XIMC <info@ximc.ru>  Thu, 02 May 2013 19:26:32 +0400
+
+libximc6 (2.0.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1566: Connection loss after a hour of work
+  * bug #1865: Formatting of doxygen pdf
+  * bug #2254: Windows example does not work
+  * bug #2465: Wiki autogen eats last dot
+  * bug #2573: Flashing works incorretly
+  * bug #2593: ximc.h is built differently
+  * feature #1708: Bootrstrap a build inftrastructure for libximc
+  * feature #1740: Generate wiki protocol by the protocol.xi
+  * feature #1903: Prettify doxygen
+  * feature #2255: Arguments of get_device_count() and get_device_name()
+  * feature #2275: Make an autogen for QScript
+  * feature #2284: Change a protocol and a library for the new bootloader
+  * feature #2450: Support of errv answers
+  * feature #2464: Wiki generator can not wrap strings
+  * feature #2476: Update wrappers for .net, delphi
+  * feature #2524: SSER should pass a large key 
+  * feature #2543: Add a flt64 type to the protocol.xi
+  * feature #2546: Refactor service commands
+  * support #2470: Fix bootloading
+
+ -- XIMC <info@ximc.ru>  Sun, 17 Mar 2013 02:44:12 +0400
+
+libximc5 (1.7.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1587: Device connection opens port four times and does not send init
+  * bug #1744: Russian languages in logs
+  * bug #1908: Strange behaviour of close_device 
+  * bug #1974: Binary packaging on FreeBSD 
+  * bug #2015: Unable to open device on the slow port
+  * bug #2179: Type mismatch in protocol.xi 
+  * feature #1642: FreeBSD support
+  * feature #1904: Reboot of hanged usbser.sys (windows-only) 
+  * feature #2180: Write PID to the log
+
+ -- XIMC <info@ximc.ru>  Sun, 30 Dec 2012 01:35:30 +0400
+
+libximc5 (1.7.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #2082: Deny multiple port open in OSX
+  * bug #2091: Trim endlines in log
+
+ -- XIMC <info@ximc.ru>  Tue, 18 Dec 2012 11:15:21 +0400
+
+libximc5 (1.6.9-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Wed, 10 Oct 2012 00:46:07 +0400
+
+libximc5 (1.6.8-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1683: Library hangs with the hanged controller
+  * bug #1425: Problem with port opening in has_firmware
+  * feature #1409: Library adaptation for langs like LabVIEW
+  * bug #1242: Mac examples does not work
+  * feature #500: Update doxygen docs
+  * feature #1559: Update main doc description
+  * bug #1865: Doxygen PDFs
+  * feature #1867: Debian hardening support
+
+ -- XIMC <info@ximc.ru>  Fri, 05 Oct 2012 17:18:09 +0400
+
+libximc5 (1.6.7-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1697: Port loss returns result_error
+  * bug #1691: save command sends wrong zero bytes
+  * bug #1685: Null cleanup works incorrect
+  * bug #1642: freebsd support
+
+ -- XIMC <info@ximc.ru>  Wed, 01 Aug 2012 19:24:21 +0400
+
+libximc5 (1.6.6-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Tue, 31 Jul 2012 09:34:26 +0400
+
+libximc5 (1.6.5-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1447: Windows x64 build issue
+  * bug #1584: Add doxygen documentation for new functions
+  * bug #1604: Wrong GETS answer in ALARM
+  * feature #1247: XISM detetction
+  * feature #1641: Get library version string
+  * feature #500: Update doxygen documentation
+
+ -- XIMC <info@ximc.ru>  Wed, 25 Jul 2012 18:32:58 +0400
+
+libximc5 (1.6.4-1) unstable; urgency=low
+
+  * Version bump
+
+ -- XIMC <info@ximc.ru>  Fri, 22 Jun 2012 14:19:10 +0400
+
+libximc5 (1.6.3-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1425: has_firmware port opening problem
+  * feature #1422: Protocol 15.0 support
+  * feature #1419: New synchronization protocol support
+  * feature #1409: Library adaptation for languages such as LabVIEW
+  * feature #1398: Correct errc and errd handling
+  * feature #1281: Protocol 14.4 support
+  * feature #1265: Logging to an user callback
+
+ -- XIMC <info@ximc.ru>  Wed, 13 Jun 2012 22:49:41 +0400
+
+libximc5 (1.6.2-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1345: 1.60 bugs - missing functions
+  * bug #1346: 1.60 bugs - problems with commands
+
+ -- XIMC <info@ximc.ru>  Wed, 16 May 2012 15:35:07 +0400
+
+libximc5 (1.6.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1344: 1.60 bugs - mistypes
+  * bug #1345: 1.60 bugs - missing functions
+  * bug #1346: 1.60 bugs - problems with commands
+  * feature #1347: Static commands constraints check
+
+ -- XIMC <info@ximc.ru>  Sat, 12 May 2012 13:46:18 +0400
+
+libximc5 (1.6.0-1) unstable; urgency=low
+
+  * Version bump
+  * major API break
+  * feature #966: Automatic library generator based on protocol definition file
+
+ -- XIMC <info@ximc.ru>  Sat, 05 May 2012 18:52:18 +0400
+
+libximc (1.5.9-1) unstable; urgency=low
+
+  * Version bump
+  * bug #1205: POWER_OFF_MODE is not introduced in ximc.h
+  * bug #1242: Mac example does not work
+  * feature #798: device_t value after close_device(device_t) call
+  * feature #1021: Implement a synchronization between controller 
+    and computer based on flushing zeroes method
+  * feature #1022: Protocol 14.1 support
+  * feature #1029: Improvements in command_update_firmware
+  * feature #1097: Protocol 14.2 support
+  * feature #1100: Bring back function open_raw_device()
+  * feature #1247: xism devices detection
+
+ -- XIMC <info@ximc.ru>  Thu, 26 Apr 2012 15:37:11 +0400
+
+libximc (1.5.8-1) unstable; urgency=low
+
+  * Version bump
+  * Beta build 3
+
+ -- XIMC <info@ximc.ru>  Tue, 21 Feb 2012 21:12:18 +0400
+
+libximc (1.5.7-1) unstable; urgency=low
+
+  * Version bump
+  * Beta build 2
+
+ -- XIMC <info@ximc.ru>  Tue, 21 Feb 2012 19:12:18 +0400
+
+libximc (1.5.6-1) unstable; urgency=low
+
+  * Version bump
+  * Beta build 1
+
+ -- XIMC <info@ximc.ru>  Sun, 19 Feb 2012 19:12:18 +0400
+
+libximc (1.5.5-1) unstable; urgency=low
+
+  * Version bump
+  * Fix for the UART problem with some XISM controllers
+
+ -- XIMC <info@ximc.ru>  Sat, 01 Oct 2011 22:06:09 +0400
+
+libximc (1.5.4-1) unstable; urgency=low
+
+  * Version bump
+  * bug #426: [macos] Simultaneously work with 2 devices
+  * feature #784: Update commands GETS, GSEC, SSEC
+  * feature #809: Add positioner name
+
+ -- XIMC <info@ximc.ru>  Fri, 30 Sep 2011 01:28:33 +0400
+
+libximc (1.5.3-1) unstable; urgency=low
+
+  * Version bump
+  * bug #655: enumerate_devices returns -1 if no devices found
+  * feature #255: Loader timeouts
+  * bug #561: enumerate_devices() problem with char ***names
+  * feature #649: new command_update_firmware
+
+ -- XIMC <info@ximc.ru>  Sat, 20 Aug 2011 00:23:43 +0300
+
+libximc (1.5.2-1) unstable; urgency=low
+
+  * Version bump
+  * bug #625: Problem with timeouts
+  * feature #561: enumerate_devices() problem with char ***names
+  * feature #611: New commands in the v12.4
+
+ -- XIMC <info@ximc.ru>  Fri, 17 Jun 2011 00:23:43 +0300
+
+libximc (1.5.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #426: [macos] Simultaneously work with 2 devices
+  * bug #539: Unable to open device in the ALARM state
+  * feature #241: Limits of all parameters
+  * feature #255: Loader timeouts
+  * feature #561: enumerate_devices() problem with char ***names
+  * feature #611: New commands in the v12.4
+
+ -- XIMC <info@ximc.ru>  Thu, 09 Jun 2011 00:23:43 +0300
+
+libximc (1.5.0-1) unstable; urgency=low
+
+  * Version bump
+  * feature #477: Protocol v12.4 support
+  * feature #478: Example for С
+  * feature #479: Example for Matlab
+  * feature #499: Rename lib to libximc from libxidcusb
+
+ -- XIMC <info@ximc.ru>  Sat, 05 Mar 2011 00:23:43 +0300
+
+libximc (1.4.1-1) unstable; urgency=low
+
+  * version bump
+  * feature #425: linux version doesn't query ttyACM ttys
+
+ -- ximc <info@ximc.ru>  sun, 26 dec 2010 02:00:00 +0400
+
+libximc (1.4.0-1) unstable; urgency=low
+
+  * version bump
+  * feature #358: protocol v12 support
+
+ -- ximc <info@ximc.ru>  wed, 24 nov 2010 02:00:00 +0400
+
+libximc (1.3.0-1) unstable; urgency=low
+
+  * version bump
+  * feature #94: visual basic support
+
+ -- ximc <info@ximc.ru>  sat, 16 oct 2010 02:00:00 +0400
+
+libximc (1.2.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #286: hang while accessing two different devices
+
+ -- XIMC <info@ximc.ru>  Wed, 29 Sep 2010 02:57:20 +0400
+
+libximc (1.1.1-1) unstable; urgency=low
+
+  * Version bump
+  * bug #267: firmware update doesn't work
+  * feature #264: development kit
+
+ -- XIMC <info@ximc.ru>  Fri, 02 Apr 2010 15:00:00 +0300
+
+libximc (1.1.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #34: COM port
+  * bug #258: uint8_t, uint32_t
+  * feature #125: device detection protocol
+  * feature #226: linux device detection
+  * feature #237: update documentation
+  * feature #261: change commands S005, G005
+
+ -- XIMC <info@ximc.ru>  Fri, 19 Feb 2010 15:00:00 +0300
+
+libximc (1.0.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #215: check crc at answers
+  * feature #91: How to use with C#
+  * feature #92: How to use with C++ Builder
+  * feature #93: How to use with Delphi
+  * feature #173: new command G1
+
+ -- XIMC <info@ximc.ru>  Sat, 12 Dec 2009 20:34:46 +0300
+
+libximc (0.9.0-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #24: Bugs with access from two applications
+  * Bug #56: Wrong data in cdc_pwmlevel
+  * Bug #76: Misspell in settings_t::flags
+  * Feature #27: Performance problems
+  * Feature #98: Documentation update
+  * Feature #99: Test program update
+
+ -- XIMC <info@ximc.ru>  Sat, 15 Aug 2009 20:00:00 +0400
+
+libximc (0.8.0-1) unstable; urgency=low
+
+  * Version bump
+  * bug #11: support dll building with def-files
+  * bug #41: ttl_setup_outset can't be unset
+  * bug #42: engine_limit_curr, engine_limit_volt
+  * bug #54: open_device() returns -1 on second open, win32
+  * feature #21: mingw support
+
+ -- XIMC <info@ximc.ru>  Thu, 23 Jul 2009 18:00:00 +0400
+
+libximc (0.7.0-1) unstable; urgency=low
+
+  * Version bump
+  * Feature #39: Add firmware upload
+  * Bug #33: Flags TTL_SYNCIN_SINGLE_SHIFT and TTL_SYNCIN_MULTI_SHIFT
+  * Bug #35: write_key
+  * Bug #36: get_analog_data
+
+ -- XIMC <info@ximc.ru>  Wed, 08 Jul 2009 06:00:00 +0400
+
+libximc (0.6.0-1) unstable; urgency=low
+
+  * Version bump
+  * Bug #12: Mistyping at pid_settings_t: kprpm, kiPRM, kdPRM
+  * Bug #13: Error at set_pwm_freq
+  * Bug #14: Initialization error
+  * Bug #16: Error writing synchonization params
+  * Bug #17: Error at param TTL_SETUP_FRONT
+  * Bug #25: Error reading calibration coefficients 
+  * Feature #32: Add 1234, CALB, RESET
+  * Feature #32: To do
+  * Add WriteKey function
+
+ -- XIMC <info@ximc.ru>  Tue, 30 Jun 2009 16:25:00 +0400
+
+libximc (0.5.0-1) unstable; urgency=low
+
+  * Version bump
+  * Updated documentation
+  * Fix memory problem
+  * Improve compatibility with C++ on windows
+
+ -- XIMC <info@ximc.ru>  Thu, 21 May 2009 01:12:54 +0400
+
+libximc (0.4.0-1) unstable; urgency=low
+
+  * Version bump
+  * Add documentation
+
+ -- XIMC <info@ximc.ru>  Fri, 06 May 2009 11:37:29 +0400
+
+libximc (0.3.0-1) unstable; urgency=low
+
+  * Version bump
+  * Renamed
+  * Fixed unix build
+  * Add force unlocking semaphores
+
+ -- XIMC <info@ximc.ru>  Fri, 24 Apr 2009 11:17:29 +0400
+
+libximc (0.2.0-1) unstable; urgency=low
+
+  * Version bump
+  * Added deb and rpm packages building
+  * Mac OS X library is private framework now
+  * Add version numbers in win32 version
+
+ -- XIMC <info@ximc.ru>  Sun, 05 Apr 2009 19:02:43 +0400
+
+
+libximc (0.0.1-1) unstable; urgency=low
+
+  * Initial release. Basic functionality.
+
+ -- XIMC <info@ximc.ru>  Thu, 02 Apr 2009 00:02:44 +0400
+

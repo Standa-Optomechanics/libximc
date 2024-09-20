@@ -1,0 +1,16 @@
+build
+dist
+release
+venv
+libximc_release/
+package/
+__pycache__
+*.pyc
+*.o
+# Intellij Idea files
+.idea
+*/.idea
+*.iml
+*.tar.gz
+wrappers/python/src/libximc/library-files/
+deps/

@@ -1,0 +1,7 @@
+#!/bin/sh
+file_input="$srcdir/full.xi"
+. $srcdir/defs
+
+cat < $file_expected > $file_ok
+
+expect_out_def

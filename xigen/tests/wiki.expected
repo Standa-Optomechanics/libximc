@@ -1,0 +1,60 @@
+
+h3. Command SEDS
+
+<pre><code>result_t set_edges_settings (device_t id, const edges_settings_t* edges_settings)</code></pre>Command code (CMD): "seds" or 0x73646573.
+
+*Request:* (26 bytes)
+
+|INT32U|CMD|Command|
+|INT8U|BorderFlags|Border flags, specify types of borders and motor behaviour on borders.|
+|\2.| 0x01 - BORDER_IS_ENCODER (Borders are fixed by predetermined encoder values, if set; borders position on limit switches, if not set.)|
+|\2.| 0x02 - BORDER_STOP_LEFT (Motor should stop on left border.)|
+|\2.| 0x04 - BORDER_STOP_RIGHT (Motor should stop on right border.)|
+|INT8U|EnderFlags|Ender flags, specify electrical behaviour of limit switches like order and pulled positions.|
+|\2.| 0x01 - ENDER_SWAP (First limit switch on the right side, if set; otherwise on the left side.)|
+|\2.| 0x02 - ENDER_LEFT_ACTIVE_LOW (1 - left limit switch is triggered by a low level on pin.)|
+|\2.| 0x04 - ENDER_RIGHT_ACTIVE_LOW (1 - right limit switch is triggered by a low level on pin.)|
+|INT32S|LeftBorder|Left border position, used if BORDER_IS_ENCODER flag is set. Range: -2147483647..2147483647.|
+|INT16S|uLeftBorder|Left border position in 1/256 microsteps(used with stepper motor only). Range: -255..255.|
+|INT32S|RightBorder|Right border position, used if BORDER_IS_ENCODER flag is set. Range: -2147483647..2147483647.|
+|INT16S|uRightBorder|Right border position in 1/256 microsteps. Range: -255..255(used with stepper motor only).|
+|INT8U|Reserved [6]|Reserved (6 bytes)|
+|INT16U|CRC|Checksum|
+
+*Answer:* (4 bytes)
+
+|INT32U|CMD|Command (answer)|
+
+*Description:*
+Set border and limit switches settings.
+
+
+h3. Command GEDS
+
+<pre><code>result_t get_edges_settings (device_t id, edges_settings_t* edges_settings)</code></pre>Command code (CMD): "geds" or 0x73646567.
+
+*Request:* (4 bytes)
+
+|INT32U|CMD|Command|
+
+*Answer:* (26 bytes)
+
+|INT32U|CMD|Command (answer)|
+|INT8U|BorderFlags|Border flags, specify types of borders and motor behaviour on borders.|
+|\2.| 0x01 - BORDER_IS_ENCODER (Borders are fixed by predetermined encoder values, if set; borders position on limit switches, if not set.)|
+|\2.| 0x02 - BORDER_STOP_LEFT (Motor should stop on left border.)|
+|\2.| 0x04 - BORDER_STOP_RIGHT (Motor should stop on right border.)|
+|INT8U|EnderFlags|Ender flags, specify electrical behaviour of limit switches like order and pulled positions.|
+|\2.| 0x01 - ENDER_SWAP (First limit switch on the right side, if set; otherwise on the left side.)|
+|\2.| 0x02 - ENDER_LEFT_ACTIVE_LOW (1 - left limit switch is triggered by a low level on pin.)|
+|\2.| 0x04 - ENDER_RIGHT_ACTIVE_LOW (1 - right limit switch is triggered by a low level on pin.)|
+|INT32S|LeftBorder|Left border position, used if BORDER_IS_ENCODER flag is set. Range: -2147483647..2147483647.|
+|INT16S|uLeftBorder|Left border position in 1/256 microsteps(used with stepper motor only). Range: -255..255.|
+|INT32S|RightBorder|Right border position, used if BORDER_IS_ENCODER flag is set. Range: -2147483647..2147483647.|
+|INT16S|uRightBorder|Right border position in 1/256 microsteps. Range: -255..255(used with stepper motor only).|
+|INT8U|Reserved [6]|Reserved (6 bytes)|
+|INT16U|CRC|Checksum|
+
+*Description:*
+Read border and limit switches settings.
+

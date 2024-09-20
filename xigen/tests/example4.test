@@ -1,0 +1,6 @@
+#!/bin/sh
+. $srcdir/defs
+
+echo > $file_ok
+
+expect_success

@@ -1,0 +1,45 @@
+
+/** @cond DO_NOT_WANT */
+#define LIBXIMC_PROTOCOL_VERSION 1
+/** @endcond */
+
+
+/*
+ ------------------------------------------
+   BEGIN OF GENERATED struct declarations
+ ------------------------------------------
+*/
+
+/**
+	* @anchor flagset_devstatefoobar
+	* \english
+	* @name State
+	* Describes motor state
+	* \endenglish
+	* \russian
+	* @name Состояние
+	* Состояние мотора
+	* \endrussian
+	*/
+//@{
+#define DEV_STATE_FOOBAR_OFF      0x00 	/**< \english motor is turned off. \endenglish \russian мотор отключен от контроллера. \endrussian */
+#define DEV_STATE_FOOBAR_STOP     0x01 	/**< \english motor is stopped. \endenglish \russian мотор остановлен. \endrussian */
+#define DEV_STATE_FOOBAR_MOVING   0x02 	/**< \english motor is moving. \endenglish \russian мотор работает. \endrussian */
+//@}
+
+
+/*
+ --------------------------------------------
+   BEGIN OF GENERATED function declarations
+ --------------------------------------------
+*/
+	result_t XIMC_API get_foobar (device_t id, unsigned int* flags);
+
+	result_t XIMC_API get_baz (device_t id, unsigned int* flags);
+
+
+/*
+ -------------------------
+   END OF GENERATED CODE
+ -------------------------
+*/

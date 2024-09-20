@@ -1,0 +1,15 @@
+Document: libximc7
+Title: XIMC library
+Author: ximc.ru
+Abstract: API docs for XIMC library
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/libximc7/doc-en/html/index.html
+Files: /usr/share/doc/libximc7/doc-en/html/*
+ /usr/share/doc/libximc7/doc-ru/html/*
+ /usr/share/doc/libximc7/doc-java/html/*
+
+Format: PDF
+Files: /usr/share/doc/libximc7/doc-en/libximc7-en.pdf.gz
+ /usr/share/doc/libximc7/doc-ru/libximc7-ru.pdf.gz

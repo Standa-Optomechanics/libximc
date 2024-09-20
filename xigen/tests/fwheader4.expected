@@ -1,0 +1,36 @@
+
+#define PROTOCOL_VERSION 1
+#define PROTOCOL_VERSION_Q "1"
+
+
+// Command codes
+
+#define SFO1_CMD	0x316f6673
+#define GFO1_CMD	0x316f6667
+#define SFBR_CMD	0x72626673
+#define GFBR_CMD	0x72626667
+#define RBBZ_CMD	0x7a626272
+#define RQQX_CMD	0x78717172
+#define SFO2_CMD	0x326f6673
+#define GFO2_CMD	0x326f6667
+
+
+typedef struct sfo1_cmd_str {
+	uint32_t	speed;
+} sfo1_cmd_str; 
+
+typedef struct sfbr_cmd_str {
+	int32_t	position;
+} sfbr_cmd_str; 
+
+typedef struct rbbz_cmd_str {
+	int32_t	velocity;
+} rbbz_cmd_str; 
+
+typedef struct rqqx_cmd_str {
+	int32_t	velocity;
+} rqqx_cmd_str; 
+
+typedef struct sfo2_cmd_str {
+	uint32_t	speed;
+} sfo2_cmd_str; 
