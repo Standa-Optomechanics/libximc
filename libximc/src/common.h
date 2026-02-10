@@ -103,4 +103,4 @@ typedef SSIZE_T ssize_t;
 
 #endif
 
-#endif
+#endif // !INC_COMMON_H

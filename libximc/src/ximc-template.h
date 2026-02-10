@@ -618,39 +618,122 @@ extern "C"
 
 	/**
 		* \english
-		* Deprecated. Left for compatibility Do just nothing.
+		* Deprecated. Left for compatibility. Do just nothing.
 		* \endenglish
 		* \russian
 		* Устарело. Оставлено для совместимости. Ничего не делает.
 		* \endrussian
     */
- 
 	result_t XIMC_API set_bindy_key(const char* keyfilepath);
 
 	/**
 		* \english
-		* Enumerate all XIMC-compatible devices.
-		* @param[in] enumerate_flags enumerate devices flags
-		* @param[in] hints extended search information
-		* \par
-		* hints is a string of form "key=value \n key2=value2". <em>Unrecognized key-value pairs are ignored</em>.
-		* Key list: addr (required!) - mandatory flag used together with the ENUMERATE_NETWORK flag.
-		* Non-null value is a remote host name or a comma-separated list of host names which contain the devices to be found. Example: "addr=192.168.1.1,172.16.2.3".
-		* Absent value means broadcast discovery. Example: "addr=".
-		* adapter_addr - used together with ENUMERATE_NETWORK flag.
-		* Non-null value is a IP address of network adapter. Remote ximc device must be on the same local network as the adapter. Example: "addr= \n adapter_addr=192.168.0.100".
+		* Search and list of available devices. By default, it creates a list of devices connected to this computer and presented as COM ports.
+		* Additionally, you can enable the search for network devices. Devices found in the local network will be included in the same list.<br>
+		* To obtain information from the collected list, use the corresponding functions with the <code>get_enumerate_</code> prefix and
+		* the received <code>device_enumeration</code> identifier.<br>
+		* After finishing working with the list of found devices, you should free up memory using the <code>free_enumerate_devices()</code> function.
+		* @param[in] enumerate_flags a set of flags that specify search modes. Flags can be used together via bitwise "OR":
+		* <ul>
+		* <li><code>ENUMERATE_NETWORK</code> - enables searching for network devices. If the flag is set, network devices will be added to the general list.
+		* If the flag is not set, the list will only include devices connected to this computer.</li>
+		* <li><code>ENUMERATE_ALL_COM</code> - when enabled, queries all COM port devices in the system. When disabled, queries only devices whose names
+		* match the XIMC device mask ("XIMC Motor Controller" in Windows, <code>/dev/ximc/</code> and <code>/dev/ttyACM/</code> on Linux/Mac).</li>
+		* <li><code>ENUMERATE_PROBE</code> - enables checking of devices and collecting additional information (serial number, version, model, name...).
+		* If this flag is set, only devices that are guaranteed to be open will be added to the list, but devices connected via RS232 converters may not be included.
+		* If the flag is not set, the list will include more devices (in particular, devices explicitly listed in <code>hints</code> will be included),
+		* but availability and compatibility with this library is not guaranteed.</li>
+		* </ul>
+		* @param[in] hints additional information to improve the search efficiency. It makes sense to use in case of complex network configuration,
+		* when automatic search may not find everything. Format - string <code>"key1=value1\nkey2=value2"</code>. Unknown keys are ignored.
+		* One key can have several values, which are listed separated by commas: <code>key=value1,value2,value3</code>. Valid keys:
+		* <ul>
+		* <li><code>addr</code> - list of URLs of network controllers or servers with connected controllers. The field is used together with the <code>ENUMERATE_NETWORK</code> flag.
+		* Protocols and address formats:
+		* <ul>
+		* <li><code>xi-tcp://&lt;ip-address&gt; - network controllers and controllers connected via Ethernet-RS232 converters. If the <code>ENUMERATE_PROBE</code>
+		* flag is not set, all listed devices will be included in the list.</li>
+		* <li>xi-net://&lt;ip-address&gt; - network multi-axis systems, xi-net servers. The request for information about the availability of controllers at these
+		* addresses will be made regardless of the results of the automatic network search procedure.</li>
+		* </ul>
+		* </li>
+		* <li><code>adapter_addr</code> - list of IP addresses of local network adapters through which the search should be performed.
+		* If the key is missing or no adapters are specified, the search is performed on all adapters.</li>
+		* </ul>
+		* \return <code>device_enumeration</code> - device list identifier. Used to obtain information about devices using functions with <code>get_enumerate_</code> prefixes.
+		* \par Examples of use:
+		* <pre>
+		* <code>
+		* // Search for local devices without checking
+		* device_enumeration_t device_enumeration = enumerate_devices(0, "");
+		* // Search for local devices with verification
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_PROBE, "");
+		* // Fully automatic search for local and network devices
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_NETWORK, "");
+		* // Search for local and network devices
+		* // using the local computer adapter with the address 192.168.0.100
+		* // and explicit requests to the network controller with the address 192.168.0.11
+		* // and the xi-net server with the address 192.168.0.10
+		* device_enumeration_t device_enumeration = enumerate_devices(
+		* ENUMERATE_NETWORK,
+		* "addr=192.168.0.10,xi-tcp://192.168.0.11\nadapter_addr=192.168.0.100" 
+		* ); 
+		* </code>
+		* </pre>
 		* \endenglish
 		* \russian
-		* Перечисляет все XIMC-совместимые устройства.
-		* @param[in] enumerate_flags флаги поиска устройств
-		* @param[in] hints дополнительная информация для поиска
-		* \par
-		* hints это строка вида "ключ=значение \n ключ2=значение2". <em>Неизвестные пары ключ-значение игнорируются</em>.
-		* Список ключей: addr (обязательный!) - используется вместе с флагом ENUMERATE_NETWORK.
-		* Ненулевое значение - это адрес или список адресов с перечислением через запятую удаленных хостов, на которых происходит поиск устройств. Пример: "addr=192.168.1.1,172.16.2.3".
-		* Отсутствующее значение - это подключение посредством широковещательного запроса. Пример: "addr=".
-		* adapter_addr - используется вместе с флагом ENUMERATE_NETWORK.
-		* Ненулевое значение это IP адрес сетевого адаптера. Сетевое устройство ximc должно быть в локальной сети, к которой подключён этот адаптер. Пример: "addr= \n adapter_addr=192.168.0.100".
+		* Поиск и составление списка доступных устройств. По умолчанию формирует список устройств, подключенных к данному компьютеру и представленных в виде COM-портов. 
+		* Дополнительно можно включить поиск сетевых устройств. Найденные в локальной сети устройства попадут в тот же список.<br>
+		* Для получения информации из собранного списка воспользуйтесь соответствующими функциями с префиксом <code>get_enumerate_</code> и
+		* полученным идентификатором <code>device_enumeration</code>.<br>
+		* После завершения работы со списком найденных устройств следует освободить память с помощью функции <code>free_enumerate_devices()</code>.
+		* @param[in] enumerate_flags набор флагов, задающих режимы поиска. Флаги могут применяться совместно через побитовое "ИЛИ".
+		* <ul>
+		* <li><code>ENUMERATE_NETWORK</code> - включает поиск сетевых устройств. Если флаг установлен, сетевые устройства будут добавлены в общий список.
+		* Если флаг не установлен, в списке будут только устройства, подключенные к данному компьютеру.</li>
+		* <li><code>ENUMERATE_ALL_COM</code> - при включенной опции опрашивает все устройства типа COM-порт в системе. При отключенной опции опрашивает только устройства,
+		* имена которых соответствуют маске устройств XIMC ("XIMC Motor Controller" в Windows, <code>/dev/ximc/</code> и <code>/dev/ttyACM/</code> на Linux/Mac).</li>
+		* <li><code>ENUMERATE_PROBE</code> - включает проверку устройств и сбор дополнительной информации (серийный номер, версию, модель, имя...).
+		* Если данный флаг установлен, в список будут добавлены только устройства, которые гарантированно можно открыть, но могут не попадать устройства,
+		* подключенные через RS232-преобразователи. Если флаг не установлен, то в списке будет больше устройств (в частности, попадут устройства,
+		* явным образом перечисленные в <code>hints</code>), но доступность и совместимость с данной библиотекой не гарантируется.</li>
+		* </ul>
+		* @param[in] hints дополнительная информация для повышения эффективности поиска. Имеет смысл использовать в случае сложной сетевой конфигурации,
+		* когда автоматический поиск может находить не всё. Формат - строка <code>"ключ1=значение1\nключ2=значение2"</code>. Неизвестные ключи игнорируются.
+		* Один ключ может иметь несколько значений, которые перечисляются через запятую: <code>ключ=значение1,значение2,значение3</code>. Допустимые ключи:
+		* <ul>
+		* <li><code>addr</code> - список URLов сетевых контроллеров или серверов с подключенными контроллерами. Поле применяется совместно с флагом <code>ENUMERATE_NETWORK</code>.
+		* Протоколы и форматы адресов:
+		* <ul>
+		* <li><code>xi-tcp://&lt;ip-адрес&gt;</code> - сетевые контроллеры и контроллеры, подключенные через Ethernet-RS232 преобразователи.
+		* Если флаг <code>ENUMERATE_PROBE</code> не установлен, все перечисленные устройства попадут в список.</li>
+		* <li><code>xi-net://&lt;ip-адрес&gt;</code> - сетевые многоосевые системы, xi-net сервера. Запрос информации о наличии контроллеров по этим адресам будет сделан
+		* независимо от результатов автоматической процедуры сетевого поиска.</li>
+		* </ul>
+		* </li>
+		* <li><code>adapter_addr</code></li> - список IP-адресов локальных сетевых адаптеров, через который должен осуществляться поиск. Если ключ отсутствует или ни одного адаптера не указано,
+		* то поиск производится на всех адаптерах.</li>
+		* </ul>
+		* \return <code>device_enumeration</code> - идентификатор списка устройств. Используется для получения информации об устройствах с помощью функций с префиксами <code>get_enumerate_</code>.<br>
+		* \par Примеры использования:
+		* <pre>
+		* <code>
+		* // Поиск локальных устройств без проверки
+		* device_enumeration_t device_enumeration = enumerate_devices(0, ""); 
+		* // Поиск локальных устройств c проверкой
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_PROBE, "");
+		* // Полностью автоматический поиск локальных и сетевых устройств
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_NETWORK, "");
+		* // Поиск локальных и сетевых устройств
+		* // с использованием адаптера локального компьютера с адресом 192.168.0.100
+		* // и явным обращениям к сетевому контроллеру с адресом 192.168.0.11
+		* // и xi-net серверу с адресом  192.168.0.10
+		* device_enumeration_t device_enumeration = enumerate_devices(
+		* ENUMERATE_NETWORK,
+		* "addr=192.168.0.10,xi-tcp://192.168.0.11\nadapter_addr=192.168.0.100"
+		* );
+		* </code>
+		* </pre>
 		* \endrussian
 	 */
 	device_enumeration_t XIMC_API enumerate_devices(int enumerate_flags, const char *hints);

@@ -257,6 +257,7 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\adapters.c" />
     <ClCompile Include="src\devenum.c" />
     <ClCompile Include="src\devvirt.c" />
     <ClCompile Include="src\fwprotocol.c" />
@@ -276,7 +277,9 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ximc.h" />
+    <ClInclude Include="src\adapters.h" />
     <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\devenum.h" />
     <ClInclude Include="src\loader.h" />
     <ClInclude Include="src\metadata.h" />
     <ClInclude Include="src\platform.h" />

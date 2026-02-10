@@ -1,3 +1,9 @@
+libximc (2.14.30-1)
+  * Released: Tue, 24 Jun 2025 15:52:32 +0300
+  * Version bump
+  * Feature: The building of deb packages moved to a separate script, #103605
+  * Bug: Changed search for controllers in the network, #114892
+
 libximc (2.14.29-1)
   * Released: Tue, 06 May 2025 13:00:44 +0300
   * Version bump

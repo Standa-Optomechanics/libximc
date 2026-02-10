@@ -426,9 +426,10 @@ FEEDBACK_ENCODER_MEDIATED	= 0x06	/**< \english Feedback by encoder mediated by m
 	* @see get_feedback_settings
 	*/
 flagset FeedbackFlags:
-FEEDBACK_ENC_REVERSE	= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
-FEEDBACK_ENC_TYPE_BITS	= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
-FEEDBACK_ENC_TYPE_AUTO	= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
+FEEDBACK_ENC_REVERSE		= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
+FEEDBACK_ENC_ADAPTIVE_HOLDING	= 0x02	/**< \english Enables the adaptive holding algorithm. \endenglish \russian Включает алгоритм адаптивного удержания. \endrussian */
+FEEDBACK_ENC_TYPE_BITS		= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
+FEEDBACK_ENC_TYPE_AUTO		= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
 FEEDBACK_ENC_TYPE_SINGLE_ENDED	= 0x40	/**< \english Single-ended encoder. \endenglish \russian Недифференциальный энкодер. \endrussian */
 FEEDBACK_ENC_TYPE_DIFFERENTIAL	= 0x80	/**< \english Differential encoder. \endenglish \russian Дифференциальный энкодер. \endrussian */
 
@@ -3486,8 +3487,8 @@ fields:
 	int16u Temp_ADC			/**< \english Voltage from temperature sensor, raw data from ADC. \endenglish \russian Напряжение с датчика температуры, необработанные данные с АЦП. \endrussian */
 	int16u Joy_ADC			/**< \english Joystick raw data from ADC. \endenglish \russian Джойстик, необработанные данные с АЦП. \endrussian */
 	int16u Pot_ADC			/**< \english Voltage on analog input, raw data from ADC \endenglish \russian Напряжение на аналоговом входе, необработанные данные с АЦП \endrussian */
-	int16u L5_ADC			/**< \english USB supply voltage after the current sense resistor, raw data from ADC. \endenglish \russian Напряжение питания USB после current sense резистора, необработанные данные с АЦП. \endrussian */
-	int16u H5_ADC			/**< \english USB Power supply from ADC \endenglish \russian Напряжение питания USB, необработанные данные с АЦП \endrussian */
+	int16u Enc_Check_ADC	/**< \english Voltage on encoder check line, raw ADC data. Used to determine encoder type: single-ended or differential. \endenglish \russian Напряжение на линии проверки типа энкодера, необработанные данные АЦП. Используется для определения типа энкодера: с однофазным выходом или дифференциальный. \endrussian */
+	int16u deprecated0
 	int16s A1Voltage		/**< \english "Voltage on pin 1 winding A" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 1 выводе обмотки А" откалиброванные данные (в десятках мВ). \endrussian */
 	int16s A2Voltage		/**< \english "Voltage on pin 2 winding A" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 2 выводе обмотки А" откалиброванные данные (в десятках мВ). \endrussian */
 	int16s B1Voltage		/**< \english "Voltage on pin 1 winding B" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 1 выводе обмотки B" откалиброванные данные (в десятках мВ). \endrussian */
@@ -3499,9 +3500,8 @@ fields:
 	int16s Temp				/**< \english Temperature, calibrated data (in tenths of degrees Celsius). \endenglish \russian Температура, откалиброванные данные (в десятых долях градуса Цельсия). \endrussian */
 	int16s Joy				/**< \english Joystick, calibrated data. Range: 0..10000 \endenglish \russian Джойстик во внутренних единицах. Диапазон: 0..10000 \endrussian */
 	int16s Pot				/**< \english Analog input, calibrated data. Range: 0..10000 \endenglish \russian Аналоговый вход во внутренних единицах. Диапазон: 0..10000 \endrussian */
-	int16s L5				/**< \english USB supply voltage after the current sense resistor (in tens of mV). \endenglish \russian Напряжение питания USB после current sense резистора (в десятках мВ). \endrussian */
-	int16s H5				/**< \english USB power supply (in tens of mV). \endenglish \russian Напряжение питания USB (в десятках мВ). \endrussian */
-	int16u deprecated
+	int16s Enc_Check		/**< \english Voltage on encoder check line, exponentially filtrated ADC codes. Used to determine encoder type: single-ended or differential. \endenglish \russian Напряжение на линии проверки типа энкодера, экспонениально сглаженные данные АЦП. Используется для определения типа энкодера: с однофазным выходом или дифференциальный. \endrussian */
+	int16u deprecated1[2]
 	int32s R				/**< \english Motor winding resistance in mOhms (is only used with stepper motors). \endenglish \russian Сопротивление обмоток двигателя(для шагового двигателя),  в мОм \endrussian */
 	int32s L				/**< \english Motor winding pseudo inductance in uH (is only used with stepper motors). \endenglish \russian Псевдоиндуктивность обмоток двигателя(для шагового двигателя),  в мкГн \endrussian */
 	reserved 8

@@ -44,8 +44,11 @@ $(top_builddir)/libximc/include/ximc.h: protocol.xi $(XIGEN_DEP) ximc-template.h
 
 # the sources to add to the library and to add to the distribution
 libximc_la_SOURCES = \
+                        adapters.c \
+                        adapters.h \
 						common.h \
 						devenum.c \
+                        devenum.h \
 						devvirt.c \
 						loader.c \
 						loader.h \

@@ -459,12 +459,12 @@ char *uri_decode(const char *str) {
 
 /* Returns a copy of str */
 /* IMPORTANT: be sure to free() the returned string after use */
-char *uri_copy(const char *str) {
+char* uri_copy(const char *str) {
 	size_t len = strlen(str);
-	char *buf = malloc(len + 1);
-	strncpy(buf, str, len);
-	buf[len] = '\0';
-	return buf;
+	char* buffer = (char*)malloc(len + 1);
+	strncpy(buffer, str, len);
+	buffer[len] = '\0';
+	return buffer;
 }
 
 /*

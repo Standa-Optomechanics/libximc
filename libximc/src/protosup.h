@@ -183,20 +183,6 @@ do {\
 	(mvalue) = (int)(((fvalue1 - fvalue2) / ((coeff)->A) - (value)) * powi(2, (coeff)->MicrostepMode - 1)); \
 } while (0)
 
-/*
- * Fine-grained locks
- */
-void lock(device_t id);
-void unlock(device_t id);
-result_t unlocker (device_t id, result_t res);
-
-/*
- * Global lock
- */
-void lock_global();
-void unlock_global ();
-result_t unlocker_global (result_t res);
-
 typedef struct device_enumeration_opaque_t
 {
 	int allocated_count;
@@ -214,11 +200,27 @@ typedef struct device_enumeration_opaque_t
 uint32_t conn_id_by_device_id(device_t id);
 uint32_t serial_by_device_id(device_t id);
 
-/*
- * Global metadata lock
- */
+/* Fine-grained locks */
+void lock(device_t id);
+void unlock(device_t id);
+result_t unlocker(device_t id, result_t res);
+
+/* Global lock */
+void lock_global();
+void unlock_global();
+result_t unlocker_global(result_t res);
+
+/* Global metadata lock */
 void lock_metadata();
 void unlock_metadata();
+
+/* Mutex to work with data for xinet devices */
+void lock_xinet_data();
+void unlock_xinet_data();
+
+/* Mutex to check devices */
+void lock_check_devices();
+void unlock_check_devices();
 
 /*
  * File log
