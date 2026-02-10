@@ -1,3 +1,10 @@
+libximc (2.14.31-1)
+  * Released: Mon, 25 Aug 2025 10:44:29 +0300
+  * Version bump
+  * Feature: The examples have been tidied up, #86772
+  * Feature: The building of deb packages moved to a separate script, #103605
+  * Feature: Protocol version 20.10 has been released, #119790
+
 libximc (2.14.30-1)
   * Released: Tue, 24 Jun 2025 15:52:32 +0300
   * Version bump

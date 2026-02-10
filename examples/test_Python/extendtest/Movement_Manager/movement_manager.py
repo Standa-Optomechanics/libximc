@@ -73,7 +73,7 @@ class MovementManagerBase(ABC):
               "Q or q keys\t-\treturn to the main menu\n"
               "L or l keys\t-\tmove to the left\n"
               "R or r keys\t-\tmove to the right. Press and hold the key\n"
-              "M or m keys\t-\tmove to position(mov)\n"
+              "M or m keys\t-\tmove to position(move)\n"
               "S or s keys\t-\tposition shift(movr)\n"
               "H or h keys\t-\tHOME position\n"
               "Z or z keys\t-\tZERO position\n")

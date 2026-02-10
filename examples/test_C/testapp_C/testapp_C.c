@@ -199,7 +199,7 @@ int main (int argc, char* argv[])
 	set_logging_callback(my_logging_callback, &used_loglevel);
 	ximc_version( ximc_version_str );
 
-	wprintf( L"Hello! I'm a stupid test program!\n" );
+	wprintf( L"Hello! I'm a ximc test program!\n" );
 	wprintf( L"libximc version %hs\n", ximc_version_str );
 	wprintf( L"I am %d bit\n", sizeof(int*)==4 ? 32 : 64 );
 	wprintf( L"Give %d arguments\n", argc-1 );

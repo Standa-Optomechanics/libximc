@@ -1,4 +1,4 @@
-protocol "v20.9"
+protocol "v20.10"
 defaults with crc, answer, public
 
 /** \english
@@ -144,11 +144,23 @@ STATE_ENC_B						= 0x00004000	/**< \english State of encoder B pin. \endenglish 
 	* @name Encoder state
 	* This is a bit mask for bitwise operations.
 	* Encoder state returned by device query.
+	* @note The ENCD flag is only active in the None and EMF modes. 
+	* In other modes, such as Encoder and Encoder Mediated, it is not used, 
+	* as these modes cannot operate without an encoder. 
+	* After the controller is powered on, the flag will be in the unknown state — 
+	* a movement is required to determine the position. 
+	* As the movement occurs, the flag’s value may change.
 	* \endenglish
 	* \russian
 	* @name Состояние энкодера
 	* Это битовая маска для побитовых операций.
 	* Состояние энкодера, подключенного к контроллеру.
+	* @note Флаг ENCD работает только в режимах None и EMF. 
+	* В других режимах, таких как Encoder и Encoder Mediated, он не используется, 
+	* потому что эти режимы невозможно использовать без энкодера. 
+	* Сразу после включения контроллера флаг будет в состоянии unknown — 
+	* чтобы определить положение, нужно совершить движение. 
+	* По мере движения значение флага может меняться.
 	* \endrussian
 	* @see get_status
 	*/
@@ -368,14 +380,14 @@ POWER_SMOOTH_CURRENT	= 0x04	/**< \english Current ramp-up/down are performed smo
 	* @see set_secure_settings
 	*/
 flagset SecureFlags:
-ALARM_ON_DRIVER_OVERHEATING	= 0x01	/**< \english If this flag is set, enter the alarm state on the driver overheat signal. \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала подступающего перегрева с драйвера. Иначе - игнорировать подступающий перегрев с драйвера. \endrussian */
-LOW_UPWR_PROTECTION			= 0x02	/**< \english If this flag is set, turn off the motor when the voltage is lower than LowUpwrOff. \endenglish \russian Если установлен, то выключать силовую часть при напряжении меньшем LowUpwrOff. \endrussian */
-H_BRIDGE_ALERT				= 0x04	/**< \english If this flag is set then turn off the power unit with a signal problem in one of the transistor bridge. \endenglish \russian Если установлен, то выключать силовую часть при сигнале неполадки в одном из транзисторных мостов.\endrussian */
-ALARM_ON_BORDERS_SWAP_MISSET= 0x08	/**< \english If this flag is set, enter Alarm state on borders swap misset \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала c противоположного концевого выключателя.\endrussian */
-ALARM_FLAGS_STICKING		= 0x10	/**< \english If this flag is set, only a STOP command can turn all alarms to 0 \endenglish \russian Если флаг установлен, то только по команде STOP возможен сброс всех флагов ALARM.\endrussian */
-USB_BREAK_RECONNECT			= 0x20 /**< \english Deprecated. If this flag is set, the USB brake reconnect module will be enabled \endenglish \russian Устарело. Если флаг установлен, то будет включен блок перезагрузки USB при поломке связи.\endrussian */
-ALARM_WINDING_MISMATCH		= 0x40 /**< \english If this flag is set, enter Alarm state when windings mismatch \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала рассогласования обмоток \endrussian */
-ALARM_ENGINE_RESPONSE		= 0x80 /**< \english If this flag is set, enter the Alarm state on response of the engine control action \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала ошибки реакции двигателя на управляющее воздействие  \endrussian */
+ALARM_ON_DRIVER_OVERHEATING		= 0x01	/**< \english If this flag is set, enter the alarm state on the driver overheat signal. \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала подступающего перегрева с драйвера. Иначе - игнорировать подступающий перегрев с драйвера. \endrussian */
+LOW_UPWR_PROTECTION				= 0x02	/**< \english If this flag is set, turn off the motor when the voltage is lower than LowUpwrOff. \endenglish \russian Если установлен, то выключать силовую часть при напряжении меньшем LowUpwrOff. \endrussian */
+H_BRIDGE_ALERT					= 0x04	/**< \english If this flag is set, then turn off the power unit with a signal problem in one of the transistor bridge. \endenglish \russian Если установлен, то выключать силовую часть при сигнале неполадки в одном из транзисторных мостов.\endrussian */
+ALARM_ON_BORDERS_SWAP_MISSET	= 0x08	/**< \english If this flag is set, enter Alarm state on borders swap misset \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала c противоположного концевого выключателя.\endrussian */
+ALARM_FLAGS_STICKING			= 0x10	/**< \english If this flag is set, only a STOP command can turn all alarms to 0 \endenglish \russian Если флаг установлен, то только по команде STOP возможен сброс всех флагов ALARM.\endrussian */
+BRAKING_OVERVOLTAGE_PROTECTION	= 0x20	/**< \english If this flag is set, the firmware will close ground switches of H-bridge to disconnect motor from power circuit on overvoltage. \endenglish \russian Если флаг установлен, то микропрограмма контроллера будет замыкать нижние ключи H-моста, отсоединяя мотор от цепи питания, при перенапряжении. \endrussian */
+ALARM_WINDING_MISMATCH			= 0x40	/**< \english If this flag is set, enter Alarm state when windings mismatch \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала рассогласования обмоток \endrussian */
+ALARM_ENGINE_RESPONSE			= 0x80	/**< \english If this flag is set, enter the Alarm state on response of the engine control action \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала ошибки реакции двигателя на управляющее воздействие  \endrussian */
 
 /**
 	* \english
@@ -1334,12 +1346,10 @@ fields:
 	*/
 /** $XIS
 	* \english
-	* This structure contains raw analog data from ADC embedded on board.
-	* These data are used for device testing and deep recalibration by the manufacturer only.
+	* This structure contains protection parameters: critical electrical values, flags for protection algorithms.
 	* \endenglish
 	* \russian
-	* Эта структура содержит необработанные данные с АЦП и нормированные значения.
-	* Эти данные используются в сервисных целях для тестирования и калибровки устройства.
+	* Структура содержит параметры защиты: критические значения электрических характеристик, флаги управления алгоритмами защиты.
 	* \endrussian
 	* @see get_secure_settings
 	* @see set_secure_settings

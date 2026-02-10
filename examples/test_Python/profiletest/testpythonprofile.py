@@ -117,6 +117,7 @@ print("\nClosing")
 # The device_t device parameter in this function is a C pointer, unlike most library functions that use this parameter
 lib.close_device(byref(cast(device_id, POINTER(c_int))))
 print("Done")
+input("Press Enter to close the script...")
 
 if flag_virtual == 1:
     print(" ")
