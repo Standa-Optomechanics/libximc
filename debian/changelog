@@ -1,3 +1,11 @@
+libximc7 (3.0.1-1) unstable; urgency=low
+
+  * Version bump
+  * Fix Python wrapper bug for windows, #125240
+  * Update protocol to v20.13
+
+ -- XIMC <8smc4@standa.lt>  Fri, 31 Oct 2025 21:42:00 +0300
+
 libximc7 (3.0.0-1) unstable; urgency=low
 
   * Version bump

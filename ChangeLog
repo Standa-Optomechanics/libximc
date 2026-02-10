@@ -1,3 +1,9 @@
+libximc (3.0.1-1)
+  * Released: Fri, 31 Oct 2025 21:42:00 +0300
+  * Version bump
+  * Fix Python wrapper bug for windows, #125240
+  * Update protocol to v20.13
+
 libximc (3.0.0-1)
   * Released: Tue, 07 Oct 2025 15:05:14 +0300
   * Version bump

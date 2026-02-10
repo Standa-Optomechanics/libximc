@@ -41,7 +41,7 @@ echo ++++++++++++++++++++++++++
 PYTHON_BINROOT_DIR=$BASEDIR/wrappers/python
 PYTHON_LIBFILESDIR=$BASEDIR/wrappers/python/src/libximc/library-files
 
-ARCH_LIST="debian-amd64 macosx" # TODO: Add debian-i386, debian-armhf, and wins(64 nd 32) archs!
+ARCH_LIST="debian-amd64 macosx win32 win64" # TODO: Add debian-armhf arch!
 for arch in $ARCH_LIST ; do
     LIBSDIR=$BASEDIR/ximc/$arch
     mkdir -p $PYTHON_LIBFILESDIR/$arch

@@ -1,4 +1,4 @@
-protocol "v20.10"
+protocol "v20.13"
 defaults with crc, answer, public
 
 /** \english
@@ -339,7 +339,6 @@ ENGINE_TYPE_BRUSHLESS	= 0x05	/**< \english Brushless motor. \endenglish \russian
 	* @see get_entype_settings
 	*/
 flagset DriverType:
-DRIVER_TYPE_DISCRETE_FET	= 0x01	/**< \english Driver with discrete FET keys. Default option. \endenglish \russian Силовой драйвер на дискретных мосфет-ключах. Используется по умолчанию. \endrussian */
 DRIVER_TYPE_INTEGRATE		= 0x02	/**< \english Driver with integrated IC. \endenglish \russian Силовой драйвер с использованием ключей, интегрированных в микросхему. \endrussian */
 DRIVER_TYPE_EXTERNAL		= 0x03	/**< \english External driver. \endenglish \russian Внешний силовой драйвер. \endrussian */
 
@@ -438,12 +437,17 @@ FEEDBACK_ENCODER_MEDIATED	= 0x06	/**< \english Feedback by encoder mediated by m
 	* @see get_feedback_settings
 	*/
 flagset FeedbackFlags:
-FEEDBACK_ENC_REVERSE		= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
+FEEDBACK_ENC_REVERSE			= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
 FEEDBACK_ENC_ADAPTIVE_HOLDING	= 0x02	/**< \english Enables the adaptive holding algorithm. \endenglish \russian Включает алгоритм адаптивного удержания. \endrussian */
-FEEDBACK_ENC_TYPE_BITS		= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
-FEEDBACK_ENC_TYPE_AUTO		= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
+FEEDBACK_ENC_FILTER_NONE		= 0x00	/**< \english Disable the internal filter of the encoder signal. \endenglish \russian Выключает внутренний фильтр сигнала энкодера. \endrussian */
+FEEDBACK_ENC_FILTER_WEAK		= 0x10	/**< \english Weak noise filtering: the maximum encoder signal frequency is 3 MHz. \endenglish \russian Слабая фильтрация шумов: максимальная частота сигнала энкодера 3 МГц */
+FEEDBACK_ENC_FILTER_MEDIUM		= 0x20	/**< \english Medium noise filtering: the maximum encoder signal frequency is 1 MHz. \endenglish \russian Средняя фильтрация шумов: максимальная частота сигнала энкодера 1 МГц */
+FEEDBACK_ENC_FILTER_STRONG		= 0x30	/**< \english Strong noise filtering: the maximum encoder signal frequency is 300 kHz. \endenglish \russian Сильная фильтрация шумов: максимальная частота сигнала энкодера 300 кГц */
+FEEDBACK_ENC_FILTER_BITS		= 0x30	/**< \english Bits responsible for setting the internal filter of the encoder signal. \endenglish \russian Биты, отвечающие за настройку внутреннего фильтра энкодерного сигнала. \endrussian */
+FEEDBACK_ENC_TYPE_AUTO			= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
 FEEDBACK_ENC_TYPE_SINGLE_ENDED	= 0x40	/**< \english Single-ended encoder. \endenglish \russian Недифференциальный энкодер. \endrussian */
 FEEDBACK_ENC_TYPE_DIFFERENTIAL	= 0x80	/**< \english Differential encoder. \endenglish \russian Дифференциальный энкодер. \endrussian */
+FEEDBACK_ENC_TYPE_BITS			= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
 
 /**
 	* \english
@@ -1647,7 +1651,8 @@ fields:
 	calb float Speed							/**< \english Target speed. \endenglish \russian Заданная скорость. \endrussian */
 	normal int32u Speed							/**< \english Target speed (for stepper motor: steps/s, for DC: rpm). Range: 0..100000. \endenglish \russian Заданная скорость (для ШД: шагов/c, для DC: rpm). Диапазон: 0..100000. \endrussian */
 	normal int8u uSpeed							/**< \english Target speed in microsteps/s. Microstep size and the range of valid values for this field depend on the selected step division mode (see the MicrostepMode field in engine_settings). Used a stepper motor only. \endenglish \russian Заданная скорость в микрошагах в секунду. Величина микрошага и диапазон допустимых значений для данного поля зависят от выбранного режима деления шага (см. поле MicrostepMode в engine_settings). Используется только с шаговым мотором. \endrussian */
-	reserved 8
+	int8u reserved0
+	reserved 7
 
 /** $XIR
 	* \english
