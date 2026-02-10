@@ -1,3 +1,9 @@
+libximc (2.14.28-1)
+  * Released: Thu, 20 Feb 2025 10:46:59 +0300
+  * Version bump
+  * Bug: Fix documentation a little
+  * Bug: Fix python binding bug with uninitialized structures, #105984
+  * Bug: Add errcode return while trying to set calb.coeff. A to 0, #91948
 libximc (2.14.27-1)
   * Released: Wed, 28 Aug 2024 16:36:02 +0300
   * Version bump

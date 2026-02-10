@@ -1,10 +1,10 @@
 Source: libximc7
 Priority: extra
-Maintainer: XIMC Labs <info@ximc.ru>
+Maintainer: XIMC Labs <8smc4@standa.lt>
 Build-Depends: debhelper (>= 7.0.50~), autotools-dev, doxygen, bison, flex
 Standards-Version: 3.8.4
 Section: libs
-Homepage: http://www.ximc.ru
+Homepage: http://www.xisupport.com
 
 Package: libximc7-dev
 Section: libdevel

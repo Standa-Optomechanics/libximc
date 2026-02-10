@@ -1043,7 +1043,7 @@ result_t open_port_net(device_metadata_t *metadata, const char* host, const char
  *   xi-emu:///c:/temp/virtual56.dat
  *   xi-emu:///c:/temp/virtual56.dat?serial=123
  *   xi-net://127.0.0.1/7890ABCD
- *   xi-net://remote.ximc.ru/7890ABCD
+ *   xi-net://remote.xisupport.com/7890ABCD
  */
 result_t open_port (device_metadata_t *metadata, const char* name)
 {

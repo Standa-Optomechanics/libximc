@@ -1960,22 +1960,24 @@ fields:
 	* \english
 	* Read joystick settings.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
-	* in the range of the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits correspond to zero speed (a soft stop of the motion),
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
-	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[out] joystick_settings structure contains joystick settings
 	* \endenglish
 	* \russian
 	* Чтение настроек джойстика.
-	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
+        * При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
 	* https://doc.xisupport.com/ru/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html.
 	* @param id идентификатор устройства
@@ -1986,10 +1988,12 @@ fields:
 	* \english
 	* Set joystick position.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
-	* in the range of the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits correspond to zero speed (a soft stop of motion),
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
-	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[in] joystick_settings structure contains joystick settings
@@ -1998,10 +2002,10 @@ fields:
 	* Запись настроек джойстика.
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
 	* https://doc.xisupport.com/ru/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html.
 	* @param id идентификатор устройства
@@ -2012,7 +2016,14 @@ fields:
 	* \english
 	* Joystick settings.
 	*
-	* This structure contains joystick parameters. If joystick position falls outside the DeadZone limits, a movement begins. Speed is defined by the joystick position in the range of the DeadZone limit to the maximum deviation. Joystick positions inside the DeadZone limits correspond to zero speed (a soft stop of the motion), and positions beyond the Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL), where i = 0 by default and can be changed with left/right buttons (see command SCTL). If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* This structure contains joystick parameters.
+        * If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
+	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
+	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	*
 	* The relationship between the deviation and the rate is exponential, which allows for high mobility and accuracy without speed mode switching.
 	* \endenglish
@@ -2021,11 +2032,12 @@ fields:
 	* Команда чтения настроек и калибровки джойстика.
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
-	* от центра (JoyCenter) до правого или левого максимума. Зависимость между отклонением и скоростью экспоненциальная,
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
+	* от центра (JoyCenter) до правого или левого максимума.
+        * Зависимость между отклонением и скоростью экспоненциальная,
 	* что позволяет без переключения режимов скорости сочетать высокую подвижность и точность.
 	* \endrussian
 	* @see set_joystick_settings
@@ -2037,7 +2049,7 @@ fields:
 	int16u JoyCenter					/**< \english Joystick center position. Range: 0..10000. \endenglish \russian Значение в шагах джойстика, соответствующее неотклонённому устройству. Должно лежать в пределах. Диапазон: 0..10000. \endrussian */
 	int16u JoyHighEnd					/**< \english Joystick upper end position. Range: 0..10000. \endenglish \russian Значение в шагах джойстика, соответствующее верхней границе диапазона отклонения устройства. Должно лежать в пределах. Диапазон: 0..10000. \endrussian */
 	int8u ExpFactor						/**< \english Exponential nonlinearity factor. \endenglish \russian Фактор экспоненциальной нелинейности отклика джойстика. \endrussian */
-	int8u DeadZone						/**< \english Joystick dead zone. \endenglish \russian Отклонение от среднего положения, которое не вызывает начала движения (в десятых долях процента). Максимальное мёртвое отклонение +-25.5%, что составляет половину рабочего диапазона джойстика. \endrussian */
+	int8u DeadZone						/**< \english Joystick deviation from the central position in 0.1% units that do not result in a start of motion. Maximal deviation is +-25.5% that is more than a half of the total joystick range. \endenglish \russian Отклонение от среднего положения, которое не вызывает начала движения (в десятых долях процента). Максимальное мёртвое отклонение +-25.5%, что составляет половину рабочего диапазона джойстика. \endrussian */
 	int8u flag JoyFlags of JoyFlags		/**< \english Joystick control flags. This is a bit mask for bitwise operations. \endenglish \russian Флаги управления джойстиком. Это битовая маска для побитовых операций. \endrussian */
 	reserved 7
 

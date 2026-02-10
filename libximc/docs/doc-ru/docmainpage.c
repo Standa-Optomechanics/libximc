@@ -129,7 +129,7 @@
  * Пакеты располагаются в ./ximc/rpm, локально установленные файлы - в ./dist/local.
  *
  * \section building_src Доступ к исходным кодам
- * Исходные коды библиотеки libximc можно найти на <a href="https://github.com/EPC-MSU/libximc">github</a>.
+ * Исходные коды библиотеки libximc можно найти на <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
  *
  * \page howtouse_sec Как использовать с...
  *
@@ -191,7 +191,7 @@
  *
  * В случае, если планируется использовать Ethernet-адаптер 8Eth1, в файле testapp.c перед сборкой нужно прописать IP адрес Ethernet-адаптера (переменная enumerate_hints).
  * 
- * Также существует <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">пример использования библиотеки libximc</a> в проекте С++ Builder, <b>но он не поддерживается</b>.
+ * Также существует <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">пример использования библиотеки libximc</a> в проекте С++ Builder, <b>но он не поддерживается</b>.
  *
  * \subsection howtouse_c_xcode_sec XCode
  *

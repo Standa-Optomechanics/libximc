@@ -129,7 +129,7 @@
  * Grab packages from ./ximc/rpm and locally installed binaries from ./dist/local.
  *
  * \section building_src Source code access
- * The source codes of the libximc library can be found on <a href="https://github.com/EPC-MSU/libximc">github</a>.
+ * The source codes of the libximc library can be found on <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
  *
  * \page howtouse_sec How to use with...
  *
@@ -196,7 +196,7 @@
  *
  * In case of the 8Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in testapp.c file before build (see enumerate_hints variable).
  * 
- * There is also an <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">unsupported example</a> of using libximc in a C++ Builder project
+ * There is also an <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">unsupported example</a> of using libximc in a C++ Builder project
  *
  * \subsection howtouse_c_xcode_sec XCode
  *
@@ -206,7 +206,7 @@
  * Then launch application testapp.app and check activity output in Console.app.
  * 
  * In case of the 8Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in testapp.c file before build (see enumerate_hints variable).
- * There is also <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">an example of using the libximc library</a> in a C++ Builder project, <b>but it is not supported</b>.
+ * There is also <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">an example of using the libximc library</a> in a C++ Builder project, <b>but it is not supported</b>.
  *
  * \subsection howtouse_c_gcc_sec GCC
  *

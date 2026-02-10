@@ -259,8 +259,8 @@ extern "C"
 		\endrussian	 */
 	typedef struct calibration_t
 	{
-		double A; 		/**< \english is a conversion factor which is equal number of millimeters (or other units) per one step  \endenglish \russian коэффициент преобразования, равный количеству миллиметров (или других единиц) на один шаг \endrussian */
-		unsigned int MicrostepMode;			/**< \english is a controller setting which is determine a step division mode \endenglish \russian это настройка контроллера, определяющая режим пошагового деления \endrussian */
+		double A; 		/**< \english Conversion factor which is equal number of millimeters (or other units) per one step. Should be non-zero positive. \endenglish \russian Коэффициент преобразования, равный количеству миллиметров (или других единиц) на один шаг. Должен быть отличным от нуля и положительным. \endrussian */
+		unsigned int MicrostepMode;			/**< \english Controller setting which is determine a step division mode \endenglish \russian Настройка контроллера, определяющая режим пошагового деления. \endrussian */
 	} calibration_t;
 
 	/**

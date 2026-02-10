@@ -78,7 +78,7 @@ II. Build
 Working with the library
 
 * Cloning the repository: 
-  git clone https://github.com/EPC-MSU/libximc
+  git clone https://github.com/Standa-Optomechanics/libximc
 * We switch to the desired state using git checkout
 * From the library folder, run the: 
   build.bat
