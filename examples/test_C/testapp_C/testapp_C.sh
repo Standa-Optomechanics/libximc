@@ -20,7 +20,7 @@ i686)
   FULL_LIBRARY_PATH=None
   echo "There is no binaries for this architecture."
   echo "To run example you can try to build libximc from sources for your architecture (with no warranty):"
-  echo "https://github.com/EPC-MSU/libximc"
+  echo "https://github.com/Standa-Optomechanics/libximc"
   ;;
 esac
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		482F552D2DE7255F00BD517A /* adapters.c in Sources */ = {isa = PBXBuildFile; fileRef = 482F552C2DE7255F00BD517A /* adapters.c */; };
+		482F55302DE7256F00BD517A /* adapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 482F552E2DE7256F00BD517A /* adapters.h */; };
+		482F55312DE7256F00BD517A /* devenum.h in Headers */ = {isa = PBXBuildFile; fileRef = 482F552F2DE7256F00BD517A /* devenum.h */; };
 		8108B74C1847FA57007E9F48 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8108B74B1847FA57007E9F48 /* CoreFoundation.framework */; };
 		8108B74E1847FA60007E9F48 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8108B74D1847FA60007E9F48 /* IOKit.framework */; };
 		810AC684277219B30021F1C9 /* udp-posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 810AC683277219B30021F1C9 /* udp-posix.c */; };
@@ -54,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		08FB77AAFE841565C02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		482F552C2DE7255F00BD517A /* adapters.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adapters.c; path = src/adapters.c; sourceTree = "<group>"; };
+		482F552E2DE7256F00BD517A /* adapters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adapters.h; path = src/adapters.h; sourceTree = "<group>"; };
+		482F552F2DE7256F00BD517A /* devenum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = devenum.h; path = src/devenum.h; sourceTree = "<group>"; };
 		8108B74B1847FA57007E9F48 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		8108B74D1847FA60007E9F48 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		810AC683277219B30021F1C9 /* udp-posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "udp-posix.c"; path = "src/udp-posix.c"; sourceTree = "<group>"; };
@@ -61,7 +67,7 @@
 		819182A3170B3124001B93C8 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sglib.h; path = src/sglib.h; sourceTree = "<group>"; };
 		8195605114EFF39100C65881 /* libximc.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = libximc.xcconfig; sourceTree = SOURCE_ROOT; };
 		8195608214EFFFCF00C65881 /* version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = version.xcconfig; sourceTree = SOURCE_ROOT; };
-		819BD0741A3597C200238B33 /* libbindy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbindy.dylib; path = ../deps/xiwrapper/libbindy.dylib; sourceTree = "<group>"; };
+		819BD0741A3597C200238B33 /* libbindy.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libbindy.dylib; path = ../deps/bindy/libbindy.dylib; sourceTree = "<group>"; };
 		81B35D6F1A32482000980E24 /* wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wrapper.h; path = ../deps/xiwrapper/wrapper.h; sourceTree = "<group>"; };
 		81B86F6E1A35D11C00636CE4 /* libxiwrapper.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxiwrapper.dylib; path = ../deps/xiwrapper/libxiwrapper.dylib; sourceTree = "<group>"; };
 		81BAFE851ACB26A10096F411 /* devvirt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = devvirt.c; path = src/devvirt.c; sourceTree = "<group>"; };
@@ -105,6 +111,9 @@
 		0867D691FE84028FC02AAC07 /* libximc */ = {
 			isa = PBXGroup;
 			children = (
+				482F552E2DE7256F00BD517A /* adapters.h */,
+				482F552F2DE7256F00BD517A /* devenum.h */,
+				482F552C2DE7255F00BD517A /* adapters.c */,
 				81B35D711A32483200980E24 /* xiwrapper */,
 				8195607F14EFFED200C65881 /* xcconfigs */,
 				81D3E4850F87E8B50059F088 /* API */,
@@ -207,7 +216,9 @@
 				81F6942514F002A9003EEC3C /* common.h in Headers */,
 				81F6942714F002A9003EEC3C /* loader.h in Headers */,
 				81F6942B14F002A9003EEC3C /* protosup.h in Headers */,
+				482F55302DE7256F00BD517A /* adapters.h in Headers */,
 				81F6942F14F002A9003EEC3C /* util.h in Headers */,
+				482F55312DE7256F00BD517A /* devenum.h in Headers */,
 				81C68A7A1551BDA7002E377F /* ximc-gen.h in Headers */,
 				81D1543916811E4F0075B4B8 /* platform.h in Headers */,
 				819182A4170B3124001B93C8 /* sglib.h in Headers */,
@@ -251,6 +262,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* libximc */;
@@ -284,6 +296,7 @@
 				81BAFE871ACB26A10096F411 /* devvirt.c in Sources */,
 				81BAFE881ACB26A10096F411 /* fwprotocol.c in Sources */,
 				810AC684277219B30021F1C9 /* udp-posix.c in Sources */,
+				482F552D2DE7255F00BD517A /* adapters.c in Sources */,
 				81C68A791551BDA7002E377F /* ximc-gen.c in Sources */,
 				81D1543716811E4F0075B4B8 /* devenum.c in Sources */,
 				81D1543816811E4F0075B4B8 /* platform-posix.c in Sources */,
@@ -304,6 +317,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../deps/bindy",
 					"$(PROJECT_DIR)/../deps/xiwrapper",
 					"$(PROJECT_DIR)/../deps/miniupnpc/lib",
 				);
@@ -319,6 +333,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../deps/bindy",
 					"$(PROJECT_DIR)/../deps/xiwrapper",
 					"$(PROJECT_DIR)/../deps/miniupnpc/lib",
 				);

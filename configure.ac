@@ -1,5 +1,5 @@
 AC_PREREQ(2.59)
-AC_INIT([libximc7], [2.14.27])
+AC_INIT([libximc7], [3.0.0])
 
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR(config)
@@ -15,9 +15,6 @@ AC_CONFIG_FILES([Makefile
 								 libximc/docs/doc-en/Makefile
 								 libximc/docs/doc-ru/Doxyfile
 								 libximc/docs/doc-ru/Makefile
-								 xigen/Makefile
-								 xigen/src/Makefile
-								 xigen/tests/Makefile
 								 wrappers/Makefile
 								 wrappers/java/Makefile
 								 wrappers/java/src/Makefile
@@ -25,7 +22,7 @@ AC_CONFIG_FILES([Makefile
 								 wrappers/java/src/java/Makefile
 								])
 
-AM_INIT_AUTOMAKE([-Wall -Werror])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 
 # libtool requirement, non-posix
 AC_PROG_EGREP
@@ -66,9 +63,9 @@ AC_MSG_RESULT([$with_docs])
 AM_CONDITIONAL([HAVE_DOCS], [test "x$with_docs" = "xyes"])
 
 if test "x$with_docs" = "xyes" ; then
-	DX_INIT_DOXYGEN([$PACKAGE_NAME], [Doxyfile], [docs] )
+	DX_INIT_DOXYGEN([$PACKAGE_NAME], [Doxyfile], [docs])
 else
-	DX_INIT_DOXYGEN([$PACKAGE_NAME], [DO_NOT_WANT], [docs] )
+	DX_INIT_DOXYGEN([$PACKAGE_NAME], [DO_NOT_WANT], [docs])
 fi
 
 # Check for locks feature
@@ -165,8 +162,6 @@ if test "x$with_java" = "xyes" ; then
 	AC_SUBST([CPPJNIFLAGS],["$CPPJNIFLAGS"])
 fi
 
-AC_FUNC_STRERROR_R
-
 AC_PROG_INSTALL
 AC_PROG_LIBTOOL
 
@@ -192,9 +187,9 @@ fi
 AC_CHECK_LIB([pthread], [pthread_create])
 AC_CHECK_FUNCS([strstr strerror_r nanosleep flock realloc realpath])
 
+AC_FUNC_STRERROR_R
+
 # xiwrapper support
-
-
 AC_MSG_CHECKING([for xiwrapper support])
 AC_ARG_WITH([xiwrapper],
 						[AS_HELP_STRING([--with-xiwrapper], [use xiwrapper at path])],

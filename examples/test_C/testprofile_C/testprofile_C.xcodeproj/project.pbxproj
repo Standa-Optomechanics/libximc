@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		81C68A851551C4D8002E377F /* libximc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libximc.framework; path = ../../../ximc/macosx/libximc.framework; sourceTree = SOURCE_ROOT; };
+		81C68A851551C4D8002E377F /* libximc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libximc.framework; path = ../../../dist/ximc/macosx/libximc.framework; sourceTree = SOURCE_ROOT; };
 		81D3E64D0F8804F80059F088 /* testprofile_C.c */ = {isa = PBXFileReference; fileEncoding = 11; lastKnownFileType = sourcecode.c.c; path = testprofile_C.c; sourceTree = "<group>"; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D0C4E970486CD37000505A6 /* testprofile_C.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testprofile_C.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +164,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Release/testprofile_C.app/Contents/Frameworks\"",
-					"\"$(SRCROOT)/../../../ximc/macosx\"",
+					"\"$(SRCROOT)/../../../dist/ximc/macosx\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -186,7 +186,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/build/Release/testprofile_C.app/Contents/Frameworks\"",
-					"\"$(SRCROOT)/../../../ximc/macosx\"",
+					"\"$(SRCROOT)/../../../dist/ximc/macosx\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -206,7 +206,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.15;
 				VALID_ARCHS = "x86_64";
 			};
 			name = Debug;
@@ -221,7 +221,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx10.15;
 				VALID_ARCHS = "x86_64";
 			};
 			name = Release;

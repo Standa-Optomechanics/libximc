@@ -23,10 +23,9 @@ The example consists of:
 
 * support_routines.py					-	contains a decorator for handling wrong input.
 
-Note: Python version 3.9 IS NOT SUPPORTED!
 
 =============== RUN ===============
-On Windows: 
+On Windows: Make sure that Microsoft Visual C++ Redistributable Package 2013 is installed.
 	1. Run the example with the command: python Extendtestpython.py
 
 On Linux/MacOS:
@@ -68,11 +67,10 @@ Rus.
 
 * support_routines.py					-	содержит декоратор для обработки неверного ввода.
 
-Замечание: Python версии 3.9 НЕ ПОДДЕРЖИВАЕТСЯ!
 
 ========== КАК ЗАПУСТИТЬ ==========
-Windows:
-	Запустите пример командой: python Extendtestpython.py
+Windows: Убедитесь, что Microsoft Visual C++ Redistributable Package 2013 установлен.
+	1. Запустите пример командой: python Extendtestpython.py
 
 Linux/MacOS:
 	Для запуска примера можно пойти двумя путями:

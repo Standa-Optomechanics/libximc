@@ -250,17 +250,80 @@ extern "C"
 	//@}
 
 
-	/**
+    /**
 		\english
 		* Calibration structure
+		*
+		* Where to find all values for calculations?
+		* - XILab (don’t forget to load the profile for your positioner. The profile should match the full name of your positioner, e.g., 8MT173-25-MEn1.cfg):
+		*   - In XILab settings, go to the "User units" tab. Divide the second number by the first one — this is your A coefficient.
+		*   - In the "DC motor" / "BLDC motor" / "Stepper motor" tab (depending on your motor type), find the "Encoder counts per turn" field and use it in the formula for calculating coefficient B.
+		* - Profile file (open with any text editor; make sure it matches the full name of your positioner, e.g., 8MT173-25-MEn1.cfg):
+		*   - Find Step_multiplier= and Unit_multiplier=. Divide the second by the first — this is your A coefficient.
+		*   - Find Encoder_CPT= and use this value in the B coefficient formula instead of ENCODER_COUNTS_PER_TURN.
+
+		* How to calculate Speed, Accel, Decel, and AntiplaySpeed in user units when using a stepper motor with encoder or DC/BLDC motor?
+		* 1. Load the correct profile in XILab for your positioner (e.g., 8MT173-25-MEn1.cfg).
+		* 2. Enable Feedback encoder mode if not already enabled.
+		* 3. Enter speed in the "Working speed" field in user units.
+		* 4. In the "User units" tab, disable the "User units" flag to see RPM.
+		* 5. Multiply the RPM value from "Working speed" by coefficient B.
+		*    Example: 480 * 0.0000009375 = 0.00045. This value for the 8MT173-25-MEn1 in Encoder mode equals 2 mm/s.
+		*
+		*    Acceleration, deceleration, and antiplay speed are calculated the same way.
 		\endenglish
+
 		\russian
 		* Структура калибровок
-		\endrussian	 */
+		*
+		* Где найти все значения для расчета? 
+		* - XILab (не забудьте загрузить профиль для вашего позиционера. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg): 
+		*   - В настройках XILab перейдите во вкладку user units. Разделите второе число на первое — это и будет коэффициент A
+		*   - В настройках XILab, перейдите во вкладку DC motor/BLDC motor/Stepper motor (зависит от используемого типа двигателя). Подставьте значение из поля Encoder counts per turn в формулу подсчета B коэффициента
+		* - Профиль (откройте профиль любым текстовым редактором. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg): 
+		*   - Найдите в файле профиля поля Step_multiplier= и Unit_multiplier=. Разделите второе число на первое — это и будет коэффициент A
+		*   - Найдите в файле профиля поле Encoder_CPT=. Подставьте значение из этого поля в формулу подсчета B коэффициента вместо ENCODER_COUNTS_PER_TURN
+
+		* Как посчитать Speed, Accel, Decel и AntiplaySpeed в пользовательских единицах при использовании шагового двигателя с энкодером или DC/BLDC двигателей? 
+		* 1. Используя XILab, загрузите профиль для вашего позиционера. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg
+		* 2. Включите режим Feedback encoder, если он не был включен ранее
+		* 3. Вводите скорость в пользовательских единицах в поле Working speed
+		* 4. Во вкладке User units выключите флаг User units. Это позволит видеть значение в поле Working speed в RPM
+		* 5. Умножьте значение из поля Working speed (в RPM) на коэффициент B. Например: 480 * 0.0000009375 = 0.00045. Значение 0.00045 для позиционера 8MT173-25-MEn1 в режиме Encoder будет равно скорости 2 мм/сек
+		*
+		* Ускорение, замедление и скорость в режиме антилюфта считаются аналогично
+		\endrussian	*/
 	typedef struct calibration_t
 	{
-		double A; 		/**< \english is a conversion factor which is equal number of millimeters (or other units) per one step  \endenglish \russian коэффициент преобразования, равный количеству миллиметров (или других единиц) на один шаг \endrussian */
-		unsigned int MicrostepMode;			/**< \english is a controller setting which is determine a step division mode \endenglish \russian это настройка контроллера, определяющая режим пошагового деления \endrussian */
+		double A; /**<
+		 * \english
+		 * Conversion coefficient equal to the number of millimeters (or other user units) per one step.
+		 * Must be non-zero and positive.
+		 * Used for position and movement conversion.
+		 * - For stepper motor without encoder, only one coefficient A is used. Conversion formula: [user_unit/steps].
+		 *   Example: 800 steps = 1 mm, then A = 1/800 = 0.00125
+		 * - When using a stepper motor with encoder or DC/BLDC motors, the position is set in counts,
+		 *   but speed, acceleration/deceleration, and antiplay speed are set in RPM,
+		 *   so two coefficients are required:
+		 *   - A. Conversion for position: [user_unit/counts]. Example: 16000 counts = 1 mm, then A = 1/16000 = 0.0000625
+		 *   - B. Conversion for speed, acceleration/deceleration, and antiplay speed: [60/ENCODER_COUNTS_PER_TURN * A].
+		 *     Example: 60 / 4000 * 0.0000625 = 0.0000009375
+		 * \endenglish
+		 * \russian
+		 * Коэффициент преобразования, равный количеству миллиметров (или других пользовательских единиц) на один шаг.
+		 * Должен быть отличным от нуля и положительным.
+		 * Используется для пересчёта положений и перемещений.
+		 * - Для шагового двигателя без энкодера используется только один коэффициент A. Формула пересчёта: [user_unit/steps].
+		 *   Пример: 800 шагов = 1 мм, тогда A = 1/800 = 0.00125
+		 * - При использовании шагового двигателя с энкодером или двигателей DC/BLDC позиция задаётся в counts,
+		 *   но скорость, ускорение/замедление и скорость в режиме антилюфта задаются в RPM,
+		 *   поэтому требуются два коэффициента:
+		 *   - A. Формула пересчёта для позиции: [user_unit/counts]. Пример: 16000 counts = 1 мм, тогда A = 1/16000 = 0.0000625
+		 *   - B. Формула пересчёта для скорости, ускорения/замедления и скорости в режиме антилюфта: [60/ENCODER_COUNTS_PER_TURN * A].
+		 *     Пример: 60 / 4000 * 0.0000625 = 0.0000009375
+		 * \endrussian
+		 */
+		unsigned int MicrostepMode;			/**< \english Controller setting which is determine a step division mode \endenglish \russian Настройка контроллера, определяющая режим пошагового деления. \endrussian */
 	} calibration_t;
 
 	/**
@@ -399,8 +462,8 @@ extern "C"
 		* In case of USB-COM port, the "port" is the OS device URI. For example, "xi-com:\\\\\.\\COM3" in Windows (note that double-backslash will be transformed to single-backslash) or "xi-com:///dev/ttyACM0" in Linux/Mac.
 		* In case of network device, the "host" is an IPv4 address or fully qualified domain URI (FQDN), "serial" is the device serial number in hexadecimal system.
 		* For example, "xi-net://192.168.0.1/00001234" or "xi-net://hostname.com/89ABCDEF".
-		* In case of UDP protocol, use "xi-udp://<ip/host>:<port>.
-		* For example, "xi-udp://192.168.0.1:1818".
+		* In case of TCP protocol, use "xi-tcp://<ip/host>:<port>.
+		* For example, "xi-tcp://192.168.0.1:1818".
 		* In case of virtual device, the "abs_file_to_file" is the full path to the virtual device's file. If it doesn't exist, then it is created and initialized with default values.
 		* For example, "xi-emu:///C:/dir/file.bin" in Windows or "xi-emu:///home/user/file.bin" in Linux/Mac.
 		* \endenglish
@@ -412,8 +475,8 @@ extern "C"
 		* Например, "xi-com:\\\\\.\\COM3" в Windows (с учётом экранирования двойные обратные слэши преобразуются в одинарные) или "xi-com:///dev/ttyACM0" в Linux/Mac.
 		* Для сетевого устройства "host" это IPv4 адрес или полностью определённое имя домена, "serial" это серийный номер устройства в шестнадцатеричной системе.
 		* Например, "xi-net://192.168.0.1/00001234" или "xi-net://hostname.com/89ABCDEF".
-		* Для работы по UDP протоколу используйте "xi-udp://<ip/host>:<port>.
-		* Например, "xi-udp://192.168.0.1:1818".
+		* Для работы по TCP протоколу используйте "xi-tcp://<ip/host>:<port>.
+		* Например, "xi-tcp://192.168.0.1:1818".
 		* Для виртуального устройства "abs_file_to_file" это путь к файлу с сохраненным состоянием устройства. Если файл не существует, он будет создан и инициализирован значениями по умолчанию.
 		* Например, "xi-emu:///C:/dir/file.bin" в Windows или "xi-emu:///home/user/file.bin" в Linux/Mac.
 		* \endrussian
@@ -555,39 +618,122 @@ extern "C"
 
 	/**
 		* \english
-		* Deprecated. Left for compatibility Do just nothing.
+		* Deprecated. Left for compatibility. Do just nothing.
 		* \endenglish
 		* \russian
 		* Устарело. Оставлено для совместимости. Ничего не делает.
 		* \endrussian
     */
- 
 	result_t XIMC_API set_bindy_key(const char* keyfilepath);
 
 	/**
 		* \english
-		* Enumerate all XIMC-compatible devices.
-		* @param[in] enumerate_flags enumerate devices flags
-		* @param[in] hints extended search information
-		* \par
-		* hints is a string of form "key=value \n key2=value2". <em>Unrecognized key-value pairs are ignored</em>.
-		* Key list: addr (required!) - mandatory flag used together with the ENUMERATE_NETWORK flag.
-		* Non-null value is a remote host name or a comma-separated list of host names which contain the devices to be found. Example: "addr=192.168.1.1,172.16.2.3".
-		* Absent value means broadcast discovery. Example: "addr=".
-		* adapter_addr - used together with ENUMERATE_NETWORK flag.
-		* Non-null value is a IP address of network adapter. Remote ximc device must be on the same local network as the adapter. Example: "addr= \n adapter_addr=192.168.0.100".
+		* Search and list of available devices. By default, it creates a list of devices connected to this computer and presented as COM ports.
+		* Additionally, you can enable the search for network devices. Devices found in the local network will be included in the same list.<br>
+		* To obtain information from the collected list, use the corresponding functions with the <code>get_enumerate_</code> prefix and
+		* the received <code>device_enumeration</code> identifier.<br>
+		* After finishing working with the list of found devices, you should free up memory using the <code>free_enumerate_devices()</code> function.
+		* @param[in] enumerate_flags a set of flags that specify search modes. Flags can be used together via bitwise "OR":
+		* <ul>
+		* <li><code>ENUMERATE_NETWORK</code> - enables searching for network devices. If the flag is set, network devices will be added to the general list.
+		* If the flag is not set, the list will only include devices connected to this computer.</li>
+		* <li><code>ENUMERATE_ALL_COM</code> - when enabled, queries all COM port devices in the system. When disabled, queries only devices whose names
+		* match the XIMC device mask ("XIMC Motor Controller" in Windows, <code>/dev/ximc/</code> and <code>/dev/ttyACM/</code> on Linux/Mac).</li>
+		* <li><code>ENUMERATE_PROBE</code> - enables checking of devices and collecting additional information (serial number, version, model, name...).
+		* If this flag is set, only devices that are guaranteed to be open will be added to the list, but devices connected via RS232 converters may not be included.
+		* If the flag is not set, the list will include more devices (in particular, devices explicitly listed in <code>hints</code> will be included),
+		* but availability and compatibility with this library is not guaranteed.</li>
+		* </ul>
+		* @param[in] hints additional information to improve the search efficiency. It makes sense to use in case of complex network configuration,
+		* when automatic search may not find everything. Format - string <code>"key1=value1\nkey2=value2"</code>. Unknown keys are ignored.
+		* One key can have several values, which are listed separated by commas: <code>key=value1,value2,value3</code>. Valid keys:
+		* <ul>
+		* <li><code>addr</code> - list of URLs of network controllers or servers with connected controllers. The field is used together with the <code>ENUMERATE_NETWORK</code> flag.
+		* Protocols and address formats:
+		* <ul>
+		* <li><code>xi-tcp://&lt;ip-address&gt; - network controllers and controllers connected via Ethernet-RS232 converters. If the <code>ENUMERATE_PROBE</code>
+		* flag is not set, all listed devices will be included in the list.</li>
+		* <li>xi-net://&lt;ip-address&gt; - network multi-axis systems, xi-net servers. The request for information about the availability of controllers at these
+		* addresses will be made regardless of the results of the automatic network search procedure.</li>
+		* </ul>
+		* </li>
+		* <li><code>adapter_addr</code> - list of IP addresses of local network adapters through which the search should be performed.
+		* If the key is missing or no adapters are specified, the search is performed on all adapters.</li>
+		* </ul>
+		* \return <code>device_enumeration</code> - device list identifier. Used to obtain information about devices using functions with <code>get_enumerate_</code> prefixes.
+		* \par Examples of use:
+		* <pre>
+		* <code>
+		* // Search for local devices without checking
+		* device_enumeration_t device_enumeration = enumerate_devices(0, "");
+		* // Search for local devices with verification
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_PROBE, "");
+		* // Fully automatic search for local and network devices
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_NETWORK, "");
+		* // Search for local and network devices
+		* // using the local computer adapter with the address 192.168.0.100
+		* // and explicit requests to the network controller with the address 192.168.0.11
+		* // and the xi-net server with the address 192.168.0.10
+		* device_enumeration_t device_enumeration = enumerate_devices(
+		* ENUMERATE_NETWORK,
+		* "addr=192.168.0.10,xi-tcp://192.168.0.11\nadapter_addr=192.168.0.100" 
+		* ); 
+		* </code>
+		* </pre>
 		* \endenglish
 		* \russian
-		* Перечисляет все XIMC-совместимые устройства.
-		* @param[in] enumerate_flags флаги поиска устройств
-		* @param[in] hints дополнительная информация для поиска
-		* \par
-		* hints это строка вида "ключ=значение \n ключ2=значение2". <em>Неизвестные пары ключ-значение игнорируются</em>.
-		* Список ключей: addr (обязательный!) - используется вместе с флагом ENUMERATE_NETWORK.
-		* Ненулевое значение - это адрес или список адресов с перечислением через запятую удаленных хостов, на которых происходит поиск устройств. Пример: "addr=192.168.1.1,172.16.2.3".
-		* Отсутствующее значение - это подключение посредством широковещательного запроса. Пример: "addr=".
-		* adapter_addr - используется вместе с флагом ENUMERATE_NETWORK.
-		* Ненулевое значение это IP адрес сетевого адаптера. Сетевое устройство ximc должно быть в локальной сети, к которой подключён этот адаптер. Пример: "addr= \n adapter_addr=192.168.0.100".
+		* Поиск и составление списка доступных устройств. По умолчанию формирует список устройств, подключенных к данному компьютеру и представленных в виде COM-портов. 
+		* Дополнительно можно включить поиск сетевых устройств. Найденные в локальной сети устройства попадут в тот же список.<br>
+		* Для получения информации из собранного списка воспользуйтесь соответствующими функциями с префиксом <code>get_enumerate_</code> и
+		* полученным идентификатором <code>device_enumeration</code>.<br>
+		* После завершения работы со списком найденных устройств следует освободить память с помощью функции <code>free_enumerate_devices()</code>.
+		* @param[in] enumerate_flags набор флагов, задающих режимы поиска. Флаги могут применяться совместно через побитовое "ИЛИ".
+		* <ul>
+		* <li><code>ENUMERATE_NETWORK</code> - включает поиск сетевых устройств. Если флаг установлен, сетевые устройства будут добавлены в общий список.
+		* Если флаг не установлен, в списке будут только устройства, подключенные к данному компьютеру.</li>
+		* <li><code>ENUMERATE_ALL_COM</code> - при включенной опции опрашивает все устройства типа COM-порт в системе. При отключенной опции опрашивает только устройства,
+		* имена которых соответствуют маске устройств XIMC ("XIMC Motor Controller" в Windows, <code>/dev/ximc/</code> и <code>/dev/ttyACM/</code> на Linux/Mac).</li>
+		* <li><code>ENUMERATE_PROBE</code> - включает проверку устройств и сбор дополнительной информации (серийный номер, версию, модель, имя...).
+		* Если данный флаг установлен, в список будут добавлены только устройства, которые гарантированно можно открыть, но могут не попадать устройства,
+		* подключенные через RS232-преобразователи. Если флаг не установлен, то в списке будет больше устройств (в частности, попадут устройства,
+		* явным образом перечисленные в <code>hints</code>), но доступность и совместимость с данной библиотекой не гарантируется.</li>
+		* </ul>
+		* @param[in] hints дополнительная информация для повышения эффективности поиска. Имеет смысл использовать в случае сложной сетевой конфигурации,
+		* когда автоматический поиск может находить не всё. Формат - строка <code>"ключ1=значение1\nключ2=значение2"</code>. Неизвестные ключи игнорируются.
+		* Один ключ может иметь несколько значений, которые перечисляются через запятую: <code>ключ=значение1,значение2,значение3</code>. Допустимые ключи:
+		* <ul>
+		* <li><code>addr</code> - список URLов сетевых контроллеров или серверов с подключенными контроллерами. Поле применяется совместно с флагом <code>ENUMERATE_NETWORK</code>.
+		* Протоколы и форматы адресов:
+		* <ul>
+		* <li><code>xi-tcp://&lt;ip-адрес&gt;</code> - сетевые контроллеры и контроллеры, подключенные через Ethernet-RS232 преобразователи.
+		* Если флаг <code>ENUMERATE_PROBE</code> не установлен, все перечисленные устройства попадут в список.</li>
+		* <li><code>xi-net://&lt;ip-адрес&gt;</code> - сетевые многоосевые системы, xi-net сервера. Запрос информации о наличии контроллеров по этим адресам будет сделан
+		* независимо от результатов автоматической процедуры сетевого поиска.</li>
+		* </ul>
+		* </li>
+		* <li><code>adapter_addr</code></li> - список IP-адресов локальных сетевых адаптеров, через который должен осуществляться поиск. Если ключ отсутствует или ни одного адаптера не указано,
+		* то поиск производится на всех адаптерах.</li>
+		* </ul>
+		* \return <code>device_enumeration</code> - идентификатор списка устройств. Используется для получения информации об устройствах с помощью функций с префиксами <code>get_enumerate_</code>.<br>
+		* \par Примеры использования:
+		* <pre>
+		* <code>
+		* // Поиск локальных устройств без проверки
+		* device_enumeration_t device_enumeration = enumerate_devices(0, ""); 
+		* // Поиск локальных устройств c проверкой
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_PROBE, "");
+		* // Полностью автоматический поиск локальных и сетевых устройств
+		* device_enumeration_t device_enumeration = enumerate_devices(ENUMERATE_NETWORK, "");
+		* // Поиск локальных и сетевых устройств
+		* // с использованием адаптера локального компьютера с адресом 192.168.0.100
+		* // и явным обращениям к сетевому контроллеру с адресом 192.168.0.11
+		* // и xi-net серверу с адресом  192.168.0.10
+		* device_enumeration_t device_enumeration = enumerate_devices(
+		* ENUMERATE_NETWORK,
+		* "addr=192.168.0.10,xi-tcp://192.168.0.11\nadapter_addr=192.168.0.100"
+		* );
+		* </code>
+		* </pre>
 		* \endrussian
 	 */
 	device_enumeration_t XIMC_API enumerate_devices(int enumerate_flags, const char *hints);

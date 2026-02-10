@@ -1,9 +1,50 @@
+libximc (3.0.0-1)
+  * Released: Tue, 07 Oct 2025 15:05:14 +0300
+  * Version bump
+  * Feature: The libximc build has been structured, #95282
+  * Feature: The building of deb packages moved to a separate script, #103605
+  * Feature: Changes from dev-2.14 added, #121091
+  * Bug: Fixed xigen behavior, #122813
+
+libximc (2.14.31-1)
+  * Released: Sun, 05 Oct 2025 14:01:57 +0300
+  * Version bump
+  * No release! Just increment the version before new release.
+
+libximc (2.14.31-1)
+  * Released: Mon, 25 Aug 2025 10:44:29 +0300
+  * Version bump
+  * Feature: The examples have been tidied up, #86772
+  * Feature: The building of deb packages moved to a separate script, #103605
+  * Feature: Protocol version 20.10 has been released, #119790
+
+libximc (2.14.30-1)
+  * Released: Tue, 24 Jun 2025 15:52:32 +0300
+  * Version bump
+  * Feature: The building of deb packages moved to a separate script, #103605
+  * Bug: Changed search for controllers in the network, #114892
+
+libximc (2.14.29-1)
+  * Released: Tue, 06 May 2025 13:00:44 +0300
+  * Version bump
+  * Feature: Add info about coordinates/speeds in encoder mode, #86970
+  * Feature: Fix the description of the measurement_t structure, #91883
+  * Feature: Fix valid Python versions in examples, #114532
+  * Bug: Fix calb functions when device is missing, #115036
+  * Bug: Add a check for VC C++ 2013 installation to the libximc Python, #115359
+
+libximc (2.14.28-1)
+  * Released: Thu, 20 Feb 2025 10:46:59 +0300
+  * Version bump
+  * Bug: Fix documentation a little
+  * Bug: Fix python binding bug with uninitialized structures, #105984
+  * Bug: Add errcode return while trying to set calb.coeff. A to 0, #91948
+
 libximc (2.14.27-1)
   * Released: Wed, 28 Aug 2024 16:36:02 +0300
   * Version bump
   * Add pauses into examples, #99322
   * Mark USB voltage and current values as deprecated, #103346
-
 
 libximc (2.14.26-1)
   * Released: Tue, 06 Aug 2024 16:07:42 +0300

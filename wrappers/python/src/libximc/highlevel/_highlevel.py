@@ -96,7 +96,18 @@ def _check_fullness(structure_object) -> None:
             # All attributes of structure objects from structure_types.py are @properties and their actual names start
             # with underscore (_). So, the first symbol must be omitted -> that's why [1:] is used
             attribute_name = key_value_pair[0][1:]
-            raise ValueError("{}.{} must be set!".format(structure_object.__class__.__name__, attribute_name))
+            raise ValueError("******** Unset parameters detected! ********\n"
+                             "{}.{} must be set!\n"
+                             "\n"
+                             "In case you don't know the correct value to set, you can read actual settings\n"
+                             "from the controller using get_* commands and find desired parameter value.\n"
+                             "\n"
+                             "Why do we refuse to use the default parameter values?\n"
+                             "The controller is used to work with very different motors and positioners.\n"
+                             "Parameters that are suitable for some devices may be completely unsuitable\n"
+                             "for other devices (errors, incorrect operation...). Therefore, we've made\n"
+                             "a mechanism that requires the user to explicitly and meaningfully set\n"
+                             "parameters.".format(structure_object.__class__.__name__, attribute_name))
 
 
 # ========== #
@@ -1436,7 +1447,7 @@ class Axis:
                             chart_data.WindingCurrentC,
                             chart_data.Pot,
                             chart_data.Joy,
-                            chart_data.DutyCycle)
+                            chart_data.AveragedPowerRatio)
 
     def get_serial_number(self) -> int:
         """Read device serial number.

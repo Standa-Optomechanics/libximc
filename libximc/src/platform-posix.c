@@ -49,61 +49,51 @@
  * Serial port support
  */
 
-result_t open_port_serial (device_metadata_t *metadata, const char* name)
+result_t open_port_serial(device_metadata_t* metadata, const char* name)
 {
 	int fd;
 	struct termios options;
 
 	fd = open(name, O_RDWR | O_NOCTTY | O_NONBLOCK);
-	if (fd == -1)
-	{
-		log_system_error( L"unable to open port %s: ", name );
+	if (fd == -1) {
+		log_system_error(L"Failed to open port '%hs': ", name );
 		return result_error;
 	}
 
-	/* Consult an advisory lock */
-
-	if (flock( fd, LOCK_EX|LOCK_NB ) == -1 && errno == EWOULDBLOCK)
-	{
-		close( fd );
-		log_error( L"unable to open locked port %s", name );
+	// Consult an advisory lock
+	if (flock(fd, LOCK_EX | LOCK_NB) == -1 && errno == EWOULDBLOCK) {
+		close(fd);
+		log_error(L"Failed to open locked port '%hs'", name);
 		return result_error;
 	}
 
-	if (flock( fd, LOCK_EX ) == -1)
-	{
-		log_system_error( L"can't lock file" );
-		close( fd );
-		log_error( L"unable to lock a port %s", name );
+	if (flock(fd, LOCK_EX) == -1) {
+		close(fd);
+		log_error(L"Failed to lock port '%hs'", name);
 		return result_error;
 	}
 
-
-	/* Adjust settings */
-
-	if (fcntl(fd, F_SETFL, 0) == -1)
-	{
-		close( fd );
-		log_system_error( L"error setting port settings: " );
+	// Adjust settings
+	if (fcntl(fd, F_SETFL, 0) == -1) {
+		close(fd);
+		log_system_error(L"Failed to set flag close-on-exec on port '%hs': ", name);
 		return result_error;
 	}
 
-	if (tcgetattr(fd, &options) == -1)
-	{
-		close( fd );
-		log_system_error( L"error getting port attrs: " );
+	if (tcgetattr(fd, &options) == -1) {
+		close(fd);
+		log_system_error(L"Failed to get port '%hs' attributes: ", name);
 		return result_error;
 	}
 
-	if (cfsetispeed( &options, B115200 ) == -1 ||
-		cfsetospeed( &options, B115200 ) == -1)
-	{
-		close( fd );
-		log_system_error( L"error setting port speed: " );
+	if (cfsetispeed(&options, B115200) == -1 ||
+		cfsetospeed(&options, B115200) == -1) {
+		close(fd);
+		log_system_error(L"Failed to set port '%hs' speed: ", name);
 		return result_error;
 	}
 
-	// set port flags
+	// Set port flags
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 
 	options.c_cflag |= (CLOCAL | CREAD);
@@ -122,50 +112,49 @@ result_t open_port_serial (device_metadata_t *metadata, const char* name)
 	options.c_cc[VMIN] = 0;
 	options.c_cc[VTIME] = metadata->port_timeout/100;
 
-	if (tcsetattr( fd, TCSAFLUSH, &options ) == -1)
-	{
-		close( fd );
-		log_system_error( L"error setting port attrs: " );
+	if (tcsetattr(fd, TCSAFLUSH, &options) == -1) {
+		close(fd);
+		log_system_error(L"Failed to set port '%hs' attributes: ", name);
 		return result_error;
 	}
 
-	tcflush( fd, TCIOFLUSH );
+	tcflush(fd, TCIOFLUSH);
 
-	/* save metadata */
+	// Save metadata
 	metadata->handle = fd;
 	metadata->type = dtSerial;
 
 	return result_ok;
 }
 
-int close_port_serial (device_metadata_t *metadata)
+int close_port_serial(device_metadata_t* metadata)
 {
-	if (close( metadata->handle ) == -1)
-	{
-		log_system_error( L"error closing port: " );
+	if (close(metadata->handle) == -1) {
+		log_system_error(L"Failed to close device port: ");
 		return result_serial_error;
 	}
+
 	return result_serial_ok;
 }
 
-int flush_port_serial (device_metadata_t *metadata)
+int flush_port_serial(device_metadata_t* metadata)
 {
-	if (tcflush( metadata->handle, TCIOFLUSH ))
-	{
-		log_system_error( L"command flush port failed, reason: " );
+	if (tcflush(metadata->handle, TCIOFLUSH)) {
+		log_system_error(L"Command flush port failed: ");
 		return result_serial_error;
 	}
+
 	return result_serial_ok;
 }
 
-ssize_t read_port_serial (device_metadata_t *metadata, void *buf, size_t amount)
+ssize_t read_port_serial(device_metadata_t* metadata, void* buf, size_t amount)
 {
-	return read( metadata->handle, buf, amount );
+	return read(metadata->handle, buf, amount);
 }
 
-ssize_t write_port_serial (device_metadata_t *metadata, const void *buf, size_t amount)
+ssize_t write_port_serial(device_metadata_t* metadata, const void* buf, size_t amount)
 {
-	return write( metadata->handle, buf, amount );
+	return write(metadata->handle, buf, amount);
 }
 
 
@@ -182,16 +171,16 @@ typedef struct fork_join_carry_t
 	pthread_mutex_t mutex;
 } fork_join_carry_t;
 
-/* posix wrapper thread function */
-void* check_thread_wrapper_posix (void *arg)
+/* Posix wrapper thread function */
+void* check_thread_wrapper_posix(void* arg)
 {
 	fork_join_carry_t* carry = (fork_join_carry_t*)arg;
-	carry->function( carry->arg );
+	carry->function(carry->arg);
 	return NULL;
 }
 
-/* posix wrapper thread function with mutex */
-void* check_thread_wrapper_posix_with_mutex(void *arg)
+/* Posix wrapper thread function with mutex */
+void* check_thread_wrapper_posix_with_mutex(void* arg)
 {
 	fork_join_carry_t* carry = (fork_join_carry_t*)arg;
 	carry->function(carry->arg);
@@ -201,88 +190,65 @@ void* check_thread_wrapper_posix_with_mutex(void *arg)
 	return NULL;
 }
 
-/* posix implementation of fork/join */
-result_t fork_join (fork_join_thread_function_t function, int count, void* args, size_t arg_element_size)
+/* Posix implementation of fork/join */
+result_t fork_join(fork_join_thread_function_t function, int count, void* args, size_t arg_element_size)
 {
 	result_t result = result_ok;
-	pthread_t* tids;
 	pthread_attr_t thread_attr;
+	pthread_attr_init(&thread_attr);
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
+	fork_join_carry_t* carry = (fork_join_carry_t*)malloc(count * sizeof(fork_join_carry_t));
+	pthread_t* tids = (pthread_t*)malloc(count * sizeof(pthread_t));
+
+	/* Launch and join */
 	int i;
-	fork_join_carry_t* carry;
-
-	pthread_attr_init( &thread_attr );
-	pthread_attr_setdetachstate( &thread_attr, PTHREAD_CREATE_JOINABLE );
-
-	tids = (pthread_t*)malloc( count*sizeof(pthread_t) );
-	carry = (fork_join_carry_t*)malloc( count*sizeof(fork_join_carry_t) );
-
-	/* launch and join */
-	for (i = 0; i < count; ++i)
-	{
+	for (i = 0; i < count; ++i) {
 		carry[i].function = function;
-		carry[i].arg = (byte*)args + i*arg_element_size;
-		if (pthread_create( &tids[i], &thread_attr, &check_thread_wrapper_posix, &carry[i] ))
-		{
+		carry[i].arg = (byte*)args + i * arg_element_size;
+		if (pthread_create(&tids[i], &thread_attr, &check_thread_wrapper_posix, &carry[i])) {
 			result = result_error;
-			log_system_error( L"Failed to create a pthread due to: " );
-		}
-	}
-	for (i = 0; i < count; ++i)
-	{
-		if (pthread_join( tids[i], NULL ))
-		{
-			result = result_error;
-			log_system_error( L"Failed to join a pthread due to: " );
+			log_system_error(L"Failed to create a pthread: ");
 		}
 	}
 
-	free( tids );
-	free( carry );
+	for (i = 0; i < count; ++i) {
+		if (pthread_join(tids[i], NULL)) {
+			result = result_error;
+			log_system_error(L"Failed to join a pthread: ");
+		}
+	}
 
+	free(tids);
+	tids = NULL;
+	free(carry);
+	carry = NULL;
 	return result;
 }
 
-void single_thread_launcher(XIMC_RETTYPE(XIMC_CALLCONV *func)(void*), void *arg)
+/* Posix implementation of fork/join with timeout */
+result_t fork_join_with_timeout(fork_join_thread_function_t function, int count, void* args, size_t arg_element_size, int timeout_ms, mutex_t* ext_mutex)
 {
+	result_t result = result_ok;
 	pthread_attr_t thread_attr;
-	pthread_attr_init(&thread_attr);
-	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
-	pthread_t tid;
-
-	if (pthread_create(&tid , &thread_attr, func, arg) != 0) {
-		log_system_error(L"Failed to create a pthread due to: ");
-	}
-}
-
-/* posix implementation of fork/join with timeout */
-// TODO: fix net_enum abstraction leak
-void fork_join_with_timeout(fork_join_thread_function_t function, int count, void* args, size_t arg_element_size, int timeout_ms, net_enum_t* net_enum)
-{
-	pthread_t* tids;
-	pthread_attr_t thread_attr;
-	int i;
-	fork_join_carry_t* carry;
-
 	pthread_attr_init(&thread_attr);
 	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
+	fork_join_carry_t* carry = (fork_join_carry_t*)malloc(count * sizeof(fork_join_carry_t));
+	pthread_t* tids = (pthread_t*)malloc(count * sizeof(pthread_t));
 
-	tids = (pthread_t*)malloc(count*sizeof(pthread_t));
-	carry = (fork_join_carry_t*)malloc(count*sizeof(fork_join_carry_t));
-
-	/* launch and join */
-	for (i = 0; i < count; ++i)
-	{
+	/* Launch and join */
+	int i;
+	for (i = 0; i < count; ++i) {
 		pthread_cond_init(&carry[i].condition, NULL);
 		pthread_mutex_init(&carry[i].mutex, NULL);
 		carry[i].function = function;
-		carry[i].arg = (byte*)args + i*arg_element_size;
-		if (pthread_create(&tids[i], &thread_attr, &check_thread_wrapper_posix_with_mutex, &carry[i]))
-		{
-			log_system_error(L"Failed to create a pthread due to: ");
+		carry[i].arg = (byte*)args + i * arg_element_size;
+		if (pthread_create(&tids[i], &thread_attr, &check_thread_wrapper_posix_with_mutex, &carry[i])) {
+			result = result_error;
+			log_system_error(L"Failed to create a pthread: ");
 		}
 	}
 
-	/* Wait for timeout and get data from those who returned */
+	/* Wait for timeout */
 	struct timespec abstime;
 	#ifdef __APPLE__
 	clock_serv_t cclock;
@@ -306,37 +272,24 @@ void fork_join_with_timeout(fork_join_thread_function_t function, int count, voi
 		abstime.tv_nsec -= billion;
 	}
 
-	for (i = 0; i < count; ++i)
-	{
+	for (i = 0; i < count; ++i) {
 		pthread_mutex_lock(&carry[i].mutex);
-		int result;
+		int wait_result;
 		do {
-			result = pthread_cond_timedwait(&carry[i].condition, &carry[i].mutex, &abstime);
-		} while (result != ETIMEDOUT && result != 0);
-		pthread_mutex_unlock(&carry[i].mutex);
-	}
-
-	// Lock each personal mutex and copy thread data
-	for (i = 0; i < count; ++i)
-	{
-		pthread_mutex_lock(&carry[i].mutex);
-		netthread_state_t state = *(netthread_state_t*)(carry[i].arg);
-		if (state.status) {
-			net_enum->pbufs[i] = state.pbuf;
-			net_enum->device_count[i] = state.devices_found;
-		}
+			wait_result = pthread_cond_timedwait(&carry[i].condition, &carry[i].mutex, &abstime);
+		} while (wait_result != ETIMEDOUT && wait_result != 0);
 		pthread_mutex_unlock(&carry[i].mutex);
 	}
 
 	// Unlock the external mutex
-	mutex_unlock(net_enum->mutex);
-	// After this we can't touch our parameter pointers (net_enum), since they might be already invalid
+	if (ext_mutex) {
+		mutex_unlock(ext_mutex);
+	}
 
 	/* Wait for infinity to clean up after remaining threads */
-	for (i = 0; i < count; ++i)
-	{
-		if (pthread_join(tids[i], NULL))
-		{
+	for (i = 0; i < count; ++i) {
+		if (pthread_join(tids[i], NULL)) {
+			result = result_error;
 			log_system_error(L"Failed to join a pthread due to: ");
 		}
 	}
@@ -347,68 +300,76 @@ void fork_join_with_timeout(fork_join_thread_function_t function, int count, voi
 	}
 	
 	free(tids);
+	tids = NULL;
 	free(carry);
+	carry = NULL;
+	return result;
 }
 
-void fork_join_2_threads(fork_join_thread_function_t function1, void* args1, int condition1, fork_join_thread_function_t function2, void* args2, int condition2)
+void fork_join_2_threads(fork_join_thread_function_t function_1, void* args_1, fork_join_thread_function_t function_2, void* args_2)
 {
-    
-    pthread_t tids[2];
     pthread_attr_t thread_attr;
-    int i, count_launched;
-    fork_join_carry_t* carry;
+	pthread_attr_init(&thread_attr);
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
 
-    pthread_attr_init(&thread_attr);
-    pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
-    count_launched = 0;
-    carry = (fork_join_carry_t*)malloc(2*sizeof(fork_join_carry_t));
-    if (condition1)
-    {
-        carry[0].function = function1;
-        carry[0].arg = (byte*)args1;
-        if (pthread_create(&tids[0], &thread_attr, &check_thread_wrapper_posix, &carry[0]))
-        {
-            log_system_error(L"Failed to create a pthread due to: ");
-        }
-        else
-            count_launched++;
+	pthread_t tids[2];
+	fork_join_carry_t* carry = (fork_join_carry_t*)malloc(2 * sizeof(fork_join_carry_t));    
+    int count_launched = 0;
+
+    carry[0].function = function_1;
+    carry[0].arg = (byte*)args_1;
+    if (pthread_create(&tids[0], &thread_attr, &check_thread_wrapper_posix, &carry[0])) {
+		log_system_error(L"Failed to create thread for searching using SSDP: ");
     }
-    if (condition2)
-    {
-        carry[count_launched].function = function2;
-        carry[count_launched].arg = (byte*)args2;
-        if (pthread_create(&tids[count_launched], &thread_attr, &check_thread_wrapper_posix, &carry[count_launched]))
-        {
-            log_system_error(L"Failed to create a pthread due to: ");
-        }
-        else
-            count_launched++;
+	else {
+		count_launched++;
+	}
 
+    carry[count_launched].function = function_2;
+    carry[count_launched].arg = (byte*)args_2;
+    if (pthread_create(&tids[count_launched], &thread_attr, &check_thread_wrapper_posix, &carry[count_launched])) {
+		log_system_error(L"Failed to create thread for searching using xinet: ");
     }
+	else {
+		count_launched++;
+	}
 
-    for (i = 0; i < count_launched; ++i)
-    {
-        if (pthread_join(tids[i], NULL))
-        {
+	int i;
+    for (i = 0; i < count_launched; ++i) {
+        if (pthread_join(tids[i], NULL)) {
             log_system_error(L"Failed to join a pthread due to: ");
         }
     }
+
     free(carry);
+	carry = NULL;
 }
 
+void single_thread_launcher(XIMC_RETTYPE(XIMC_CALLCONV *func)(void*), void* arg)
+{
+	pthread_attr_t thread_attr;
+	pthread_attr_init(&thread_attr);
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
+	pthread_t tid;
+
+	if (pthread_create(&tid, &thread_attr, func, arg) != 0) {
+		log_system_error(L"Failed to create a pthread due to: ");
+	}
+}
 
 unsigned long long get_thread_id()
 {
 	return (unsigned long long)(uintptr_t)pthread_self();
 }
 
+
 /*
  * Device enumeration support
  */
 
-int like_com_device_by_prefix (const char* prefix, const char* name)
+int like_com_device_by_prefix(const char* prefix, const char* name)
 {
-	return strlen( name ) > strlen( prefix ) && !memcmp( prefix, name, strlen( prefix ) );
+	return strlen(name) > strlen(prefix) && !memcmp(prefix, name, strlen(prefix));
 }
 
 #ifdef __APPLE__
@@ -416,7 +377,7 @@ int like_com_device_by_prefix (const char* prefix, const char* name)
 // Sometimes name can be 'tty.usbmodem*' or 'tty.usbserial-*'
 // but we prefer to use generic mask 'tty.*'
 // path must be slash-terminated
-bool is_device_name_ok (char* directory, char* name, int flags)
+bool is_device_name_ok(char* directory, char* name, int flags)
 {
 	XIMC_UNUSED(directory);
 	XIMC_UNUSED(flags);
@@ -427,7 +388,7 @@ bool is_device_name_ok (char* directory, char* name, int flags)
 }
 #else
 // generic unix
-bool is_device_name_ok (char* directory, char* name, int flags)
+bool is_device_name_ok(char* directory, char* name, int flags)
 {
 	return
 		(!strcmp( directory, "/dev" ) && (flags & ENUMERATE_ALL_COM) && (
@@ -526,27 +487,32 @@ result_t enumerate_iokit(enumerate_devices_directory_callback_t callback, void* 
     return enumerate_iokit_vid_pid(callback, arg, flags, usbVendor_mdrive, usbProduct_mdrive);
 }
 
-
 #endif
 
-bool is_same_device (const char* name1, const char* name2)
+bool is_same_device(const char* name_1, const char* name_2)
 {
-	char realname1[PATH_MAX], realname2[PATH_MAX];
-	if (!realpath( name1, realname1 ))
-	{
-		log_system_error( L"Cannot resolve real path of device %hs", name1 );
-		return false;
+	char realname_1[PATH_MAX], realname_2[PATH_MAX];
+	char* name_1_to_cmp;
+	char* name_2_to_cmp;
+	if (!realpath(name_1, realname_1)) {
+		name_1_to_cmp = (char*)name_1;
 	}
-	if (!realpath( name2, realname2 ))
-	{
-		log_system_error( L"Cannot resolve real path of device %hs", name2 );
-		return false;
+	else {
+		name_1_to_cmp = realname_1;
 	}
-	return !strcmp( realname1, realname2 );
+
+	if (!realpath(name_2, realname_2)) {
+		name_2_to_cmp = (char*)name_2;
+	}
+	else {
+		name_2_to_cmp = realname_2;
+	}
+
+	return !strcmp(name_1_to_cmp, name_2_to_cmp);
 }
 
 /* directory must not end with slash */
-result_t enumerate_specific_directory (char* directory, enumerate_devices_directory_callback_t callback, void* arg, int flags)
+result_t enumerate_specific_directory(char* directory, enumerate_devices_directory_callback_t callback, void* arg, int flags)
 {
 	result_t result = result_ok;
 	DIR* dev_dir;
@@ -563,25 +529,21 @@ result_t enumerate_specific_directory (char* directory, enumerate_devices_direct
 	if (!directory[0] || directory[strlen( directory )-1] == '/')
 		return result_error;
 
-	log_debug( L"Enumerating specific directory %hs", directory );
+	log_debug(L"Enumerating specific directory '%hs'", directory);
 
 	/* Open a dir */
-	dev_dir = opendir( directory );
-
-	if (!dev_dir)
-	{
-		log_system_error( L"Can't open %hs dir due to: ", directory );
+	dev_dir = opendir(directory);
+	if (!dev_dir) {
+		log_system_error(L"Failed to open directory '%hs' due to: ", directory);
 		return result_error;
 	}
 
 	de_size = offsetof(struct dirent, d_name) + pathconf(directory, _PC_NAME_MAX) + 1;
-    de = (struct dirent*)malloc( de_size );
+    de = (struct dirent*)malloc(de_size);
 
-	for (;;)
-	{
-		if (readdir_r( dev_dir, de, &de_result) != 0)
-		{
-			log_system_error( L"Can't readdir %hs dir due to: ", directory );
+	for (;;) {
+		if (readdir_r(dev_dir, de, &de_result) != 0) {
+			log_system_error(L"Can't readdir '%hs' dir due to: ", directory);
 			break;
 		}
 
@@ -589,20 +551,17 @@ result_t enumerate_specific_directory (char* directory, enumerate_devices_direct
 		if (de_result == NULL)
 			break;
 
-		portable_snprintf( full_path, sizeof(full_path), "%s/%s", directory, de->d_name );
+		portable_snprintf(full_path, sizeof(full_path), "%s/%s", directory, de->d_name);
 		full_path[sizeof(full_path)-1] = 0;
 
 		/* Get statistic of file (resolved path for symlink) */
-		if (stat( full_path, &stat_buf ) == -1)
-		{
-			if (errno == ENOENT || errno == ENOTDIR)
-			{
-				log_warning( L"File does not exist: %hs", full_path );
+		if (stat(full_path, &stat_buf) == -1) {
+			if (errno == ENOENT || errno == ENOTDIR) {
+				log_warning(L"File '%hs' does not exist", full_path);
 				continue;
 			}
-			else
-			{
-				log_system_error( L"Error accessing file: %hs", full_path );
+			else {
+				log_system_error(L"Error accessing file '%hs': ", full_path);
 				return result_error;
 			}
 		}
@@ -610,49 +569,47 @@ result_t enumerate_specific_directory (char* directory, enumerate_devices_direct
 		if (!S_ISCHR(stat_buf.st_mode))
 			continue;
 
-		log_debug( L"Look to device %hs", de->d_name );
+		log_debug(L"Look to device '%hs'", de->d_name);
 		// check only name of the device
-		if (is_device_name_ok( directory, de->d_name, flags ))
-		{
-			callback( full_path, arg );
+		if (is_device_name_ok(directory, de->d_name, flags)) {
+			callback(full_path, arg);
 		}
 		else
-			log_debug( L"Skip port %hs/%hs", directory, de->d_name );
+			log_debug(L"Skip port '%hs/%hs'", directory, de->d_name);
 	}
 
-	free( de );
-	closedir( dev_dir );
+	free(de);
+	closedir(dev_dir);
 
 	return result;
 }
 
-result_t enumerate_devices_directory (enumerate_devices_directory_callback_t callback, void* arg, int flags)
+result_t discover_local_devices(enumerate_devices_directory_callback_t callback, void* arg, int flags)
 {
 	result_t result;
     
 	#ifdef __APPLE__
 	if (!(flags & ENUMERATE_ALL_COM))
 	{
-		/* use IOKit if only specific USB devices are needed */
-		return enumerate_iokit( callback, arg, flags );
+		// Use IOKit if only specific USB devices are needed
+		return enumerate_iokit(callback, arg, flags);
 	}
 	#endif
 
-	/* enumerate /dev/ximc/ or /dev/mdrive first */
-    /* if directory does not exist it is no error */
-
+	// Enumerate /dev/ximc/ or /dev/mdrive first. If directory does not exist it is no error
     if ((result = enumerate_specific_directory("/dev/ximc", callback, arg, flags)) != result_ok)
         return result;
 
     if ((result = enumerate_specific_directory("/dev/mdrive", callback, arg, flags)) != result_ok)
 		return result;
 
- 	/* enumerate all other devices in /dev/ because there are symlinks to them */
-	if ((result = enumerate_specific_directory( "/dev", callback, arg, flags )) != result_ok)
+ 	// Enumerate all other devices in /dev/ because there are symlinks to them
+	if ((result = enumerate_specific_directory("/dev", callback, arg, flags)) != result_ok)
 		return result;
 
 	return result_ok;
 }
+
 
 /*
  * Error handling
@@ -663,37 +620,35 @@ int is_error_nodevice(unsigned int errcode)
 	return errcode == ENXIO || errcode == EIO;
 }
 
-void set_error_nodevice ()
+void set_error_nodevice()
 {
 	errno = ENXIO;
 }
 
-unsigned int get_system_error_code ()
+unsigned int get_system_error_code()
 {
 	return errno;
 }
 
-char* strerror_r_ensure (int code)
+char* strerror_r_ensure(int code)
 {
     size_t buflen = 256;
-    char* buf = (char*)malloc( buflen );
+    char* buf = (char*)malloc(buflen);
 
 #ifdef STRERROR_R_CHAR_P
     char* ret;
-    ret = strerror_r( code, buf, buflen );
+    ret = strerror_r(code, buf, buflen);
     if (ret != buf)
-        free( buf );
+        free(buf);
     return ret;
 #else
     int ret;
-    do
-    {
-        ret = strerror_r( code, buf, buflen );
-        if (ret == ERANGE)
-        {
+    do {
+        ret = strerror_r(code, buf, buflen);
+        if (ret == ERANGE) {
             buflen = (size_t)(buflen * 1.4);
-            free( buf );
-            buf = (char*)malloc( buflen );
+            free(buf);
+            buf = (char*)malloc(buflen);
         }
     } while (!(ret == 0 || ret == EINVAL));
 
@@ -701,23 +656,24 @@ char* strerror_r_ensure (int code)
 #endif
 }
 
-wchar_t* get_system_error_str (int code)
+wchar_t* get_system_error_str(int code)
 {
 	char* str;
 	wchar_t* result;
-	str = strerror_r_ensure( code );
+	str = strerror_r_ensure(code);
 	if (!str)
 		str = portable_strdup( "strerror_r failed, unknown error" );
-	result = str_to_widestr( str );
-	free( str );
+	result = str_to_widestr(str);
+	free(str);
 	return result;
 }
 
-void free_system_error_str (wchar_t* str)
+void free_system_error_str(wchar_t* str)
 {
 	if (str)
-		free( str );
+		free(str);
 }
+
 
 /*
  * Misc
@@ -820,6 +776,7 @@ int set_default_bindy_key()
 #endif
 }
 
+
 /*
  * Lock support
  */
@@ -835,72 +792,70 @@ mutex_t* mutex_init(unsigned int nonce)
 {
 	char name[_POSIX_PATH_MAX];
 	int counter = 0;
-	mutex_t* mutex = malloc( sizeof(mutex_t) );
-	if (!mutex)
-	{
-		log_system_error( L"can't create semaphore" );
+	mutex_t* mutex = malloc(sizeof(mutex_t));
+	if (!mutex) {
+		log_system_error(L"Failed to allocate memory for 'mutex_t' structure: ");
 		return NULL;
 	}
+
 	/* thanks APUE for this idea */
-	do
-	{
+	do {
 		if (counter)
-			log_error( L"cannot use semaphore %s, increasing suffix", name );
-  		portable_snprintf( name, sizeof(name), "/sem-ximc-%ld.%x.%d", (long)getpid(), nonce, counter++ );
-		mutex->impl = sem_open( name, O_CREAT|O_EXCL, 0777, 1 );
-	}
-	while (mutex->impl == SEM_FAILED && errno == EEXIST);
-	if (mutex->impl == SEM_FAILED)
-	{
-		free( mutex );
-		log_system_error( L"can't create semaphore" );
+			log_error(L"Cannot use semaphore '%hs', increasing suffix", name);
+  		portable_snprintf(name, sizeof(name), "/sem-ximc-%ld.%x.%d", (long)getpid(), nonce, counter++);
+		mutex->impl = sem_open(name, O_CREAT | O_EXCL, 0777, 1);
+	} while (mutex->impl == SEM_FAILED && errno == EEXIST);
+
+	if (mutex->impl == SEM_FAILED) {
+		free(mutex);
+		mutex = NULL;
+		log_system_error(L"Failed to create semaphore: ");
 		return NULL;
 	}
+
 	/* unlink early */
-	if (sem_unlink( name ))
-	{
-		free( mutex );
-		log_system_error( L"can't unlink semaphore" );
+	if (sem_unlink(name)) {
+		free(mutex);
+		mutex = NULL;
+		log_system_error(L"Failed to unlink semaphore: ");
 		return NULL;
 	}
+
 	return mutex;
 }
 
 void mutex_close(mutex_t* mutex)
 {
-	if (mutex)
-	{
-		if (mutex->impl != SEM_FAILED)
-		{
-			if (sem_close( mutex->impl ) != 0)
-				log_system_error( L"can't close semaphore due to " );
+	if (mutex) {
+		if (mutex->impl != SEM_FAILED) {
+			if (sem_close(mutex->impl) != 0)
+				log_system_error(L"Failed to close semaphore due to: ");
 		}
-		free( mutex );
+		free(mutex);
+		mutex = NULL;
 	}
 }
 
 void mutex_lock(mutex_t* mutex)
 {
-	if (!mutex || mutex->impl == SEM_FAILED)
-	{
-		log_error( L"no semaphore specified" );
+	if (!mutex || mutex->impl == SEM_FAILED) {
+		log_error(L"No semaphore specified");
 		return;
 	}
-	if (sem_wait( mutex->impl ) == -1)
-		log_system_error( L"can't wait on semaphore %p due to ", mutex->impl );
+
+	if (sem_wait(mutex->impl) == -1)
+		log_system_error(L"Failed to wait on semaphore %p due to: ", mutex->impl);
 }
 
 void mutex_unlock(mutex_t* mutex)
 {
-	if (!mutex || mutex->impl == SEM_FAILED)
-	{
-		log_error( L"no semaphore specified" );
+	if (!mutex || mutex->impl == SEM_FAILED) {
+		log_error(L"No semaphore specified");
 		return;
 	}
+
 	if (sem_post( mutex->impl ) == -1)
-		log_system_error( L"can't post on semaphore %p due to ", mutex->impl );
+		log_system_error(L"Failed to post on semaphore %p due to: ", mutex->impl);
 }
 
 #endif
-
-// vim: syntax=c tabstop=4 shiftwidth=4

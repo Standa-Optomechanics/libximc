@@ -3,7 +3,7 @@ UNAME := $(shell uname)
 SOVER = 7
 NAME = $(shell basename `pwd`).jar
 ifeq ($(UNAME), Darwin)
-LIBJXIMC=../../ximc/macosx/libjximc.jar
+LIBJXIMC=../../dist/ximc/macosx/libjximc.jar
 else
 LIBJXIMC=libjximc.jar
 endif

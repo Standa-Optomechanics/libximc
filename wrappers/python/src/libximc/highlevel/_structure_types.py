@@ -256,6 +256,7 @@ class feedback_settings_t:
     @FeedbackType.setter
     def FeedbackType(self, val):
         if val is NOT_INITIALIZED:
+            self._FeedbackType = val
             return
         try:
             self._FeedbackType = flag_enumerations.FeedbackType(val)
@@ -266,6 +267,7 @@ class feedback_settings_t:
     @FeedbackFlags.setter
     def FeedbackFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._FeedbackFlags = val
             return
         try:
             self._FeedbackFlags = flag_enumerations.FeedbackFlags(val)
@@ -392,6 +394,7 @@ class home_settings_t:
     @HomeFlags.setter
     def HomeFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._HomeFlags = val
             return
         try:
             self._HomeFlags = flag_enumerations.HomeFlags(val)
@@ -468,6 +471,7 @@ class home_settings_calb_t:
     @HomeFlags.setter
     def HomeFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._HomeFlags = val
             return
         try:
             self._HomeFlags = flag_enumerations.HomeFlags(val)
@@ -584,6 +588,7 @@ class move_settings_t:
     @MoveFlags.setter
     def MoveFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._MoveFlags = val
             return
         try:
             self._MoveFlags = flag_enumerations.MoveFlags(val)
@@ -670,6 +675,7 @@ class move_settings_calb_t:
     @MoveFlags.setter
     def MoveFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._MoveFlags = val
             return
         try:
             self._MoveFlags = flag_enumerations.MoveFlags(val)
@@ -795,6 +801,7 @@ class engine_settings_t:
     @EngineFlags.setter
     def EngineFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EngineFlags = val
             return
         try:
             self._EngineFlags = flag_enumerations.EngineFlags(val)
@@ -810,6 +817,7 @@ class engine_settings_t:
     @MicrostepMode.setter
     def MicrostepMode(self, val):
         if val is NOT_INITIALIZED:
+            self._MicrostepMode = val
             return
         try:
             self._MicrostepMode = val
@@ -925,6 +933,7 @@ class engine_settings_calb_t:
     @EngineFlags.setter
     def EngineFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EngineFlags = val
             return
         try:
             self._EngineFlags = flag_enumerations.EngineFlags(val)
@@ -940,6 +949,7 @@ class engine_settings_calb_t:
     @MicrostepMode.setter
     def MicrostepMode(self, val):
         if val is NOT_INITIALIZED:
+            self._MicrostepMode = val
             return
         try:
             self._MicrostepMode = val
@@ -987,6 +997,7 @@ class entype_settings_t:
     @EngineType.setter
     def EngineType(self, val):
         if val is NOT_INITIALIZED:
+            self._EngineType = val
             return
         try:
             self._EngineType = flag_enumerations.EngineType(val)
@@ -997,6 +1008,7 @@ class entype_settings_t:
     @DriverType.setter
     def DriverType(self, val):
         if val is NOT_INITIALIZED:
+            self._DriverType = val
             return
         try:
             self._DriverType = flag_enumerations.DriverType(val)
@@ -1083,6 +1095,7 @@ class power_settings_t:
     @PowerFlags.setter
     def PowerFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._PowerFlags = val
             return
         try:
             self._PowerFlags = flag_enumerations.PowerFlags(val)
@@ -1210,6 +1223,7 @@ class secure_settings_t:
     @Flags.setter
     def Flags(self, val):
         if val is NOT_INITIALIZED:
+            self._Flags = val
             return
         try:
             self._Flags = flag_enumerations.SecureFlags(val)
@@ -1293,6 +1307,7 @@ class edges_settings_t:
     @BorderFlags.setter
     def BorderFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._BorderFlags = val
             return
         try:
             self._BorderFlags = flag_enumerations.BorderFlags(val)
@@ -1303,6 +1318,7 @@ class edges_settings_t:
     @EnderFlags.setter
     def EnderFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EnderFlags = val
             return
         try:
             self._EnderFlags = flag_enumerations.EnderFlags(val)
@@ -1387,6 +1403,7 @@ class edges_settings_calb_t:
     @BorderFlags.setter
     def BorderFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._BorderFlags = val
             return
         try:
             self._BorderFlags = flag_enumerations.BorderFlags(val)
@@ -1397,6 +1414,7 @@ class edges_settings_calb_t:
     @EnderFlags.setter
     def EnderFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EnderFlags = val
             return
         try:
             self._EnderFlags = flag_enumerations.EnderFlags(val)
@@ -1587,6 +1605,7 @@ class sync_in_settings_t:
     @SyncInFlags.setter
     def SyncInFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._SyncInFlags = val
             return
         try:
             self._SyncInFlags = flag_enumerations.SyncInFlags(val)
@@ -1673,6 +1692,7 @@ class sync_in_settings_calb_t:
     @SyncInFlags.setter
     def SyncInFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._SyncInFlags = val
             return
         try:
             self._SyncInFlags = flag_enumerations.SyncInFlags(val)
@@ -1762,6 +1782,7 @@ class sync_out_settings_t:
     @SyncOutFlags.setter
     def SyncOutFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._SyncOutFlags = val
             return
         try:
             self._SyncOutFlags = flag_enumerations.SyncOutFlags(val)
@@ -1846,6 +1867,7 @@ class sync_out_settings_calb_t:
     @SyncOutFlags.setter
     def SyncOutFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._SyncOutFlags = val
             return
         try:
             self._SyncOutFlags = flag_enumerations.SyncOutFlags(val)
@@ -1906,6 +1928,7 @@ class extio_settings_t:
     @EXTIOSetupFlags.setter
     def EXTIOSetupFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EXTIOSetupFlags = val
             return
         try:
             self._EXTIOSetupFlags = flag_enumerations.ExtioSetupFlags(val)
@@ -1916,6 +1939,7 @@ class extio_settings_t:
     @EXTIOModeFlags.setter
     def EXTIOModeFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._EXTIOModeFlags = val
             return
         try:
             self._EXTIOModeFlags = flag_enumerations.ExtioModeFlags(val)
@@ -2005,6 +2029,7 @@ class brake_settings_t:
     @BrakeFlags.setter
     def BrakeFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._BrakeFlags = val
             return
         try:
             self._BrakeFlags = flag_enumerations.BrakeFlags(val)
@@ -2125,6 +2150,7 @@ class control_settings_t:
     @Flags.setter
     def Flags(self, val):
         if val is NOT_INITIALIZED:
+            self._Flags = val
             return
         try:
             self._Flags = flag_enumerations.ControlFlags(val)
@@ -2229,6 +2255,7 @@ class control_settings_calb_t:
     @Flags.setter
     def Flags(self, val):
         if val is NOT_INITIALIZED:
+            self._Flags = val
             return
         try:
             self._Flags = flag_enumerations.ControlFlags(val)
@@ -2344,6 +2371,7 @@ class joystick_settings_t:
     @JoyFlags.setter
     def JoyFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._JoyFlags = val
             return
         try:
             self._JoyFlags = flag_enumerations.JoyFlags(val)
@@ -2404,6 +2432,7 @@ class ctp_settings_t:
     @CTPFlags.setter
     def CTPFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._CTPFlags = val
             return
         try:
             self._CTPFlags = flag_enumerations.CtpFlags(val)
@@ -2453,6 +2482,7 @@ class uart_settings_t:
     @UARTSetupFlags.setter
     def UARTSetupFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._UARTSetupFlags = val
             return
         try:
             self._UARTSetupFlags = flag_enumerations.UARTSetupFlags(val)
@@ -2499,6 +2529,7 @@ class controller_name_t:
     @CtrlFlags.setter
     def CtrlFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._CtrlFlags = val
             return
         try:
             self._CtrlFlags = flag_enumerations.ControllerFlags(val)
@@ -2604,6 +2635,7 @@ class emf_settings_t:
     @BackEMFFlags.setter
     def BackEMFFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._BackEMFFlags = val
             return
         try:
             self._BackEMFFlags = flag_enumerations.BackEMFFlags(val)
@@ -2849,6 +2881,7 @@ class set_position_t:
     @PosFlags.setter
     def PosFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._PosFlags = val
             return
         try:
             self._PosFlags = flag_enumerations.PositionFlags(val)
@@ -2912,6 +2945,7 @@ class set_position_calb_t:
     @PosFlags.setter
     def PosFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._PosFlags = val
             return
         try:
             self._PosFlags = flag_enumerations.PositionFlags(val)
@@ -3091,6 +3125,7 @@ class status_t:
     @MoveSts.setter
     def MoveSts(self, val):
         if val is NOT_INITIALIZED:
+            self._MoveSts = val
             return
         try:
             self._MoveSts = flag_enumerations.MoveState(val)
@@ -3101,6 +3136,7 @@ class status_t:
     @MvCmdSts.setter
     def MvCmdSts(self, val):
         if val is NOT_INITIALIZED:
+            self._MvCmdSts = val
             return
         try:
             self._MvCmdSts = flag_enumerations.MvcmdStatus(val)
@@ -3111,6 +3147,7 @@ class status_t:
     @PWRSts.setter
     def PWRSts(self, val):
         if val is NOT_INITIALIZED:
+            self._PWRSts = val
             return
         try:
             self._PWRSts = flag_enumerations.PowerState(val)
@@ -3121,6 +3158,7 @@ class status_t:
     @EncSts.setter
     def EncSts(self, val):
         if val is NOT_INITIALIZED:
+            self._EncSts = val
             return
         try:
             self._EncSts = flag_enumerations.EncodeStatus(val)
@@ -3131,6 +3169,7 @@ class status_t:
     @WindSts.setter
     def WindSts(self, val):
         if val is NOT_INITIALIZED:
+            self._WindSts = val
             return
         try:
             self._WindSts = flag_enumerations.WindStatus(val)
@@ -3190,6 +3229,7 @@ class status_t:
     @Flags.setter
     def Flags(self, val):
         if val is NOT_INITIALIZED:
+            self._Flags = val
             return
         try:
             self._Flags = flag_enumerations.StateFlags(val)
@@ -3200,6 +3240,7 @@ class status_t:
     @GPIOFlags.setter
     def GPIOFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._GPIOFlags = val
             return
         try:
             self._GPIOFlags = flag_enumerations.GPIOFlags(val)
@@ -3364,6 +3405,7 @@ class status_calb_t:
     @MoveSts.setter
     def MoveSts(self, val):
         if val is NOT_INITIALIZED:
+            self._MoveSts = val
             return
         try:
             self._MoveSts = flag_enumerations.MoveState(val)
@@ -3374,6 +3416,7 @@ class status_calb_t:
     @MvCmdSts.setter
     def MvCmdSts(self, val):
         if val is NOT_INITIALIZED:
+            self._MvCmdSts = val
             return
         try:
             self._MvCmdSts = flag_enumerations.MvcmdStatus(val)
@@ -3384,6 +3427,7 @@ class status_calb_t:
     @PWRSts.setter
     def PWRSts(self, val):
         if val is NOT_INITIALIZED:
+            self._PWRSts = val
             return
         try:
             self._PWRSts = flag_enumerations.PowerState(val)
@@ -3394,6 +3438,7 @@ class status_calb_t:
     @EncSts.setter
     def EncSts(self, val):
         if val is NOT_INITIALIZED:
+            self._EncSts = val
             return
         try:
             self._EncSts = flag_enumerations.EncodeStatus(val)
@@ -3404,6 +3449,7 @@ class status_calb_t:
     @WindSts.setter
     def WindSts(self, val):
         if val is NOT_INITIALIZED:
+            self._WindSts = val
             return
         try:
             self._WindSts = flag_enumerations.WindStatus(val)
@@ -3453,6 +3499,7 @@ class status_calb_t:
     @Flags.setter
     def Flags(self, val):
         if val is NOT_INITIALIZED:
+            self._Flags = val
             return
         try:
             self._Flags = flag_enumerations.StateFlags(val)
@@ -3463,6 +3510,7 @@ class status_calb_t:
     @GPIOFlags.setter
     def GPIOFlags(self, val):
         if val is NOT_INITIALIZED:
+            self._GPIOFlags = val
             return
         try:
             self._GPIOFlags = flag_enumerations.GPIOFlags(val)
@@ -3547,7 +3595,7 @@ class chart_data_t:
             WindingCurrentC: int = NOT_INITIALIZED,
             Pot: int = NOT_INITIALIZED,
             Joy: int = NOT_INITIALIZED,
-            DutyCycle: int = NOT_INITIALIZED):
+            AveragedPowerRatio: int = NOT_INITIALIZED):
         """Additional device state.
 
         This structure contains additional values such as winding's voltages, currents and temperature.
@@ -3577,8 +3625,8 @@ class chart_data_t:
         :type Pot: int
         :param Joy: The joystick position, dimensionless. Range: 0..10000
         :type Joy: int
-        :param DutyCycle: PWM duty cycle.
-        :type DutyCycle: int
+        :param AveragedPowerRatio: averaged power ratio.
+        :type AveragedPowerRatio: int
         """
         self.WindingVoltageA = WindingVoltageA
         self.WindingVoltageB = WindingVoltageB
@@ -3588,7 +3636,7 @@ class chart_data_t:
         self.WindingCurrentC = WindingCurrentC
         self.Pot = Pot
         self.Joy = Joy
-        self.DutyCycle = DutyCycle
+        self.AveragedPowerRatio = AveragedPowerRatio
 
     # getters
     @property
@@ -3624,8 +3672,8 @@ class chart_data_t:
         return self._Joy
 
     @property
-    def DutyCycle(self) -> int:
-        return self._DutyCycle
+    def AveragedPowerRatio(self) -> int:
+        return self._AveragedPowerRatio
 
     # setters
     @WindingVoltageA.setter
@@ -3668,10 +3716,10 @@ class chart_data_t:
         _check_noncontainer_castability(val, c_uint16, varname="Joy")
         self._Joy = val
 
-    @DutyCycle.setter
-    def DutyCycle(self, val):
-        _check_noncontainer_castability(val, c_int16, varname="DutyCycle")
-        self._DutyCycle = val
+    @AveragedPowerRatio.setter
+    def AveragedPowerRatio(self, val):
+        _check_noncontainer_castability(val, c_int16, varname="AveragedPowerRatio")
+        self._AveragedPowerRatio = val
 
     def __repr__(self) -> str:
         result = ""

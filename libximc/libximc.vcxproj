@@ -117,26 +117,20 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\deps\win32\miniupnpc\lib;$(SolutionDir)\deps\win32\xiwrapper\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Generating sources from protocol</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
-      <Message>Generating sources from protocol</Message>
-      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+      <Message>
+      </Message>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -201,15 +195,12 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
       <AdditionalLibraryDirectories>$(SolutionDir)\deps\win64\miniupnpc\lib;$(SolutionDir)\deps\win64\xiwrapper\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Generating sources from protocol</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -245,18 +236,16 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
       <AdditionalLibraryDirectories>$(SolutionDir)\deps\win64\miniupnpc\lib;$(SolutionDir)\deps\win64\xiwrapper\$(Configuration)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-header -x $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\include\ximc.h -t $(ProjectDir)\src\ximc-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-internal-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.h -t $(ProjectDir)\src\ximc-gen-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-code -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\ximc-gen.c -t $(ProjectDir)\src\ximc-gen-template.c
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-def -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\libximc.def -t $(ProjectDir)\src\libximc-template.def
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-header -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.h -t $(ProjectDir)\src\fwprotocol-template.h
-$(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(SolutionDir)/version -i $(ProjectDir)\src\protocol.xi -o $(ProjectDir)\src\fwprotocol.c -t $(ProjectDir)\src\fwprotocol-template.c</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Generating sources from protocol</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\adapters.c" />
     <ClCompile Include="src\devenum.c" />
     <ClCompile Include="src\devvirt.c" />
     <ClCompile Include="src\fwprotocol.c" />
@@ -276,7 +265,9 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ximc.h" />
+    <ClInclude Include="src\adapters.h" />
     <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\devenum.h" />
     <ClInclude Include="src\loader.h" />
     <ClInclude Include="src\metadata.h" />
     <ClInclude Include="src\platform.h" />
@@ -315,12 +306,6 @@ $(SolutionDir)\$(Configuration)-$(Platform)\xigen.exe --gen-fw-lib -x  $(Solutio
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\xigen\xigen.vcxproj">
-      <Project>{666f535c-4ca3-4604-b151-cc84a9b1bc76}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

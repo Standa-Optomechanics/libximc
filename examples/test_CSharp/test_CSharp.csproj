@@ -121,13 +121,13 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if $(PlatformName) == x64 copy $(ProjectDir)..\..\ximc\win64\bindy.dll $(TargetDir)
-if $(PlatformName) == x64 copy $(ProjectDir)..\..\ximc\win64\libximc.dll $(TargetDir)
-if $(PlatformName) == x64 copy $(ProjectDir)..\..\ximc\win64\xiwrapper.dll $(TargetDir)
+    <PostBuildEvent>if $(PlatformName) == x64 copy $(ProjectDir)..\..\dist\ximc\win64\bindy.dll $(TargetDir)
+if $(PlatformName) == x64 copy $(ProjectDir)..\..\dist\ximc\win64\libximc.dll $(TargetDir)
+if $(PlatformName) == x64 copy $(ProjectDir)..\..\dist\ximc\win64\xiwrapper.dll $(TargetDir)
 
-if $(PlatformName) == x86 copy $(ProjectDir)..\..\ximc\win32\bindy.dll $(TargetDir)
-if $(PlatformName) == x86 copy $(ProjectDir)..\..\ximc\win32\libximc.dll $(TargetDir)
-if $(PlatformName) == x86 copy $(ProjectDir)..\..\ximc\win32\xiwrapper.dll $(TargetDir)</PostBuildEvent>
+if $(PlatformName) == x86 copy $(ProjectDir)..\..\dist\ximc\win32\bindy.dll $(TargetDir)
+if $(PlatformName) == x86 copy $(ProjectDir)..\..\dist\ximc\win32\libximc.dll $(TargetDir)
+if $(PlatformName) == x86 copy $(ProjectDir)..\..\dist\ximc\win32\xiwrapper.dll $(TargetDir)</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>

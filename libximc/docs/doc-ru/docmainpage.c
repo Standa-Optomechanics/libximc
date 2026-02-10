@@ -16,7 +16,7 @@
  *
  * - Поддерживает входные и выходные сигналы синхронизации для обеспечения совместной работы нескольких устройств в рамках сложной системы;
  * - Работает со всеми компактными шаговыми двигателями с током обмотки до 3 А, без обратной связи, а так же с шаговыми двигателями, оснащенными энкодером в цепи обратной связи, в том числе линейным энкодером на позиционере;
- * - Управляет контроллером с помощью готового ПО <a href="https://files.xisupport.com/Software.ru.html#xilab">XILab</a> или с помощью примеров, которые позволяют быстро начать программирование с использованием C++, C#, .NET, Delphi, Visual Basic, Xcode, Python, Matlab, Java, LabWindows и LabVIEW.
+ * - Управляет контроллером с помощью готового ПО <a href="https://files.xisupport.com/Software.ru.html#xilab">XILab</a> или с помощью примеров, которые позволяют быстро начать программирование с использованием C++, C#, .NET, Visual Basic, Xcode, Python, Matlab, Java и LabVIEW.
  *
  * \section what_can_do_library Что умеет библиотека libximc
  *
@@ -45,14 +45,13 @@
  *
  * \subsection sysreq_usage Поддерживаемые операционные системы и требования к окружению:
  *
- * - MacOS X 10.6 или новее
- * - Windows 2000 или новее
- * - Linux на основе debian. DEB собирается на Debian Squeeze 7
- * - Linux на основе debian ARM. DEB собирается кросс-компилятором на Ubuntu 14.04
- * - Linux на основе rpm. RPM собирается на OpenSUSE 12
+ * - MacOS X 10.15 или новее
+ * - Windows 7 или новее
+ * - Linux на основе debian. DEB собирается на Debian Buster
+ * - Linux на основе debian ARM. DEB собирается на Armbian 5.75 c архитектурой aarch64.
  *
  * Требования сборки:
- * - Windows: Microsoft Visual C++ 2013 или новее, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin с tar, bison, flex, curl, 7z. mingw
+ * - Windows: Microsoft Visual C++ 2013 или новее, MATLAB, Code::Blocks, Java, Python, cygwin с tar, bison, flex, curl, 7z. mingw
  * - UNIX: gcc 4 или новее, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - Mac OS X: XCode 4 или новее, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - JDK 7 - 9
@@ -63,12 +62,19 @@
  *
  * Требования: 64-битный windows (сборочный скрипт собирает обе архитектуры), cygwin (должен быть установлен в пути по умолчанию).
  * 
- * Запустите скрипт:
+ * Для полной сборки библиотеки с примерами, адаптеры и документацией запустите скрипт:
  * \code
- * $ ./build.bat
+ *  build.bat
  * \endcode
  * 
- * Собранные файлы располагаются в ./ximc/win32 и ./ximc/win64
+ * В случае же сборки только библиотеки используйте:
+ * \code
+ *  build.bat deps
+ *  build.bat gen-libximc-sources
+ *  build.bat libximc
+ * \endcode
+ * 
+ * Собранные файлы располагаются в ./dist/win32 и ./dist/win64
  *
  * Если вы хотите собрать отладочную версию библиотеки, то перед запуском скрипта сборки установите переменную окружения "DEBUG" в значение "true".
  *
@@ -78,24 +84,25 @@
  * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
  * \endcode
  *
- * Для кросс-компиляции ARM установите gcc-arm-linux-gnueabihf из вашего инструментария ARM.
- *
  * Необходимо соблюдать парность архитектуры библиотеки и системы: 32-битная библиотека может быть собрана только на 32-битной системе,
- * а 64-битная - только на 64-битной. Библиотека под ARM собирается кросс-компилятором gcc-arm-linux-gnueabihf.
+ * а 64-битная - только на 64-битной.
  *
  * Для сборки библиотеки и пакета запустите скрипт:
  * \code
- * 	./build.sh libdeb
+ * 	./build.sh deps
+ *  ./build.sh gen-libximc-sources
+ *  ./build.sh libximc
  * \endcode
  * 
- * Для библиотеки ARM замените 'libdeb' на 'libdebarm'. <br>
- * Пакеты располагаются в ./ximc/deb, локально установленные файлы - в ./dist/local.
+  * Пакеты располагаются в ./ximc/deb, локально установленные файлы - в ./dist/local.
  *
  * \section building_osx_framework Сборка для MacOS X
  *
  * Для сборки библиотеки и пакета запустите скрипт:
  * \code
- * 	./build.sh libosx
+ * 	./build.sh deps
+ *  ./build.sh gen-libximc-sources
+ *  ./build.sh libximc
  * \endcode
  *
  * Собранная библиотека (классическая и фреймворк), приложения (классическая и фреймворк) и документация
@@ -105,31 +112,13 @@
  *
  * Обобщенная версия собирается обычными autotools.
  * \code
- *   ./build.sh lib
+ *   ./build.sh
  * \endcode
  * Собранные файлы (библиотека, заголовочные файлы, документация) устанавливаются в локальную директорию  ./dist/local.
  * Это сборка для разработчика, при необходимости можно указать дополнительные параметры командной строки для вашей системы.
  *
- * \section building_unix_rpm Сборка на Linux на основе RedHat
- * Требования: 64-битная система на основе redhat (Fedora, Red Hat, SUSE)
- *
- * Полный набор пакетов: 
- * \code
- * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
- * \endcode
- *
- * Возможно собрать 32-битную и 64-битную библиотеки на 64-битной системе, однако 64-битная
- * библиотека не может быть собрана на 32-битной системе.
- *
- * Для сборки библиотеки и пакета запустите скрипт:
- * \code
- * 	./build.sh librpm
- * \endcode
- * 
- * Пакеты располагаются в ./ximc/rpm, локально установленные файлы - в ./dist/local.
- *
- * \section building_src Доступ к исходным кодам
- * Исходные коды библиотеки libximc можно найти на <a href="https://github.com/EPC-MSU/libximc">github</a>.
+  * \section building_src Доступ к исходным кодам
+ * Исходные коды библиотеки libximc можно найти на <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
  *
  * \page howtouse_sec Как использовать с...
  *
@@ -191,7 +180,7 @@
  *
  * В случае, если планируется использовать Ethernet-адаптер 8Eth1, в файле testapp.c перед сборкой нужно прописать IP адрес Ethernet-адаптера (переменная enumerate_hints).
  * 
- * Также существует <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">пример использования библиотеки libximc</a> в проекте С++ Builder, <b>но он не поддерживается</b>.
+ * Также существует <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">пример использования библиотеки libximc</a> в проекте С++ Builder, <b>но он не поддерживается</b>.
  *
  * \subsection howtouse_c_xcode_sec XCode
  *
@@ -240,16 +229,6 @@
  * 
  * В случае, если планируется использовать Ethernet-адаптер 8Eth1, в файле testapp.cs или testapp.vb (в зависимости от языка) перед сборкой нужно прописать IP адрес Ethernet-адаптера (переменная enumerate_hints для C#, переменная enum_hints для VB).
  *
- * \subsection howtouse_delphi_sec Delphi
- *
- * Обертка для использования в Delphi libximc.dll предлагается как модуль ximc/winX/wrappers/pascal/ximc.pas
- *
- * Консольное тестовое приложение размещено в директории 'test_Delphi'. Тестировалось с Delphi 6 на 32-битной системе.
- *
- * Просто скомпилируйте, разместите .dll в директории с исполняемым примером и запустите его.
- *
- * В случае, если планируется использовать Ethernet-адаптер 8Eth1, в файле test_Delphi.dpr перед сборкой нужно прописать IP адрес Ethernet-адаптера (переменная enum_hints).
- * 
  * \subsection howtouse_java_sec Java
  *
  * Как запустить пример на Linux. Перейдите в examples/test_Java/compiled-winX/ и выполните
@@ -371,7 +350,7 @@
  *
  * Структуры и функции для работы с пользовательскими единицами имеют постфикc _calb. 
  * Пользователь используя данные функции может выполнять все действия в собственных единицах не беспокоясь о том, что и как считает контроллер.
- * Для _calb функций отдельных описаний нет. Они выполняют теже действия, что и базовые функции. 
+ * Для _calb функций отдельных описаний нет. Они выполняют те же действия, что и базовые функции. 
  * Разница между ними и базовыми функциями в типах данных положения, скоростей и ускорений определенных как пользовательские. Если требуются уточнения для _calb функций они оформлены в виде примечаний в описании базовых функций.
  *
  * \section userunit_corr Таблица коррекции координат для более точного позиционирования
@@ -387,7 +366,7 @@
  * - заголовки столбцов строковые; 
  * - данные действительные, разделитель - точка; 
  * - первый столбец координата, второй - отклонение вызванное ошибкой механики; 
- * - между координатами отклонение расчитывается линейно; 
+ * - между координатами отклонение расcчитывается линейно; 
  * - за диапазоном - константа равная отклонению на границе; 
  * - максимальная длина таблицы 100 строк.
  *

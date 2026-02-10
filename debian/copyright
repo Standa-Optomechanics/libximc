@@ -1,13 +1,13 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: libximc7
-Source: http://www.ximc.ru
+Source: http://www.xisupport.com
 
 Files: *
-Copyright: 2019 XIMC Team <info@ximc.ru>
+Copyright: 2019 XIMC Team <8smc4@standa.lt>
 License: BSD-2-clause
 
 Files: debian/*
-Copyright: 2019 XIMC Team <info@ximc.ru>
+Copyright: 2019 XIMC Team <8smc4@standa.lt>
 License: BSD-2-clause
 
 License: BSD-2-clause

@@ -16,7 +16,7 @@
  *
  * - Supports input and output synchronization signals to ensure the joint operation of multiple devices within a complex system ;.
  * - Works with all compact stepper motors with a winding current of up to 3 A, without feedback, as well as with stepper motors equipped with an encoder in the feedback circuit, including a linear encoder on the positioner.
- * - Manages controller using ready-made <a href="https://files.xisupport.com/Software.en.html#xilab">xilab software</a> or using examples which allow rapid development using C++, C#, .NET, Delphi, Visual Basic, Xcode, Python, Matlab, Java, LabWindows and LabVIEW.
+ * - Manages controller using ready-made <a href="https://files.xisupport.com/Software.en.html#xilab">xilab software</a> or using examples which allow rapid development using C++, C#, .NET, Visual Basic, Xcode, Python, Matlab, Java and and LabVIEW.
  *
  * \section what_can_do_library What can do libximc library
  *
@@ -44,14 +44,13 @@
  * <b>Each device can be controlled only by one program at once. Multiple processes (programs) that control one device simultaneously are not allowed.</b>
  *
  * \subsection sysreq_usage Supported OS and environment requirements:
- * - MacOS X 10.6 or newer
- * - Windows 2000 or newer
- * - Linux debian-based. DEB package is built against Debian Squeeze 7
- * - Linux debian-based ARM. DEB package is built on Ubuntu 14.04
- * - Linux rpm-based. RPM is built against OpenSUSE 12
+ * - MacOS X 10.15 or newer
+ * - Windows 7 or newer
+ * - Linux debian-based. DEB package is built against Debian Buster
+ * - Linux debian-based ARM. DEB package is built on Armbian 5.75 with aarch64 architecture.
  *
  * Build requirements:
- * - Windows: Microsoft Visual C++ 2013 or newer, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin with tar, bison, flex, curl, 7z mingw
+ * - Windows: Microsoft Visual C++ 2013 or newer, MATLAB, Code::Blocks, Java, Python, cygwin with tar, bison, flex, curl, 7z mingw
  * - UNIX: gcc 4 or newer, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - MacOS X: XCode 4 or newer, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  *
@@ -61,33 +60,38 @@
  *
  * Requirements: 64-bit windows (build script builds both architectures), cygwin (must be installed to a default path).
  *
- * Invoke a script:
+ * To build the library with documentation, wrappers and examples, invoke a script:
  * \code
- * 	./build.bat
+ * 	build.bat
+ * \endcode
+ * 
+ * Or if you want to build only the library:
+ * \code
+ *  build.bat deps
+ *  build.bat gen-libximc-sources
+ *  build.bat libximc
  * \endcode
  *
- * Grab packages from ./deb/win32 and ./deb/win64 
+ * Grab packages from ./dist/win32 and ./dist/win64 
  *
  * To build debug version of the library set environment variable "DEBUG" to "true" before running the build script.
  *
  * \section building_unix_deb Building on debian-based linux systems
  * Requirement: 64-bit and 32-bit debian system, ubuntu
- * Typical set of packages: 
+ * Typical set of packages:
  * \code
  * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
  * \endcode
  *
- * For ARM cross-compiling install gcc-arm-linux-gnueabihf from your ARM toolchain.
- *
  * It's required to match library and host architecture: 32-bit library can be built only at 32-bit host,
- * 64-bit library - only at 64-bit host. ARM library is built with armhf cross-compiler gcc-arm-linux-gnueabihf.
+ * 64-bit library - only at 64-bit host.
  *
  * To build library and package invoke a script:
  * \code
- * 	./build.sh libdeb
+ * 	./build.sh deps
+ *  ./build.sh gen-libximc-sources
+ *  ./build.sh libximc
  * \endcode
- * 
- * For ARM library replace 'libdeb' with 'libdebarm'.
  *
  * Grab packages from ./ximc/deb and locally installed binaries from ./dist/local.
  *
@@ -95,7 +99,9 @@
  *
  * To build and package a script invoke a script:
  * \code
- * 	./build.sh libosx
+ * 	./build.sh deps
+ *  ./build.sh gen-libximc-sources
+ *  ./build.sh libximc
  * \endcode
  *
  * Built library (classical and framework), examples (classical and .app), documentation
@@ -105,43 +111,25 @@
  *
  * Generic version could be built with standard autotools.
  * \code
- * 	./build.sh lib
+ * 	./build.sh
  * \endcode
  * Built files (library, headers, documentation) are installed to ./dist/local directory.
  * It is a generic developer build. Sometimes you need to specify additional parameters to
  * command line for your machine. Please look to following OS sections.
  *
- * \section building_unix_rpm Building on redhat-based linux systems
- * Requirement: 64-bit redhat-based system (Fedora, Red Hat, SUSE)
- * Typical set of packages: 
- * \code
- * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
- * \endcode
- *
- * It's possible to build both 32- and 64-bit libraries on 64-bit host system.
- * 64-bit library can't be built on 32-bit system.
- *
- * To build library and package invoke a script:
- * \code
- * 	./build.sh librpm
- * \endcode
- * 
- * Grab packages from ./ximc/rpm and locally installed binaries from ./dist/local.
- *
  * \section building_src Source code access
- * The source codes of the libximc library can be found on <a href="https://github.com/EPC-MSU/libximc">github</a>.
+ * The source codes of the libximc library can be found on <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
  *
  * \page howtouse_sec How to use with...
  *
  * To acquire the first skills of using the library, a simple testappeasy_C test application has been created. 
  * Languages other than C are supported using calls with conversion of arguments of the stdcall type.
  * A simple C test application is located in the 'examples/test_C' directory, a C# project is located in 'examples/test_CSharp',
- * on VB.NET - in 'examples/test_VBNET', for delphi 6 - in 'example/test_Delphi', for matlab - 'examples/test_MATLAB',
- * for Java - 'examples/test_Java', for Python - 'examples/test_Python', for LabWindows - 'examples/test_LabWindows'.
+ * on VB.NET - in 'examples/test_VBNET', for matlab - 'examples/test_MATLAB', for Java - 'examples/test_Java',
+ * for Python - 'examples/test_Python'.
  * Libraries, header files and other necessary files are located in the directories 'ximc/win32', 'ximc/win64','ximc/macosx' and the like.
  * The developer kit also includes already compiled examples: testapp and testappeasy x32 and x64 bits for windows and only x64 bits for macOS X,
- * test_CSharp, test_VBNET, test_Delphi - only x32 bits, test_Java - cross-platform, test_MATLAB and test_Python do not require compilation,
- * test_LabWindows - 64-bit build is installed by default.
+ * test_CSharp, test_VBNET, test_Java - cross-platform, test_MATLAB and test_Python do not require compilation.
  *
  * \note
  * SDK requires Microsoft Visual C++ Redistributable Package (provided with SDK - vcredist_x86 or vcredist_x64)
@@ -196,7 +184,7 @@
  *
  * In case of the 8Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in testapp.c file before build (see enumerate_hints variable).
  * 
- * There is also an <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">unsupported example</a> of using libximc in a C++ Builder project
+ * There is also an <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">unsupported example</a> of using libximc in a C++ Builder project
  *
  * \subsection howtouse_c_xcode_sec XCode
  *
@@ -206,7 +194,7 @@
  * Then launch application testapp.app and check activity output in Console.app.
  * 
  * In case of the 8Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in testapp.c file before build (see enumerate_hints variable).
- * There is also <a href="https://github.com/EPC-MSU/ximc_embarcaderro_builder_example">an example of using the libximc library</a> in a C++ Builder project, <b>but it is not supported</b>.
+ * There is also <a href="https://github.com/Standa-Optomechanics/ximc_embarcaderro_builder_example">an example of using the libximc library</a> in a C++ Builder project, <b>but it is not supported</b>.
  *
  * \subsection howtouse_c_gcc_sec GCC
  *
@@ -247,15 +235,6 @@
  * 
  * In case of the 8SMC4-USB-Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in testapp.cs or testapp.vb file (depending on programming language) before build (see enumerate_hints variable for C# or enum_hints variable for VB).
  *
- * \subsection howtouse_delphi_sec Delphi
- *
- * Wrapper for libximc.dll is a unit ximc/winX/wrappers/delphi/ximc.pas
- *
- * Console test application for is located at test_Delphi. Tested on Delphi 6 and only 32-bit version.
- *
- * Just compile, place .dll near the executable and run program.
- * 
- * In case of the 8Eth1 Ethernet adapter usage it is necessary to set correct IP address of the Ethernet adapter in test_Delphi.dpr file before build (see enum_hints variable).
  *
  * \subsection howtouse_java_sec Java
  *

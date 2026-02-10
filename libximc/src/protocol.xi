@@ -1,4 +1,4 @@
-protocol "v20.9"
+protocol "v20.10"
 defaults with crc, answer, public
 
 /** \english
@@ -144,11 +144,23 @@ STATE_ENC_B						= 0x00004000	/**< \english State of encoder B pin. \endenglish 
 	* @name Encoder state
 	* This is a bit mask for bitwise operations.
 	* Encoder state returned by device query.
+	* @note The ENCD flag is only active in the None and EMF modes. 
+	* In other modes, such as Encoder and Encoder Mediated, it is not used, 
+	* as these modes cannot operate without an encoder. 
+	* After the controller is powered on, the flag will be in the unknown state — 
+	* a movement is required to determine the position. 
+	* As the movement occurs, the flag’s value may change.
 	* \endenglish
 	* \russian
 	* @name Состояние энкодера
 	* Это битовая маска для побитовых операций.
 	* Состояние энкодера, подключенного к контроллеру.
+	* @note Флаг ENCD работает только в режимах None и EMF. 
+	* В других режимах, таких как Encoder и Encoder Mediated, он не используется, 
+	* потому что эти режимы невозможно использовать без энкодера. 
+	* Сразу после включения контроллера флаг будет в состоянии unknown — 
+	* чтобы определить положение, нужно совершить движение. 
+	* По мере движения значение флага может меняться.
 	* \endrussian
 	* @see get_status
 	*/
@@ -368,14 +380,14 @@ POWER_SMOOTH_CURRENT	= 0x04	/**< \english Current ramp-up/down are performed smo
 	* @see set_secure_settings
 	*/
 flagset SecureFlags:
-ALARM_ON_DRIVER_OVERHEATING	= 0x01	/**< \english If this flag is set, enter the alarm state on the driver overheat signal. \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала подступающего перегрева с драйвера. Иначе - игнорировать подступающий перегрев с драйвера. \endrussian */
-LOW_UPWR_PROTECTION			= 0x02	/**< \english If this flag is set, turn off the motor when the voltage is lower than LowUpwrOff. \endenglish \russian Если установлен, то выключать силовую часть при напряжении меньшем LowUpwrOff. \endrussian */
-H_BRIDGE_ALERT				= 0x04	/**< \english If this flag is set then turn off the power unit with a signal problem in one of the transistor bridge. \endenglish \russian Если установлен, то выключать силовую часть при сигнале неполадки в одном из транзисторных мостов.\endrussian */
-ALARM_ON_BORDERS_SWAP_MISSET= 0x08	/**< \english If this flag is set, enter Alarm state on borders swap misset \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала c противоположного концевого выключателя.\endrussian */
-ALARM_FLAGS_STICKING		= 0x10	/**< \english If this flag is set, only a STOP command can turn all alarms to 0 \endenglish \russian Если флаг установлен, то только по команде STOP возможен сброс всех флагов ALARM.\endrussian */
-USB_BREAK_RECONNECT			= 0x20 /**< \english If this flag is set, the USB brake reconnect module will be enabled \endenglish \russian Если флаг установлен, то будет включен блок перезагрузки USB при поломке связи.\endrussian */
-ALARM_WINDING_MISMATCH		= 0x40 /**< \english If this flag is set, enter Alarm state when windings mismatch \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала рассогласования обмоток \endrussian */
-ALARM_ENGINE_RESPONSE		= 0x80 /**< \english If this flag is set, enter the Alarm state on response of the engine control action \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала ошибки реакции двигателя на управляющее воздействие  \endrussian */
+ALARM_ON_DRIVER_OVERHEATING		= 0x01	/**< \english If this flag is set, enter the alarm state on the driver overheat signal. \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала подступающего перегрева с драйвера. Иначе - игнорировать подступающий перегрев с драйвера. \endrussian */
+LOW_UPWR_PROTECTION				= 0x02	/**< \english If this flag is set, turn off the motor when the voltage is lower than LowUpwrOff. \endenglish \russian Если установлен, то выключать силовую часть при напряжении меньшем LowUpwrOff. \endrussian */
+H_BRIDGE_ALERT					= 0x04	/**< \english If this flag is set, then turn off the power unit with a signal problem in one of the transistor bridge. \endenglish \russian Если установлен, то выключать силовую часть при сигнале неполадки в одном из транзисторных мостов.\endrussian */
+ALARM_ON_BORDERS_SWAP_MISSET	= 0x08	/**< \english If this flag is set, enter Alarm state on borders swap misset \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала c противоположного концевого выключателя.\endrussian */
+ALARM_FLAGS_STICKING			= 0x10	/**< \english If this flag is set, only a STOP command can turn all alarms to 0 \endenglish \russian Если флаг установлен, то только по команде STOP возможен сброс всех флагов ALARM.\endrussian */
+BRAKING_OVERVOLTAGE_PROTECTION	= 0x20	/**< \english If this flag is set, the firmware will close ground switches of H-bridge to disconnect motor from power circuit on overvoltage. \endenglish \russian Если флаг установлен, то микропрограмма контроллера будет замыкать нижние ключи H-моста, отсоединяя мотор от цепи питания, при перенапряжении. \endrussian */
+ALARM_WINDING_MISMATCH			= 0x40	/**< \english If this flag is set, enter Alarm state when windings mismatch \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала рассогласования обмоток \endrussian */
+ALARM_ENGINE_RESPONSE			= 0x80	/**< \english If this flag is set, enter the Alarm state on response of the engine control action \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала ошибки реакции двигателя на управляющее воздействие  \endrussian */
 
 /**
 	* \english
@@ -426,9 +438,10 @@ FEEDBACK_ENCODER_MEDIATED	= 0x06	/**< \english Feedback by encoder mediated by m
 	* @see get_feedback_settings
 	*/
 flagset FeedbackFlags:
-FEEDBACK_ENC_REVERSE	= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
-FEEDBACK_ENC_TYPE_BITS	= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
-FEEDBACK_ENC_TYPE_AUTO	= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
+FEEDBACK_ENC_REVERSE		= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
+FEEDBACK_ENC_ADAPTIVE_HOLDING	= 0x02	/**< \english Enables the adaptive holding algorithm. \endenglish \russian Включает алгоритм адаптивного удержания. \endrussian */
+FEEDBACK_ENC_TYPE_BITS		= 0xC0	/**< \english Bits of the encoder type. \endenglish \russian Биты, отвечающие за тип энкодера. \endrussian */
+FEEDBACK_ENC_TYPE_AUTO		= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
 FEEDBACK_ENC_TYPE_SINGLE_ENDED	= 0x40	/**< \english Single-ended encoder. \endenglish \russian Недифференциальный энкодер. \endrussian */
 FEEDBACK_ENC_TYPE_DIFFERENTIAL	= 0x80	/**< \english Differential encoder. \endenglish \russian Дифференциальный энкодер. \endrussian */
 
@@ -1036,14 +1049,58 @@ fields:
 	*/
 command "move_settings" universal "mov" (30)
 fields:
-	calb float Speed					/**< \english Target speed. \endenglish \russian Заданная скорость. \endrussian */
+	calb float Speed /**< 
+	 * \english 
+	 * Speed 
+	 * - For stepper motor without encoder — in steps per second.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Скорость 
+	 * - для шагового двигателя без энкодера — в шагах в секунду.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int32u Speed					/**< \english Target speed (for stepper motor: steps/s, for DC: rpm). Range: 0..100000. \endenglish \russian Заданная скорость (для ШД: шагов/c, для DC: rpm). Диапазон: 0..100000. \endrussian */
 	normal int8u uSpeed					/**< \english Target speed in microstep fractions/s. The microstep size and the range of valid values for this field depend on the selected step division mode (see the MicrostepMode field in engine_settings). Used with a stepper motor only. \endenglish \russian Заданная скорость в единицах деления микрошага в секунду. Величина микрошага и диапазон допустимых значений для данного поля зависят от выбранного режима деления шага (см. поле MicrostepMode в engine_settings). Используется только с шаговым мотором. \endrussian */
-	calb float Accel					/**< \english Motor shaft acceleration, steps/s^2 (stepper motor) or RPM/s (DC). \endenglish \russian Ускорение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). \endrussian */
+	calb float Accel /**< 
+	 * \english 
+	 * Acceleration: 
+	 * - For stepper motor without encoder — in steps per second^2.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Ускорение  
+	 * - для шагового двигателя без энкодера — в шагах в секунду^2.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int16u Accel					/**< \english Motor shaft acceleration, steps/s^2 (stepper motor) or RPM/s (DC). Range: 1..65535. \endenglish \russian Ускорение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). Диапазон: 1..65535. \endrussian */
-	calb float Decel					/**< \english Motor shaft deceleration, steps/s^2 (stepper motor) or RPM/s (DC). \endenglish \russian Торможение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду(DC). \endrussian */
+	calb float Decel /**< 
+	 * \english 
+	 * Deceleration  
+	 * - For stepper motor without encoder — in steps per second^2.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Торможение  
+	 * - для шагового двигателя без энкодера — в шагах в секунду^2.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int16u Decel					/**< \english Motor shaft deceleration, steps/s^2 (stepper motor) or RPM/s (DC). Range: 1..65535. \endenglish \russian Торможение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). Диапазон: 1..65535. \endrussian */
-	calb float AntiplaySpeed			/**< \english Speed in antiplay mode. \endenglish \russian Скорость в режиме антилюфта. \endrussian */
+	calb float AntiplaySpeed /**< 
+	 * \english 
+	 * Antiplay speed  
+	 * - For stepper motor without encoder — in steps per second.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Скорость в режиме антилюфта  
+	 * - для шагового двигателя без энкодера — в шагах в секунду.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int32u AntiplaySpeed			/**< \english Speed in antiplay mode, full steps/s (stepper motor) or RPM (DC). Range: 0..100000. \endenglish \russian Скорость в режиме антилюфта, заданная в целых шагах/c (ШД) или в оборотах/с(DC). Диапазон: 0..100000. \endrussian */
 	normal int8u uAntiplaySpeed			/**< \english Speed in antiplay mode, microsteps/s. The microstep size and the range of valid values for this field depend on the selected step division mode (see the MicrostepMode field in engine_settings). Used with a stepper motor only. \endenglish \russian Скорость в режиме антилюфта, выраженная в микрошагах в секунду. Величина микрошага и диапазон допустимых значений для данного поля зависят от выбранного режима деления шага (см. поле MicrostepMode в engine_settings). Используется только с шаговым мотором. \endrussian */
 	int8u flag MoveFlags of MoveFlags	/**< \english Flags that control movement settings. This is a bit mask for bitwise operations. \endenglish \russian Флаги, управляющие настройкой движения. Это битовая маска для побитовых операций. \endrussian */
@@ -1289,12 +1346,10 @@ fields:
 	*/
 /** $XIS
 	* \english
-	* This structure contains raw analog data from ADC embedded on board.
-	* These data are used for device testing and deep recalibration by the manufacturer only.
+	* This structure contains protection parameters: critical electrical values, flags for protection algorithms.
 	* \endenglish
 	* \russian
-	* Эта структура содержит необработанные данные с АЦП и нормированные значения.
-	* Эти данные используются в сервисных целях для тестирования и калибровки устройства.
+	* Структура содержит параметры защиты: критические значения электрических характеристик, флаги управления алгоритмами защиты.
 	* \endrussian
 	* @see get_secure_settings
 	* @see set_secure_settings
@@ -1960,22 +2015,24 @@ fields:
 	* \english
 	* Read joystick settings.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
-	* in the range of the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits correspond to zero speed (a soft stop of the motion),
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
-	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[out] joystick_settings structure contains joystick settings
 	* \endenglish
 	* \russian
 	* Чтение настроек джойстика.
-	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
+        * При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
 	* https://doc.xisupport.com/ru/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html.
 	* @param id идентификатор устройства
@@ -1986,10 +2043,12 @@ fields:
 	* \english
 	* Set joystick position.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
-	* in the range of the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits correspond to zero speed (a soft stop of motion),
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
-	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[in] joystick_settings structure contains joystick settings
@@ -1998,10 +2057,10 @@ fields:
 	* Запись настроек джойстика.
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
 	* https://doc.xisupport.com/ru/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html.
 	* @param id идентификатор устройства
@@ -2012,7 +2071,14 @@ fields:
 	* \english
 	* Joystick settings.
 	*
-	* This structure contains joystick parameters. If joystick position falls outside the DeadZone limits, a movement begins. Speed is defined by the joystick position in the range of the DeadZone limit to the maximum deviation. Joystick positions inside the DeadZone limits correspond to zero speed (a soft stop of the motion), and positions beyond the Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL), where i = 0 by default and can be changed with left/right buttons (see command SCTL). If the next speed in the list is zero (both integer and microstep parts), the button press is ignored. The first speed in the list shouldn't be zero.
+	* This structure contains joystick parameters.
+        * If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
+	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
+        * correspond to zero speed (a "soft stop" command is issued continuously),
+	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
+	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
+	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
+        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	*
 	* The relationship between the deviation and the rate is exponential, which allows for high mobility and accuracy without speed mode switching.
 	* \endenglish
@@ -2021,11 +2087,12 @@ fields:
 	* Команда чтения настроек и калибровки джойстика.
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
-	* нулевая скорость, а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL), где i=0, если предыдущим
-	* использованием этого режима не было выбрано другое i.
+	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
+        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
-	* DeadZone вычисляется в десятых долях процента отклонения
-	* от центра (JoyCenter) до правого или левого максимума. Зависимость между отклонением и скоростью экспоненциальная,
+	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
+	* от центра (JoyCenter) до правого или левого максимума.
+        * Зависимость между отклонением и скоростью экспоненциальная,
 	* что позволяет без переключения режимов скорости сочетать высокую подвижность и точность.
 	* \endrussian
 	* @see set_joystick_settings
@@ -2037,7 +2104,7 @@ fields:
 	int16u JoyCenter					/**< \english Joystick center position. Range: 0..10000. \endenglish \russian Значение в шагах джойстика, соответствующее неотклонённому устройству. Должно лежать в пределах. Диапазон: 0..10000. \endrussian */
 	int16u JoyHighEnd					/**< \english Joystick upper end position. Range: 0..10000. \endenglish \russian Значение в шагах джойстика, соответствующее верхней границе диапазона отклонения устройства. Должно лежать в пределах. Диапазон: 0..10000. \endrussian */
 	int8u ExpFactor						/**< \english Exponential nonlinearity factor. \endenglish \russian Фактор экспоненциальной нелинейности отклика джойстика. \endrussian */
-	int8u DeadZone						/**< \english Joystick dead zone. \endenglish \russian Отклонение от среднего положения, которое не вызывает начала движения (в десятых долях процента). Максимальное мёртвое отклонение +-25.5%, что составляет половину рабочего диапазона джойстика. \endrussian */
+	int8u DeadZone						/**< \english Joystick deviation from the central position in 0.1% units that do not result in a start of motion. Maximal deviation is +-25.5% that is more than a half of the total joystick range. \endenglish \russian Отклонение от среднего положения, которое не вызывает начала движения (в десятых долях процента). Максимальное мёртвое отклонение +-25.5%, что составляет половину рабочего диапазона джойстика. \endrussian */
 	int8u flag JoyFlags of JoyFlags		/**< \english Joystick control flags. This is a bit mask for bitwise operations. \endenglish \russian Флаги управления джойстиком. Это битовая маска для побитовых операций. \endrussian */
 	reserved 7
 
@@ -3186,18 +3253,18 @@ command "start_measurements" writer "stms" (4)
 	*/
 /** $XIS
 	* \english
-	* The buffer holds no more than 25 points. The exact length of the received buffer is stored in the Length field.
+	* The structure contains a sequence of measured axis motion parameters - velocities and position errors. The time step between consecutive measurements is 1 ms.
 	* \endenglish
 	* \russian
-	* Буфер вмещает не более 25и точек. Точная длина полученного буфера отражена в поле Length.
+	* Структура содержит последовательность измеренных параметров движения оси – скоростей и ошибок по позиции. Шаг по времени между двумя последовательными измерениями - 1 мс.
 	* \endrussian
 	* @see measurements
 	*/
 command "measurements" reader "getm" (216)
 fields:
-  int32s Speed [25]   /**< \english Current speed in microsteps per second (whole steps are recalculated considering the current step division mode) or encoder counts per second. \endenglish \russian Текущая скорость в микрошагах в секунду (целые шаги пересчитываются с учетом текущего режима деления шага) или отсчетах энкодера в секунду. \endrussian */
-  int32s Error [25]   /**< \english Current error in microsteps per second (whole steps are recalculated considering the current step division mode) or encoder counts per second. \endenglish \russian Текущая ошибка следования в микрошагах в секунду (целые шаги пересчитываются с учетом текущего режима деления шага) или отсчетах энкодера в секунду. \endrussian */
-  int32u Length       /**< \english Length of actual data in buffer. \endenglish \russian Длина фактических данных в буфере. \endrussian */
+  int32s Speed [25]   /**< \english Sequence of measured speeds (in encoder counts/s or microsteps/sec, depending on the motor type and control mode) \endenglish \russian Последовательность измеренных скоростей (в отсчётах энкодера/сек или микрошагах/сек, в зависимости от типа двигателя и режима управления) \endrussian */
+  int32s Error [25]   /**< \english Position error in microsteps (whole steps are recalculated considering the current step division mode) or encoder counts. \endenglish \russian Последовательность измеренных ошибок позиции (в отсчётах энкодера или микрошагах, в зависимости от типа двигателя и режима управления) \endrussian */
+  int32u Length       /**< \english Actual sequence length. The values contained in cells Length, Length+1, ...24 shall not be interpreted as measurement results. \endenglish \russian Фактическая длина последовательности. Значения, содержащиеся в ячейках Length, Length + 1, ...24, не должны интерпретироваться в качестве результатов измерений. \endrussian */
   reserved 6
 
 /** $XIR
@@ -3430,8 +3497,8 @@ fields:
 	int16u Temp_ADC			/**< \english Voltage from temperature sensor, raw data from ADC. \endenglish \russian Напряжение с датчика температуры, необработанные данные с АЦП. \endrussian */
 	int16u Joy_ADC			/**< \english Joystick raw data from ADC. \endenglish \russian Джойстик, необработанные данные с АЦП. \endrussian */
 	int16u Pot_ADC			/**< \english Voltage on analog input, raw data from ADC \endenglish \russian Напряжение на аналоговом входе, необработанные данные с АЦП \endrussian */
-	int16u L5_ADC			/**< \english USB supply voltage after the current sense resistor, raw data from ADC. \endenglish \russian Напряжение питания USB после current sense резистора, необработанные данные с АЦП. \endrussian */
-	int16u H5_ADC			/**< \english USB Power supply from ADC \endenglish \russian Напряжение питания USB, необработанные данные с АЦП \endrussian */
+	int16u Enc_Check_ADC	/**< \english Voltage on encoder check line, raw ADC data. Used to determine encoder type: single-ended or differential. \endenglish \russian Напряжение на линии проверки типа энкодера, необработанные данные АЦП. Используется для определения типа энкодера: с однофазным выходом или дифференциальный. \endrussian */
+	int16u deprecated0
 	int16s A1Voltage		/**< \english "Voltage on pin 1 winding A" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 1 выводе обмотки А" откалиброванные данные (в десятках мВ). \endrussian */
 	int16s A2Voltage		/**< \english "Voltage on pin 2 winding A" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 2 выводе обмотки А" откалиброванные данные (в десятках мВ). \endrussian */
 	int16s B1Voltage		/**< \english "Voltage on pin 1 winding B" calibrated data (in tens of mV). \endenglish \russian "Выходное напряжение на 1 выводе обмотки B" откалиброванные данные (в десятках мВ). \endrussian */
@@ -3443,9 +3510,8 @@ fields:
 	int16s Temp				/**< \english Temperature, calibrated data (in tenths of degrees Celsius). \endenglish \russian Температура, откалиброванные данные (в десятых долях градуса Цельсия). \endrussian */
 	int16s Joy				/**< \english Joystick, calibrated data. Range: 0..10000 \endenglish \russian Джойстик во внутренних единицах. Диапазон: 0..10000 \endrussian */
 	int16s Pot				/**< \english Analog input, calibrated data. Range: 0..10000 \endenglish \russian Аналоговый вход во внутренних единицах. Диапазон: 0..10000 \endrussian */
-	int16s L5				/**< \english USB supply voltage after the current sense resistor (in tens of mV). \endenglish \russian Напряжение питания USB после current sense резистора (в десятках мВ). \endrussian */
-	int16s H5				/**< \english USB power supply (in tens of mV). \endenglish \russian Напряжение питания USB (в десятках мВ). \endrussian */
-	int16u deprecated
+	int16s Enc_Check		/**< \english Voltage on encoder check line, exponentially filtrated ADC codes. Used to determine encoder type: single-ended or differential. \endenglish \russian Напряжение на линии проверки типа энкодера, экспонениально сглаженные данные АЦП. Используется для определения типа энкодера: с однофазным выходом или дифференциальный. \endrussian */
+	int16u deprecated1[2]
 	int32s R				/**< \english Motor winding resistance in mOhms (is only used with stepper motors). \endenglish \russian Сопротивление обмоток двигателя(для шагового двигателя),  в мОм \endrussian */
 	int32s L				/**< \english Motor winding pseudo inductance in uH (is only used with stepper motors). \endenglish \russian Псевдоиндуктивность обмоток двигателя(для шагового двигателя),  в мкГн \endrussian */
 	reserved 8

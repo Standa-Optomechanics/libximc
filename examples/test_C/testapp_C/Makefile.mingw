@@ -2,10 +2,10 @@
 # heavily unsupported, could break
 
 CC = gcc
-CFLAGS += -O3 -I..\..\..\ximc -DWIN32 -DNDEBUG -D_WINDOWS 	
+CFLAGS += -O3 -Iximc -DWIN32 -DNDEBUG -D_WINDOWS 	
 LDFLAGS = -mconsole
 
-LIB_PATHS = -L..\..\..\ximc\win32 -llibximc
+LIB_PATHS = -Lwin32 -llibximc
 
 
 EXE_C_SRC = testapp_C.c

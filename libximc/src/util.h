@@ -4,10 +4,6 @@
 // time to wait to open port for normal work
 #define DEFAULT_TIMEOUT_TIME 5000
 
-// time to wait to open port when enumerating devices
-// TODO temporarily set to default time
-#define ENUMERATE_TIMEOUT_TIME 5000
-
 // system timeout for port functions
 #define PORT_TIMEOUT_TIME 500
 
@@ -66,9 +62,9 @@ int parse_uri(const char *name,
 		char *paramname, size_t paramname_len,
 		char *paramvalue, size_t paramvalue_len);
 
-char *uri_encode(const char *str);
-char *uri_decode(const char *str);
-char *uri_copy(const char *str);
+char* uri_encode(const char *str);
+char* uri_decode(const char *str);
+char* uri_copy(const char *str);
 
 #endif
 

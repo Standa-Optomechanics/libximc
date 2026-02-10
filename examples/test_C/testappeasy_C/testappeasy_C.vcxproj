@@ -91,7 +91,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\ximc\win32\;..\..\..\ximc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -101,7 +101,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\..\ximc\win32\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>win32\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -111,16 +111,16 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "..\..\..\ximc\win32\libximc.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win32\xiwrapper.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "win32\libximc.dll" "$(OutDir)"
+xcopy /y "win32\xiwrapper.dll" "$(OutDir)"
+xcopy /y "win32\bindy.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\ximc\win32\;..\..\..\ximc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -131,7 +131,7 @@ xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\..\ximc\win32\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>win32\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -142,9 +142,9 @@ xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "..\..\..\ximc\win32\libximc.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win32\xiwrapper.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "win32\libximc.dll" "$(OutDir)"
+xcopy /y "win32\xiwrapper.dll" "$(OutDir)"
+xcopy /y "win32\bindy.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,7 +154,7 @@ xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\ximc\win64;..\..\..\ximc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>win64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -164,7 +164,7 @@ xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\..\ximc\win64\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>win64\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -174,9 +174,9 @@ xcopy /y "..\..\..\ximc\win32\bindy.dll" "$(OutDir)"</Command>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "..\..\..\ximc\win64\libximc.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win64\xiwrapper.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win64\bindy.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "win64\libximc.dll" "$(OutDir)"
+xcopy /y "win64\xiwrapper.dll" "$(OutDir)"
+xcopy /y "win64\bindy.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -186,7 +186,7 @@ xcopy /y "..\..\..\ximc\win64\bindy.dll" "$(OutDir)"</Command>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\ximc\win64;..\..\..\ximc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>win64;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -197,7 +197,7 @@ xcopy /y "..\..\..\ximc\win64\bindy.dll" "$(OutDir)"</Command>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>..\..\..\ximc\win64\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>win64\libximc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -208,9 +208,9 @@ xcopy /y "..\..\..\ximc\win64\bindy.dll" "$(OutDir)"</Command>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "..\..\..\ximc\win64\libximc.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win64\xiwrapper.dll" "$(OutDir)"
-xcopy /y "..\..\..\ximc\win64\bindy.dll" "$(OutDir)"</Command>
+      <Command>xcopy /y "win64\libximc.dll" "$(OutDir)"
+xcopy /y "win64\xiwrapper.dll" "$(OutDir)"
+xcopy /y "win64\bindy.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #include "version.xcconfig"
 
-SDKROOT = macosx10.7;
+SDKROOT = macosx10.15;
 VALID_ARCHS = x86_64;
 GCC_C_LANGUAGE_STANDARD = c99;
 GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -39,4 +39,6 @@ INSTALL_PATH = @rpath;
 MACH_O_TYPE = mh_dylib;
 PRODUCT_NAME = libximc;
 SKIP_INSTALL = YES;
+CODE_SIGNING_ALLOWED = NO
+
 WRAPPER_EXTENSION = framework;

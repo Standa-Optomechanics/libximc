@@ -1,8 +1,7 @@
-from ctypes import *
 import os
-import platform
 import struct
 import sys
+from ctypes import *
 
 
 # Load library
@@ -19,19 +18,34 @@ def _near_script_path(libname):
     return join(abspath(dirname(__file__)), libname)
 
 
+def _check_if_vc2013_is_installed():
+    try:
+        CDLL("msvcr120.dll")
+    except OSError:
+        link = "https://aka.ms/highdpimfc2013x86enu" if _get_os_bit() == 32 else "https://aka.ms/highdpimfc2013x64enu"
+        error_msg = ("Microsoft Visual C++ Redistributable 2013 is not installed, this may lead to the DLL load "
+                     "failure. It can be downloaded at {}").format(link)
+        raise RuntimeError(error_msg)
+
+
+def _get_os_bit() -> int:
+    return 8 * struct.calcsize("P")
+
+
 def _load_lib():
     from platform import system, machine
     from os.path import join
-    import struct
     cwd = os.path.abspath(os.path.dirname(__file__))
     os_kind = system().lower()
     if os_kind == "windows":
+        _check_if_vc2013_is_installed()
+
         ximc_root_path = r"..\..\..\..\.."
         if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
             method = lambda path: WinDLL(path, winmode=RTLD_GLOBAL)
         else:
             method = WinDLL
-        if 8 * struct.calcsize("P") == 32:
+        if _get_os_bit() == 32:
             libs = ("bindy.dll", "xiwrapper.dll", "libximc.dll")
             paths = [os.path.join(cwd, r"..\library-files\win32"), os.path.join(ximc_root_path, "win32")]
         else:
@@ -266,7 +280,7 @@ class SecureFlags:
     H_BRIDGE_ALERT                  = 0x04
     ALARM_ON_BORDERS_SWAP_MISSET    = 0x08
     ALARM_FLAGS_STICKING            = 0x10
-    USB_BREAK_RECONNECT             = 0x20
+    BRAKING_OVERVOLTAGE_PROTECTION             = 0x20
     ALARM_WINDING_MISMATCH          = 0x40
     ALARM_ENGINE_RESPONSE           = 0x80
 
@@ -282,6 +296,7 @@ class FeedbackType:
 
 class FeedbackFlags:
     FEEDBACK_ENC_REVERSE              = 0x01
+    FEEDBACK_ENC_ADAPTIVE_HOLDING     = 0x02
     FEEDBACK_ENC_TYPE_BITS            = 0xC0
     FEEDBACK_ENC_TYPE_AUTO            = 0x00
     FEEDBACK_ENC_TYPE_SINGLE_ENDED    = 0x40
@@ -772,7 +787,7 @@ class chart_data_t(Structure):
         ("WindingCurrentC", c_int),
         ("Pot", c_uint),
         ("Joy", c_uint),
-        ("DutyCycle", c_int),
+        ("AveragedPowerRatio", c_int),
     ]
 
 class device_information_t(Structure):
@@ -807,8 +822,8 @@ class analog_data_t(Structure):
         ("Temp_ADC", c_uint),
         ("Joy_ADC", c_uint),
         ("Pot_ADC", c_uint),
-        ("L5_ADC", c_uint),
-        ("H5_ADC", c_uint),
+        ("Enk_Check_ADC", c_uint),
+        ("deprecated0", c_uint),
         ("A1Voltage", c_int),
         ("A2Voltage", c_int),
         ("B1Voltage", c_int),
@@ -820,9 +835,8 @@ class analog_data_t(Structure):
         ("Temp", c_int),
         ("Joy", c_int),
         ("Pot", c_int),
-        ("L5", c_int),
-        ("H5", c_int),
-        ("deprecated", c_uint),
+        ("Enc_Check", c_int),
+        ("deprecated1", c_uint * 2),
         ("R", c_int),
         ("L", c_int),
     ]

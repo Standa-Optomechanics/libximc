@@ -97,6 +97,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>$(ProjectDir)\..\..\$(Configuration)-Win32\xigen.exe --gen-csharp -x $(ProjectDir)\..\..\version -i $(ProjectDir)\..\..\libximc\src\protocol.xi -o $(ProjectDir)\src\ximcnet.cs -t $(ProjectDir)\src\ximcnet-template.cs</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

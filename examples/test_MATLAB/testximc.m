@@ -24,7 +24,7 @@ if not(libisloaded('libximc'))
 					[notfound,warnings] = loadlibrary('libximc.dll', @ximcm)
 			else
 					addpath(fullfile(pwd,'../../ximc/win32/'));
-					[notfound, warnings] = loadlibrary('libximc.dll', 'ximcm.h', 'addheader', 'ximc.h')
+					[notfound, warnings] = loadlibrary('libximc.dll', 'ximcm.h', 'addheader', 'ximc.h');
 			end
 		elseif ismac
 			addpath(fullfile(pwd,'../../ximc/'));
@@ -83,10 +83,6 @@ disp('Status calb:'); disp(state_calb_s);
 
 state_s = ximc_get_status(device_id);
 disp('Status:'); disp(state_s);
-
-disp('Change speed...')
-[speed, uspeed] = ximc_get_speed(device_id);
-ximc_set_speed(device_id, speed / 2, uspeed);
 
 disp('Move back ...')
 result = calllib('libximc','command_move', device_id, start_position, start_uposition);

@@ -1,6 +1,8 @@
 #ifndef INC_PROTOSUP_H
 #define INC_PROTOSUP_H
 
+#include <float.h>
+
 /*
  * I/O helpers
  */
@@ -82,20 +84,34 @@ do { \
 	fclose(fp); \
 } while (0)
 
+
+/* Zero A causes fatal errors.
+ * Negative A also should not be used
+ * (explicit position inversion should be used instead).
+ */
+#define XI_check_calibration_a_is_valid(a) \
+do { \
+	if ((a) < DBL_MIN) \
+		return result_value_error; \
+} while (0)
+
 #define XI_normal_to_calibrate(fvalue, value, mvalue, coeff) \
 do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
 		return result_value_error; \
-	(fvalue) = (float)(((coeff)->A) * ((float)(value)+((float)(mvalue)) / powi(2, (coeff)->MicrostepMode - 1))); \
+	(fvalue) = (float)(((coeff)->A) * ((float)(value) + ((float)(mvalue)) / powi(2, (coeff)->MicrostepMode - 1))); \
 } while (0)
 
 #define XI_normal_to_calibrate_short(fvalue, value, coeff) \
-	do { \
-		(fvalue) = (float)(((coeff)->A) * ((float)(value))); \
-	} while (0)
+do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
+	(fvalue) = (float)(((coeff)->A) * ((float)(value))); \
+} while (0)
 
 #define XI_calibrate_to_normal(fvalue, value, mvalue, coeff) \
 do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
 		return result_value_error; \
 	(value) = (int)((fvalue) / (coeff)->A); \
@@ -104,27 +120,31 @@ do { \
 
 #define XI_calibrate_to_normal_short(fvalue, value, coeff) \
 do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	(value) = (int)((fvalue) / (coeff)->A); \
 } while (0)
 
 #define XI_normal_to_calibrate_corr(fvalue, value, mvalue, coeff, table) \
-  do { \
+do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
 		return result_value_error;\
 	(fvalue) = (float)(((coeff)->A) * ((float)(value)+((float)(mvalue)) / powi(2, (coeff)->MicrostepMode - 1))); \
 	if (rewers_correction(&(table), &(fvalue)) == 0) \
 		return result_value_error; \
-  } while (0)
+} while (0)
 
 #define XI_normal_to_calibrate_corr_short(fvalue, value, coeff, table) \
-  do { \
-  (fvalue) = (float) (((coeff)->A) * ((float)(value) )); \
-  if (rewers_correction(&(table), &(fvalue)) == 0) \
+do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
+	(fvalue) = (float) (((coeff)->A) * ((float)(value) )); \
+	if (rewers_correction(&(table), &(fvalue)) == 0) \
 		return result_value_error; \
-  } while (0)
+} while (0)
 
 #define XI_calibrate_to_normal_corr(fvalue, value, mvalue, coeff, table) \
-  do { \
+do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
 		return result_value_error; \
 	float fvalue1;	\
@@ -133,18 +153,21 @@ do { \
 		return result_value_error; \
 	(value) = (int)((fvalue1) / (coeff)->A); \
 	(mvalue) = (int)(((fvalue1) / ((coeff)->A) - (value)) * powi(2, (coeff)->MicrostepMode - 1)); \
-  } while (0)
+} while (0)
 
 #define XI_calibrate_to_normal_corr_short(fvalue, value, coeff, table) \
-  do { \
-  float fvalue1;	\
-  fvalue1 = (fvalue); \
-  if (normal_correction(&(table), &(fvalue1)) == 0) \
-	return result_value_error; \
-
+do { \
+	XI_check_calibration_a_is_valid((coeff)->A); \
+	float fvalue1;	\
+	fvalue1 = (fvalue); \
+	if (normal_correction(&(table), &(fvalue1)) == 0) \
+		return result_value_error; \
+	(value) = (int)((fvalue1) / (coeff)->A); \
+} while (0)
 
 #define XI_calibrate_to_normal_Dcorr(fvalue, value, mvalue, coeff, table) \
 do {\
+	XI_check_calibration_a_is_valid((coeff)->A); \
 	if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
 		return result_value_error; \
 	float fvalue1, fvalue2;	\
@@ -159,46 +182,6 @@ do {\
 	(value) = (int)((fvalue1 - fvalue2) / (coeff)->A); \
 	(mvalue) = (int)(((fvalue1 - fvalue2) / ((coeff)->A) - (value)) * powi(2, (coeff)->MicrostepMode - 1)); \
 } while (0)
-/*
-#define XI_normal_to_calibrate_corr(fvalue, value, mvalue, coeff, table) \
-do {\
-if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
-	return result_value_error; \
-	(fvalue) = (float)(((coeff)->A) * ((float)(value)+((float)(mvalue)) / powi(2, (coeff)->MicrostepMode - 1))); \
-} while (0)
-
-#define XI_normal_to_calibrate_corr_short(fvalue, value, coeff, table) \
-do {	\
-	(fvalue) = (float)(((coeff)->A) * ((float)(value))); \
-} while (0)
-
-#define XI_calibrate_to_normal_corr(fvalue, value, mvalue, coeff, table) \
-do { \
-if ((coeff)->MicrostepMode == 0 || (coeff)->MicrostepMode > MAX_ENUM_MICROSTEP_MODE) \
-	return result_value_error; \
-	(value) = (int)((fvalue) / (coeff)->A); \
-	(mvalue) = (int)(((fvalue) / ((coeff)->A) - (value)) * powi(2, (coeff)->MicrostepMode - 1)); \
-} while (0)
-
-#define XI_calibrate_to_normal_corr_short(fvalue, value, coeff, table) \
-do { \
-	(value) = (int)((fvalue) / (coeff)->A); \
-} while (0)
-*/
-
-/*
- * Fine-grained locks
- */
-void lock(device_t id);
-void unlock(device_t id);
-result_t unlocker (device_t id, result_t res);
-
-/*
- * Global lock
- */
-void lock_global();
-void unlock_global ();
-result_t unlocker_global (result_t res);
 
 typedef struct device_enumeration_opaque_t
 {
@@ -217,11 +200,27 @@ typedef struct device_enumeration_opaque_t
 uint32_t conn_id_by_device_id(device_t id);
 uint32_t serial_by_device_id(device_t id);
 
-/*
- * Global metadata lock
- */
+/* Fine-grained locks */
+void lock(device_t id);
+void unlock(device_t id);
+result_t unlocker(device_t id, result_t res);
+
+/* Global lock */
+void lock_global();
+void unlock_global();
+result_t unlocker_global(result_t res);
+
+/* Global metadata lock */
 void lock_metadata();
 void unlock_metadata();
+
+/* Mutex to work with data for xinet devices */
+void lock_xinet_data();
+void unlock_xinet_data();
+
+/* Mutex to check devices */
+void lock_check_devices();
+void unlock_check_devices();
 
 /*
  * File log

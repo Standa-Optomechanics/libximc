@@ -21,15 +21,15 @@
  * Forward declarations
  */
 
-int command_port_send (device_metadata_t *metadata, const byte* command, size_t len);
-int command_port_receive (device_metadata_t *metadata, byte* response, size_t len);
+int command_port_send(device_metadata_t *metadata, const byte* command, size_t len);
+int command_port_receive(device_metadata_t *metadata, byte* response, size_t len);
 void remov_table(float** X, float** dX);
 void creat_table(float** X, float** dX);
 
-result_t open_port_virtual (device_metadata_t *metadata, const char* virtual_path, const char* serial);
-result_t close_port_virtual (device_metadata_t *metadata);
-ssize_t read_port_virtual (device_metadata_t *metadata, void *buf, size_t amount);
-ssize_t write_port_virtual (device_metadata_t *metadata, const void *buf, size_t amount);
+result_t open_port_virtual(device_metadata_t *metadata, const char* virtual_path, const char* serial);
+result_t close_port_virtual(device_metadata_t *metadata);
+ssize_t read_port_virtual(device_metadata_t *metadata, void *buf, size_t amount);
+ssize_t write_port_virtual(device_metadata_t *metadata, const void *buf, size_t amount);
 
 
 /*
@@ -868,37 +868,108 @@ void filelog_data(const char* direction, device_type_t type,
 }
 
 
-
-
 #ifdef HAVE_LOCKS
 
 /*
  * Global mutex support
  */
+#define G_MUTEX_GLOBAL_ID UINT_MAX
+#define G_MUTEX_GLOBAL_METADATA_ID (UINT_MAX - 1)
+#define G_MUTEX_GLOBAL_XINET_DATA_ID (UINT_MAX - 2)
+#define G_MUTEX_GLOBAL_CHECK_DEVICES_ID (UINT_MAX - 3)
 
-/* truly global mutex */
+/* Truly global mutex */
 static mutex_t* g_mutex_global = NULL;
 
 mutex_t* mutex_global()
 {
-	if (!g_mutex_global)
-		g_mutex_global = mutex_init( UINT_MAX );
+	if (!g_mutex_global) {
+		g_mutex_global = mutex_init(G_MUTEX_GLOBAL_ID);
+		log_debug(L"Created global mutex");
+	}
 	return g_mutex_global;
 }
 
-/* metadata mutex
- * Metadata list is protected with one mutex.
- * It's better to migrate to read/write lock later*/
+void lock_global()
+{
+	mutex_lock(mutex_global());
+}
+
+void unlock_global()
+{
+	mutex_unlock(mutex_global());
+}
+
+result_t unlocker_global(result_t result)
+{
+	mutex_unlock(mutex_global());
+	return result;
+}
+
+/* Metadata mutex. Metadata list is protected with one mutex. It's better to migrate to read/write lock later */
 static mutex_t* g_mutex_global_metadata = NULL;
 
-/*
- * Fine-grained locks
- */
 mutex_t* mutex_global_metadata()
 {
-	if (!g_mutex_global_metadata)
-		g_mutex_global_metadata = mutex_init( UINT_MAX-1 );
+	if (!g_mutex_global_metadata) {
+		g_mutex_global_metadata = mutex_init(G_MUTEX_GLOBAL_METADATA_ID);
+		log_debug(L"Created mutex for working with metadata");
+	}
 	return g_mutex_global_metadata;
+}
+
+void lock_metadata()
+{
+	mutex_lock(mutex_global_metadata());
+}
+
+void unlock_metadata()
+{
+	mutex_unlock(mutex_global_metadata());
+}
+
+/* Mutex to work with data for xinet devices */
+static mutex_t* g_mutex_global_xinet_data = NULL;
+
+mutex_t* mutex_global_xinet_data()
+{
+	if (!g_mutex_global_xinet_data) {
+		g_mutex_global_xinet_data = mutex_init(G_MUTEX_GLOBAL_XINET_DATA_ID);
+		log_debug(L"Created mutex for working with xinet data");
+	}
+	return g_mutex_global_xinet_data;
+}
+
+void lock_xinet_data()
+{
+	mutex_lock(mutex_global_xinet_data());
+}
+
+void unlock_xinet_data()
+{
+	mutex_unlock(mutex_global_xinet_data());
+}
+
+/* Mutex to check devices */
+static mutex_t* g_mutex_global_check_devices = NULL;
+
+mutex_t* mutex_global_check_devices()
+{
+	if (!g_mutex_global_check_devices) {
+		g_mutex_global_check_devices = mutex_init(G_MUTEX_GLOBAL_CHECK_DEVICES_ID);
+		log_debug(L"Created mutex to check devices");
+	}
+	return g_mutex_global_check_devices;
+}
+
+void lock_check_devices()
+{
+	mutex_lock(mutex_global_check_devices());
+}
+
+void unlock_check_devices()
+{
+	mutex_unlock(mutex_global_check_devices());
 }
 
 /* Fine-grained lock */
@@ -907,60 +978,33 @@ mutex_t* mutex_by_device_id(device_t id)
 	device_metadata_t* dm;
 	if (id != device_undefined)
 	{
-		dm = get_metadata( id );
+		dm = get_metadata(id);
 		if (dm && dm->device_mutex)
 			return dm->device_mutex;
 	}
 	return NULL;
 }
 
-
 void lock(device_t id)
 {
-	mutex_t* m = mutex_by_device_id(id);
-	if (m)
-		mutex_lock( m );
+	mutex_t* device_mutex = mutex_by_device_id(id);
+	if (device_mutex)
+		mutex_lock(device_mutex);
 }
 
 void unlock(device_t id)
 {
-	mutex_t* m = mutex_by_device_id(id);
-	if (m)
-		mutex_unlock( m );
+	mutex_t* device_mutex = mutex_by_device_id(id);
+	if (device_mutex)
+		mutex_unlock(device_mutex);
 }
 
-result_t unlocker (device_t id, result_t res)
+result_t unlocker(device_t id, result_t res)
 {
-	mutex_t* m = mutex_by_device_id(id);
-	if (m)
-		mutex_unlock( m );
+	mutex_t* device_mutex = mutex_by_device_id(id);
+	if (device_mutex)
+		mutex_unlock(device_mutex);
 	return res;
-}
-
-void lock_global()
-{
-	mutex_lock( mutex_global() );
-}
-
-void unlock_global ()
-{
-	mutex_unlock( mutex_global() );
-}
-
-result_t unlocker_global (result_t res)
-{
-	mutex_unlock( mutex_global() );
-	return res;
-}
-
-void lock_metadata()
-{
-	mutex_lock( mutex_global_metadata() );
-}
-
-void unlock_metadata ()
-{
-	mutex_unlock( mutex_global_metadata() );
 }
 
 #else
@@ -975,30 +1019,46 @@ void unlock(device_t id)
 	XIMC_UNUSED(id);
 }
 
-result_t unlocker (device_t id, result_t res)
+result_t unlocker(device_t id, result_t result)
 {
 	XIMC_UNUSED(id);
-	return res;
+	return result;
 }
 
 void lock_global()
 {
 }
 
-void unlock_global ()
+void unlock_global()
 {
 }
 
-result_t unlocker_global (result_t res)
+result_t unlocker_global(result_t result)
 {
-	return res;
+	return result;
 }
 
 void lock_metadata()
 {
 }
 
-void unlock_metadata ()
+void unlock_metadata()
+{
+}
+
+void lock_xinet_data()
+{
+}
+
+void unlock_xinet_data()
+{
+}
+
+void lock_check_devices()
+{
+}
+
+void unlock_check_devices()
 {
 }
 
@@ -1043,7 +1103,7 @@ result_t open_port_net(device_metadata_t *metadata, const char* host, const char
  *   xi-emu:///c:/temp/virtual56.dat
  *   xi-emu:///c:/temp/virtual56.dat?serial=123
  *   xi-net://127.0.0.1/7890ABCD
- *   xi-net://remote.ximc.ru/7890ABCD
+ *   xi-net://remote.xisupport.com/7890ABCD
  */
 result_t open_port (device_metadata_t *metadata, const char* name)
 {
@@ -1232,6 +1292,11 @@ result_t normal_correction(device_t* id, float* newPosition)
 
 	cPosition = *newPosition;
 	dm = get_metadata(*id);
+	if (!dm)
+	{
+		log_error(L"normal_correction cannot get metadata");
+		return 0;
+	}
 	correction = &(dm->table);	
 	
 	if ((dm->table.X == NULL) || (dm->table.dX == NULL))
@@ -1296,6 +1361,12 @@ result_t rewers_correction(device_t* id, float* newPosition)
 
 	cPosition = *newPosition;
 	dm = get_metadata(*id);
+	if (!dm)
+	{
+		log_error(L"rewers_correction cannot get metadata");
+		return 0;
+	}
+
 	correction = &(dm->table);
 
 	if ((dm->table.X == NULL) || (dm->table.dX == NULL))

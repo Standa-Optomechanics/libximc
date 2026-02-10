@@ -1,7 +1,7 @@
 #ifndef INC_TYPES_H
 #define INC_TYPES_H
 
-#include "external/lm3s5r31.h"
+#include <inttypes.h>
 
 #define I2C_DEVICES_LIMIT 4    // Can not exceed 16 because of addresses limit
 #define PACKET_SIZE       256  // Must be as large as any single protocol response

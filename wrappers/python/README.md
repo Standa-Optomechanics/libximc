@@ -2,7 +2,7 @@
 
 This is a python binding for libximc - cross-platform library for [Standa  8SMC5-USB](https://www.standa.lt/products/catalog/motorised_positioners?item=525) motor controllers. 
 
-![8SMC5-based devices](https://raw.githubusercontent.com/EPC-MSU/libximc/dev-2.14/libximc/docs/8SMC5_based_devices.png)
+![8SMC5-based devices](https://raw.githubusercontent.com/Standa-Optomechanics/libximc/dev-2.14/libximc/docs/8SMC5_based_devices.png)
 
 Libximc manages hardware using interfaces: USB 2.0, RS232 and Ethernet, also uses a common and proven virtual serial port interface, so you can work with motor control modules through this library under Windows and Linux. MacOS X isn't supported yet.
 

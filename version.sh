@@ -136,10 +136,10 @@ echo Adding empty changelogs
 # TODO fix version strings
 
 file=debian/changelog
-awk "NR==1{print \"libximc$SOVERCURRENT ($VERDEB-1) unstable; urgency=low\n\n  * Version bump\n\n -- XIMC <info@ximc.ru>  $DEBDATE\n\"};1" $file > $file.bak && mv $file.bak $file
+awk "NR==1{print \"libximc$SOVERCURRENT ($VERDEB-1) unstable; urgency=low\n\n  * Version bump\n\n -- XIMC <8smc4@standa.lt>  $DEBDATE\n\"};1" $file > $file.bak && mv $file.bak $file
 
 file=rpm/libximc.spec
-awk "/%changelog/{print; print \"\n* $RPMDATE XIMC <info@ximc.ru> - $VERSTR\n- version bump\"; next}1" $file > $file.bak && mv $file.bak $file
+awk "/%changelog/{print; print \"\n* $RPMDATE XIMC <8smc4@standa.lt> - $VERSTR\n- version bump\"; next}1" $file > $file.bak && mv $file.bak $file
 
 file=ChangeLog
 awk "NR==1{print \"libximc ($VERDEB-1)\n  * Released: $DEBDATE\n  * Version bump\n\"};1" $file > $file.bak && mv $file.bak $file

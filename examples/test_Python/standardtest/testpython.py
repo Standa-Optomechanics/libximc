@@ -137,6 +137,7 @@ test_status(axis)
 print("\nClosing")
 axis.close_device()
 print("Done")
+input("Press Enter to close the script...")
 
 if flag_virtual == 1:
     print(" ")

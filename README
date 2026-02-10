@@ -9,11 +9,7 @@ Dependencies
 * Download and install GIT from https://git-scm.com in C:\Program Files\Git (should be the default).
 * Download and install CMake https://cmake.org in C:\Program Files (x86)\CMake. 
 You can put the 64 bit version in C:\Program Files\CMake, and then just copy it to C:\Program Files (x86).
-* Installing cygwin
-The installation must be done in the C:\cygwin (this is the default).
-It is necessary to select flex, bison, bash packages for installation. 
-The archive with the verified version can be downloaded at https://files.xisupport.com/libximc_dependencies/cygwin_ci.7z, 
-then just unpack the archive on the C:\drive.
+* Download and install MSYS2 into C:\MSYS2
 * Install JDK 7-9 64 bits if not installed. A proven Java distribution can be downloaded 
 https://sourceforge.net/projects/javaclientmsiinstallers/files/Java%20JDK%209%20Update%20464/jdk9.0.464.zip/download
 or https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html. Authorization is required to download from the second link.
@@ -23,62 +19,91 @@ Example: JDK is installed in C:\Program Files\Java\jdk-9.0.4
 there we create a variable JDK_HOME and JDK32_HOME with the value C:\Program Files\Java\jdk-9.0.4
 * It is necessary to install Microsoft Visual Studio 2013.
 
+To build, use the build system via build.bat. The system has its can print help menu: build.bat --help.
+
+Build system usage example (building the library):
+```cmd
+    # Build the dependencies
+    build.bat deps
+    
+    # Build the source code using templates and the protocol file
+    build.bat gen-libximc-sources
+
+    # Build the library
+    build.bat libximc
+```
+
 Building a library for Ubuntu (Debian based)
 
-The following instruction has been tested on Ubuntu 14.04, Ubuntu 20.04 and Ubuntu 23.04.
+The following instruction has been tested on Ubuntu 18.04.
 
 I. Install dependencies
+```shell
+    # 1. Install dependencies
+    sudo apt install lsb-release
 
-    1. Install lsb_release:
-        sudo apt install lsb-release
+    # 2. Install build essentials:
+    sudo apt install build-essential
 
-    2. Install build essentials:
-        sudo apt install build-essential
+    # 3. Install git:
+    sudo apt install git
 
-    3. Install git:
-        sudo apt install git
+    # 4. Install make and cmake:
+    sudo apt install make
+    sudo apt install cmake
 
-    4. Install make and cmake:
-        sudo apt install make
-        sudo apt install cmake
+    # 5. Install autotools:
+    sudo apt install autoconf autotools-dev libtool libglib2.0-dev
 
-        Note: if you are using Ubuntu 14, instead of "sudo apt install cmake" use
-        "sudo apt install cmake3"
+    # 6. Install flex and bison:
+    sudo apt install flex bison
 
-    5. Install autotools:
-        sudo apt install autoconf autotools-dev libtool libglib2.0-dev
+    # 7. Install doxygen and latex:
+    sudo apt install doxygen
+    sudo apt install texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
 
-    6. Install flex and bison:
-        sudo apt install flex bison
-
-    7. Install doxygen and latex:
-        sudo apt install doxygen
-        sudo apt install texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
-
-    8. Install Java:
-        8.1. Install Java 8:
-            sudo apt install openjdk-8-jdk
+    # 8. Install Java:
+    #    8.1. Install Java 8:
+    sudo apt install openjdk-8-jdk
 	
-        8.2. Or in case Java 8 is unavailable, install Java 7:
-            sudo apt install openjdk-7-jdk
+    #8.2. Or in case Java 8 is unavailable, install Java 7:
+    # "sudo apt install openjdk-7-jdk"
 
-        Note: You should use Java 7 or 8. So in case your system use another version, after installation
-        of Java 7(8) one extra action may be needed -- set default Java version to 7 (or 8) using
-        "update-alternatives --config java".
+    #    Note: You should use Java 7 or 8. So in case your system use another version, after installation
+    #    of Java 7(8) one extra action may be needed -- set default Java version to 7 (or 8) using
+    #    "update-alternatives --config java".
+```
 
 II. Build
 
-    * Only library:
-        ./build.sh libfast
+```shell
+    # Build dependencies
+    ./build.sh deps
     
-    * Library and its docs:
-        ./build.sh lib
+    # Generate libximc sources
+    ./build.sh gen-libximc-sources
+
+    # Build the library
+    ./build.sh libximc
+
+    # Build wrappers
+    ./build.sh wrappers
+
+    # Build examples
+    ./build.sh examples
+
+    # Build documentation
+    ./build.sh docs
+
+    # Build deb-packages
+    ./build.sh debs
+```
 
 
 Working with the library
 
 * Cloning the repository: 
-  git clone https://github.com/EPC-MSU/libximc
+  git clone https://github.com/Standa-Optomechanics/libximc
 * We switch to the desired state using git checkout
 * From the library folder, run the: 
   build.bat

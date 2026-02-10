@@ -242,6 +242,11 @@ class FeedbackSettings:
         else:
             print("Encoder mode: ENC_NO_REVERSE")
 
+        if feedback_settings.FeedbackFlags & ximc.FeedbackFlags.FEEDBACK_ENC_ADAPTIVE_HOLDING:
+            print("Adaptive holding is enabled")
+        else:
+            print("Adaptive holding is disabled")
+
         if feedback_settings.FeedbackFlags & ximc.FeedbackFlags.FEEDBACK_ENC_TYPE_SINGLE_ENDED:
             print("Encoder type: FEEDBACK_ENC_TYPE_SINGLE_ENDED")
         if feedback_settings.FeedbackFlags & ximc.FeedbackFlags.FEEDBACK_ENC_TYPE_DIFFERENTIAL:
@@ -279,6 +284,23 @@ class FeedbackSettings:
 
         key = input("Do you want to enable reverse? Y/N ")
         if key == "Y" or key == "y":
+            enc_reverse_enabled = True
+        else:
+            enc_reverse_enabled = False
+            return flags[choosen_index]
+
+        key = input("Do you want to adaptive holding? Y/N ")
+        if key == "Y" or key == "y":
+            adaptive_holding_enabled = True
+        else:
+            adaptive_holding_enabled = False
+
+        if enc_reverse_enabled and adaptive_holding_enabled:
+            return flags[choosen_index] | ximc.FeedbackFlags.FEEDBACK_ENC_REVERSE | \
+                ximc.FeedbackFlags.FEEDBACK_ENC_ADAPTIVE_HOLDING
+        elif enc_reverse_enabled:
             return flags[choosen_index] | ximc.FeedbackFlags.FEEDBACK_ENC_REVERSE
+        elif adaptive_holding_enabled:
+            return flags[choosen_index] | ximc.FeedbackFlags.FEEDBACK_ENC_ADAPTIVE_HOLDING
         else:
             return flags[choosen_index]

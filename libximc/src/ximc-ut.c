@@ -84,8 +84,8 @@ START_TEST(test_uri)
 
 	test_uri_impl("sch:///c:/temp/file",
 			"sch", "", "c:/temp/file");
-	test_uri_impl("sch://remote.ximc.ru/c:/temp/file",
-			"sch", "remote.ximc.ru", "c:/temp/file");
+	test_uri_impl("sch://remote.xisupport.com/c:/temp/file",
+			"sch", "remote.xisupport.com", "c:/temp/file");
 
 	test_uri_impl("sch:virtual56",
 			"sch", "", "virtual56");
@@ -98,8 +98,8 @@ START_TEST(test_uri)
 
 	test_uri_impl("sch://127.0.0.1/path",
 			"sch", "127.0.0.1", "path");
-	test_uri_impl("sch://remote.ximc.ru/path",
-			"sch", "remote.ximc.ru", "path");
+	test_uri_impl("sch://remote.xisupport.com/path",
+			"sch", "remote.xisupport.com", "path");
 
 	test_uri_impl("sch:",
 			"sch", "", "");
@@ -107,16 +107,16 @@ START_TEST(test_uri)
 			"sch", "", "foobar");
 	test_uri_fail_impl("no-scheme-here/path");
 
-	test_uri_impl("sch://remote.ximc.ru/path",
-			"sch", "remote.ximc.ru", "path");
-	test_uri_impl_param("sch://remote.ximc.ru/path?serial=123",
-			"sch", "remote.ximc.ru", "path", "serial", "123");
+	test_uri_impl("sch://remote.xisupport.com/path",
+			"sch", "remote.xisupport.com", "path");
+	test_uri_impl_param("sch://remote.xisupport.com/path?serial=123",
+			"sch", "remote.xisupport.com", "path", "serial", "123");
 	test_uri_impl_param("sch:///path?serial=123",
 			"sch", "", "path", "serial", "123");
-	test_uri_impl_param("sch://remote.ximc.ru/path",
-			"sch", "remote.ximc.ru", "path", NULL, NULL);
-	test_uri_impl_param("sch://remote.ximc.ru/c:/temp/file?serial=123",
-			"sch", "remote.ximc.ru", "c:/temp/file", "serial", "123");
+	test_uri_impl_param("sch://remote.xisupport.com/path",
+			"sch", "remote.xisupport.com", "path", NULL, NULL);
+	test_uri_impl_param("sch://remote.xisupport.com/c:/temp/file?serial=123",
+			"sch", "remote.xisupport.com", "c:/temp/file", "serial", "123");
 }
 END_TEST
 

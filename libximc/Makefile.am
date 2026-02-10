@@ -18,7 +18,7 @@ install-exec-local:
 	cp -Ra build/Release/libximc.framework "$(DESTDIR)$(libdir)/libximc.framework"
 
 uninstall-local:
-	rm -rf "$(DESTDIR)$(libdir)/libximc.framework"
+	rm -rf "$(DESTDIR)$(libdir)/macosx/libximc.framework"
 
 clean-local:
 	-rm -rf build DerivedData *.xcodeproj/xcuserdata *.xcodeproj/project.xcworkspace *.xcodeproj/*.pbxuser *.xcodeproj/*.mode1v3 

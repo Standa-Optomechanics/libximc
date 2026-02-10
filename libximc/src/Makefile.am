@@ -23,29 +23,13 @@ uninstall-local:
 	rm -f "$(DESTDIR)$(libdir)"/libbindy$(DEP_EXT)
 	rm -f "$(DESTDIR)$(libdir)"/libxiwrapper$(DEP_EXT)
 
-XIGEN = ${top_builddir}/xigen/src/xigen
-XIGEN_DEP = ${top_builddir}/xigen/src/xigen.stamp
-
-ximc-gen.c: protocol.xi $(XIGEN_DEP) ximc-gen-template.c ximc-gen.h
-	$(XIGEN) --gen-code -w -x $(top_srcdir)/version -i $< -o $@ -t ${srcdir}/ximc-gen-template.c
-
-ximc-gen.h: protocol.xi $(XIGEN_DEP) ximc-gen-template.h 
-	$(XIGEN) --gen-internal-header -w -x $(top_srcdir)/version -i $< -o $@ -t ${srcdir}/ximc-gen-template.h
-
-fwprotocol.c: protocol.xi $(XIGEN_DEP) fwprotocol-template.c
-	$(XIGEN) --gen-fw-lib -w -x $(top_srcdir)/version -i $< -o $@ -t ${srcdir}/fwprotocol-template.c
-
-fwprotocol.h: protocol.xi $(XIGEN_DEP) fwprotocol-template.h
-	$(XIGEN) --gen-fw-header -w -x $(top_srcdir)/version -i $< -o $@ -t ${srcdir}/fwprotocol-template.h
-
-$(top_builddir)/libximc/include/ximc.h: protocol.xi $(XIGEN_DEP) ximc-template.h 
-	-mkdir -p $(top_builddir)/libximc/include
-	$(XIGEN) --gen-header -x $(top_srcdir)/version -i $< -o $@ -t ${srcdir}/ximc-template.h 
-
 # the sources to add to the library and to add to the distribution
 libximc_la_SOURCES = \
+                        adapters.c \
+                        adapters.h \
 						common.h \
 						devenum.c \
+                        devenum.h \
 						devvirt.c \
 						loader.c \
 						loader.h \
@@ -59,24 +43,15 @@ libximc_la_SOURCES = \
 						util.c \
 						util.h \
 						types.h \
-						external/lm3s5r31.h \
 						sglib.h
 
 nodist_libximc_la_SOURCES = ximc-gen.c ximc-gen.h fwprotocol.c fwprotocol.h
 
-nodist_include_HEADERS = $(top_builddir)/libximc/include/ximc.h
+include_HEADERS = $(top_builddir)/libximc/include/ximc.h
 
 BUILT_SOURCES = ximc-gen.c ximc-gen.h fwprotocol.c fwprotocol.h $(top_builddir)/libximc/include/ximc.h
 
-EXTRA_DIST = protocol.xi ximc-gen-template.h ximc-gen-template.c ximc-template.h fwprotocol-template.c fwprotocol-template.h
-
-CLEANFILES = $(BUILT_SOURCES)
-
-## keyfile
-## these variables are implicitly required, keep their names
-#keyfilepath = $(top_srcdir)/libximc/src/keyfile.sqlite
-#keyfiledir = $(datadir)/libximc
-#dist_keyfile_DATA = $(keyfilepath)
+EXTRA_DIST = protocol.xi ximc-gen-template.h ximc-gen-template.c ximc-template.h $(BUILT_SOURCES)
 
 if HAVE_CHECK
 # Unit test support
