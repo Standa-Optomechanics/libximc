@@ -48,7 +48,7 @@ from libximc.highlevel._structure_types import (feedback_settings_t,
                                                 controller_name_t,
                                                 nonvolatile_memory_t,
                                                 emf_settings_t,
-                                                engine_advansed_setup_t,
+                                                engine_advanced_setup_t,
                                                 engine_advanced_setup_t,
                                                 get_position_t,
                                                 get_position_calb_t,
@@ -121,10 +121,9 @@ class Axis:
         "xi-com:/dev/tty.s123" in Linux/Mac. In case of network device the "host" is an IPv4 address or fully
         qualified domain uri (FQDN), "serial" is the device serial number in hexadecimal system. For example
         "xi-net://192.168.0.1/00001234" or "xi-net://hostname.com/89ABCDEF". In case of UDP protocol, use
-        "xi-udp://<ip/host>:<port>. For example, "xi-udp://192.168.0.1:1818". Note: to open network device you
-        must call set_bindy_key first. In case of virtual device the "file" is the full filename with device
-        memory state, if it doesn't exist then it is initialized with default values. For example
-        "xi-emu:///C:/dir/file.bin" in Windows or "xi-emu:///home/user/file.bin" in Linux/Mac.
+        "xi-udp://<ip/host>:<port>. For example, "xi-udp://192.168.0.1:1818". In case of virtual device the "file"
+		is the full filename with device memory state, if it doesn't exist then it is initialized with default values.
+		For example "xi-emu:///C:/dir/file.bin" in Windows or "xi-emu:///home/user/file.bin" in Linux/Mac.
     :type uri: str
     """
     def __init__(self, uri: str) -> None:
@@ -295,7 +294,7 @@ class Axis:
         """
         self._check_device_opened()
         if not isinstance(settings, move_settings_t):
-            raise TypeError("settings must be of type MoveSettings. {} was MoveSettings.".format(type(settings)))
+            raise TypeError("settings must be of type MoveSettings. {} was got.".format(type(settings)))
         _check_fullness(settings)
         move_settings = ll.move_settings_t(settings.Speed,
                                            settings.uSpeed,
@@ -1178,21 +1177,21 @@ class Axis:
         return nonvolatile_memory_t(list(nonvolatile_memory.UserData))
 
     # Legacy
-    def set_engine_advansed_setup(self, setup: engine_advansed_setup_t) -> None:
+    def set_engine_advanced_setup(self, setup: engine_advanced_setup_t) -> None:
         """Set engine advanced settings.
 
         :param setup: EAS settings
-        :type setup: engine_advansed_setup_t
+        :type setup: engine_advanced_setup_t
         """
         self._check_device_opened()
-        if not isinstance(setup, engine_advansed_setup_t):
-            raise TypeError("setup must be of type engine_advansed_setup_t. {} was got.".format(type(setup)))
+        if not isinstance(setup, engine_advanced_setup_t):
+            raise TypeError("setup must be of type engine_advanced_setup_t. {} was got.".format(type(setup)))
         _check_fullness(setup)
-        engine_advanced_setup = ll.engine_advansed_setup_t(
+        engine_advanced_setup = ll.engine_advanced_setup_t(
                                         setup.stepcloseloop_Kw,
                                         setup.stepcloseloop_Kp_low,
                                         setup.stepcloseloop_Kp_high)
-        _check_result(lib.set_engine_advansed_setup(self._device_id, byref(engine_advanced_setup)))
+        _check_result(lib.set_engine_advanced_setup(self._device_id, byref(engine_advanced_setup)))
 
     def set_engine_advanced_setup(self, setup: engine_advanced_setup_t) -> None:
         """Set engine advanced settings.
@@ -1204,23 +1203,23 @@ class Axis:
         if not isinstance(setup, engine_advanced_setup_t):
             raise TypeError("setup must be of type engine_advanced_setup_t. {} was got.".format(type(setup)))
         _check_fullness(setup)
-        engine_advanced_setup = ll.engine_advansed_setup_t(
+        engine_advanced_setup = ll.engine_advanced_setup_t(
                                         setup.stepcloseloop_Kw,
                                         setup.stepcloseloop_Kp_low,
                                         setup.stepcloseloop_Kp_high)
-        _check_result(lib.set_engine_advansed_setup(self._device_id, byref(engine_advanced_setup)))
+        _check_result(lib.set_engine_advanced_setup(self._device_id, byref(engine_advanced_setup)))
 
     # Legacy
-    def get_engine_advansed_setup(self) -> engine_advansed_setup_t:
+    def get_engine_advanced_setup(self) -> engine_advanced_setup_t:
         """Read engine advanced settings.
 
         :return: EAS settings
-        :rtype: engine_advansed_setup_t
+        :rtype: engine_advanced_setup_t
         """
         self._check_device_opened()
-        engine_advanced_setup = ll.engine_advansed_setup_t()
-        _check_result(lib.get_engine_advansed_setup(self._device_id, byref(engine_advanced_setup)))
-        return engine_advansed_setup_t(engine_advanced_setup.stepcloseloop_Kw,
+        engine_advanced_setup = ll.engine_advanced_setup_t()
+        _check_result(lib.get_engine_advanced_setup(self._device_id, byref(engine_advanced_setup)))
+        return engine_advanced_setup_t(engine_advanced_setup.stepcloseloop_Kw,
                                        engine_advanced_setup.stepcloseloop_Kp_low,
                                        engine_advanced_setup.stepcloseloop_Kp_high)
 
@@ -1231,8 +1230,8 @@ class Axis:
         :rtype: engine_advanced_setup_t
         """
         self._check_device_opened()
-        engine_advanced_setup = ll.engine_advansed_setup_t()
-        _check_result(lib.get_engine_advansed_setup(self._device_id, byref(engine_advanced_setup)))
+        engine_advanced_setup = ll.engine_advanced_setup_t()
+        _check_result(lib.get_engine_advanced_setup(self._device_id, byref(engine_advanced_setup)))
         return engine_advanced_setup_t(engine_advanced_setup.stepcloseloop_Kw,
                                        engine_advanced_setup.stepcloseloop_Kp_low,
                                        engine_advanced_setup.stepcloseloop_Kp_high)
@@ -1631,18 +1630,6 @@ class Axis:
         """
         self._check_device_opened()
         _check_result(lib.command_homezero(self._device_id))
-
-    def set_bindy_key(self, keyfilepath: str) -> None:
-        """Set network encryption layer (bindy) key.
-
-        :param keyfilepath: full path to the bindy keyfile When using network-attached devices this function must be
-            called before enumerate_devices and open_device functions.
-        :type keyfilepath: str
-        """
-        self._check_device_opened()
-        if not isinstance(keyfilepath, str):
-            raise TypeError("keyfilepath must be of type str. {} was got.".format(type(keyfilepath)))
-        _check_result(lib.set_bindy_key(keyfilepath.encode()))
 
     def open_device(self) -> None:
         """Open a device"""

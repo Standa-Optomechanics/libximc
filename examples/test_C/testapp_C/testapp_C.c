@@ -173,7 +173,7 @@ int main (int argc, char* argv[])
 	edges_settings_t edges_settings;
 	motor_settings_t motor_settings;
 	emf_settings_t emf_settings;
-	engine_advansed_setup_t eas_settings;
+	engine_advanced_setup_t eas_settings;
 
 
 	int names_count;
@@ -302,14 +302,14 @@ int main (int argc, char* argv[])
 	eas_settings.stepcloseloop_Kw = 98;
 	eas_settings.stepcloseloop_Kp_low = 99;
 	eas_settings.stepcloseloop_Kp_high = 100;
-	if ((result = set_engine_advansed_setup(device, &eas_settings)) != result_ok)
+	if ((result = set_engine_advanced_setup(device, &eas_settings)) != result_ok)
 		wprintf(L"error getting eas settings %ls\n", error_string(result));
 
 
 	eas_settings.stepcloseloop_Kw = 0;
 	eas_settings.stepcloseloop_Kp_high = 0;
 
-	if ((result = get_engine_advansed_setup(device, &eas_settings)) != result_ok)
+	if ((result = get_engine_advanced_setup(device, &eas_settings)) != result_ok)
 		wprintf(L"error getting eas settings %ls\n", error_string(result));
 	wprintf(L"eas: 1 %d 2 %d 3 %d\n",
 		eas_settings.stepcloseloop_Kw, eas_settings.stepcloseloop_Kp_low, eas_settings.stepcloseloop_Kp_high);
@@ -341,6 +341,10 @@ int main (int argc, char* argv[])
 		wprintf( L"error command left %ls\n", error_string( result ) );
 
 	msec_sleep( sec*1000 );
+
+	wprintf( L"\n\nStopping engine...\n\n");
+	if ((result = command_stop( device )) != result_ok)
+		wprintf( L"error command stop %ls\n", error_string( result ) );
 
 	if ((result = get_status( device, &state )) != result_ok) {
 		wprintf( L"error getting status %ls\n", error_string( result ) );

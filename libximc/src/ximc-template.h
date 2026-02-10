@@ -500,63 +500,6 @@ extern "C"
 	result_t XIMC_API close_device (device_t* id);
 
 	/**
-		* \english
-		* Command of loading a correction table from a text file (this function is deprecated).
-		* Use the function set_correction_table(device_t id, const char* namefile).
-		* The correction table is used for position correction in case of mechanical inaccuracies.
-		* It works for some parameters in _calb commands.
-		* @param id an identifier the device
-		* @param[in] namefile - the file name must be fully qualified.
-		* If the short name is used, the file must be located in the application directory.
-		* If the file name is set to NULL, the correction table will be cleared.
-		* File format: two tab-separated columns.
-		* Column headers are string.
-		* Data is real, the point is a determiter.
-		* The first column is a coordinate. The second one is the deviation caused by a mechanical error.
-		* The maximum length of a table is 100 rows.
-		* \note
-		* The id parameter in this function is a C pointer, unlike most library functions that use this parameter
-		* @see command_move
-		* @see get_position_calb
-		* @see get_position_calb_t
-		* @see get_status_calb
-		* @see status_calb_t
-		* @see get_edges_settings_calb
-		* @see set_edges_settings_calb
-		* @see edges_settings_calb_t
-		*
-		* \endenglish
-		* \russian
-		* Команда загрузки корректирующей таблицы из текстового файла (данная функция устарела).
-		* Используйте функцию set_correction_table(device_t id, const char* namefile).
-		* Таблица используется для коррекции положения в случае механических неточностей.
-		* Работает для некоторых параметров в _calb командах.
-		* @param id - идентификатор устройства
-		* @param[in] namefile - имя файла должно быть полным.
-		* Если используется короткое имя, файл должен находится в директории приложения.
-		* Если имя файла равно NULL таблица коррекции будет очищена.
-		* Формат файла: два столбца разделенных табуляцией.
-		* Заголовки столбцов строковые.
-		* Данные действительные разделитель точка.
-		* Первый столбец координата. Второй - отклонение вызванное ошибкой механики.
-		* Между координатами отклонение расчитывается линейно. За диапазоном константа равная отклонению на границе.
-		* Максимальная длина таблицы 100 строк.		
-		* \note
-		* Параметр id в данной функции является Си указателем, в отличие от большинства функций библиотеки использующих данный параметр
-		* @see command_move
-		* @see command_movr
-		* @see get_position_calb
-		* @see get_position_calb_t
-		* @see get_status_calb
-		* @see status_calb_t
-		* @see get_edges_settings_calb
-		* @see set_edges_settings_calb
-		* @see edges_settings_calb_t
-		* \endrussian
-		*/
-	result_t XIMC_API load_correction_table(device_t* id, const char* namefile);
-
-	/**
 	* \english
 	* Command of loading a correction table from a text file.
 	* The correction table is used for position correction in case of mechanical inaccuracies.
@@ -615,16 +558,6 @@ extern "C"
 		* \endrussian
 		*/
 	result_t XIMC_API probe_device (const char* uri);
-
-	/**
-		* \english
-		* Deprecated. Left for compatibility. Do just nothing.
-		* \endenglish
-		* \russian
-		* Устарело. Оставлено для совместимости. Ничего не делает.
-		* \endrussian
-    */
-	result_t XIMC_API set_bindy_key(const char* keyfilepath);
 
 	/**
 		* \english
@@ -887,24 +820,6 @@ extern "C"
 		* \endrussian
 	*/
 	result_t XIMC_API reset_locks ();
-
-	/** \english
-		* (Deprecated) Fixing a USB driver error in Windows.
-		* The USB-COM subsystem in the Windows OS does not always work correctly. During operation, the following malfunctions are possible:
-		* All attempts to open the device fail. The device can be opened and data can be sent to it, but the response data is not received.
-		* These problems are fixed by reconnecting the device or reinitializing it in the Device Manager.
-		* The ximc_fix_usbser_sys() function automates the deletion detection process.
-		* \endenglish
-		* \russian
-		* (Устарела) Исправление ошибки драйвера USB в Windows.
-		* Подсистема USB-COM на OC Windows не всегда работает корректно. При работе возможны следующие неисправности:
-		* Все попытки открыть устройство заканчиваются неудачно. Устройство можно открыть и отправить в него данные, но ответные данные не приходят.
-		* Эти проблемы исправляются переподключением устройства или его переинециализацией в диспетчере устройств.
-		* Функция ximc_fix_usbser_sys() автоматизирует процесс удаления-обнаружения.
-		* \endrussian
-		*/
-	result_t XIMC_API ximc_fix_usbser_sys(const char* device_uri);
-
 
 	/** \english
 		* Sleeps for a specified amount of time

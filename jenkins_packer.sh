@@ -48,17 +48,18 @@ for arch in $ARCH_LIST ; do
     if [[ $arch == win* ]] ; then
         WILDCARDS="*.dll *.lib"
     elif [[ $arch == debian* ]]; then
-        WILDCARDS="*.so"
+        WILDCARDS="*.so *.so.*"
     elif [[ $arch == macosx ]] ; then
-        # TODO: It's probably wrong. Please pay attention and fix it!!!
-        WILDCARDS="*.dylib libximc.framework/Versions/Current/libximc"
+        WILDCARDS="libximc.framework"
     else
         echo "Unknown architecture: $arch"
         exit 1
     fi
 
     for WILDCARD in $WILDCARDS ; do
-        cp -v $LIBSDIR/$WILDCARD $PYTHON_LIBFILESDIR/$arch
+        # We need to dereference symlinks when copying libraries because of stupid shit called python build package.
+        # It seems that rusty combination of very old python and build cannot handle symlinks properly. Shame! Shame!
+        cp -v -rL $LIBSDIR/$WILDCARD $PYTHON_LIBFILESDIR/$arch/
     done
 done
 
@@ -73,6 +74,8 @@ sed -i -e "s/^version = \"X.X.X\"$/version = \"$VER\"/" pyproject.toml
 # Temporarily move explaining pyximc.py substitution *.txt file out of building dir
 mv where-did-pyximc.py-go.txt ..
 echo Packing the binding to a wheel...
+# TODO: remove me later
+echo $(ls -lR)
 echo $(python3 --version)
 echo $(python3 -m build --version)
 python3 -m build --skip-dependency-check

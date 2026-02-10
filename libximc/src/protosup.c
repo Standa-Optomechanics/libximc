@@ -1440,105 +1440,6 @@ void creat_table(float** X, float** dX)
 extern "C" {
 #endif
 
-result_t XIMC_API load_correction_table(device_t* id, const char* namefile)
-{
-	setlocale(LC_NUMERIC, "C");
-	
-	device_metadata_t* dm;
-	FILE * fp = NULL;
-
-	if (*id == device_undefined)
-	{
-		log_error(L"attempting to close already closed device");
-		return result_error;
-	}
-	dm = get_metadata(*id);
-	if (!dm)
-	{
-		log_error(L"could not extract metadata for device");
-		*id = device_undefined;
-		return result_error;
-	}
-
-	if (namefile == NULL)
-	{
-		if (dm->table.X != NULL)
-		{
-			CLEAR_TABLE;
-		}
-		return result_ok;
-	}
-	if (dm->table.X != NULL)
-	{
-		CLEAR_TABLE;
-	}
-
-	fp = fopen(namefile, "r");
-	if (fp == NULL)
-	{
-		log_error(L"error opening calibration table file");
-		return result_error;
-	}
-	dm->table.X = (float *)malloc(100 * sizeof(float));
-	dm->table.dX = (float *)malloc(100 * sizeof(float));
-
-	char c1[100], c2[100];
-	uint32_t i = 0;
-	float f1, f2;
-	int err;
-
-	if (fscanf(fp, "%s%s", c1, c2) != 2)
-	{
-		CLEAR_TABLE_CLOSE_FILE;
-		log_error(L"data error in calibration table file");
-		return result_error;
-	};
-
-	while (true) 
-	{
-		err = fscanf(fp, "%f%f", &f1, &f2);
-		if (err == EOF)
-		{
-			if (i >= 2)
-			{
-				dm->table.len_table = i;
-				fclose(fp);
-				return result_ok;
-			}
-			else
-			{
-				CLEAR_TABLE_CLOSE_FILE;
-				log_error(L"error little data");
-				return result_error;
-			}
-		}
-		if (err != 2)
-		{
-			CLEAR_TABLE_CLOSE_FILE;
-			log_error(L"data error in calibration table file");
-			return result_error;
-		}
-		
-		*(dm->table.X + i) = f1;
-		*(dm->table.dX + i) = f2;
-		if (i >= 1) 
-			if ( (f1 - *(dm->table.X + i - 1) <= 0) || ((f1 + f2) - (*(dm->table.X + i - 1) + *(dm->table.dX + i - 1)) <= 0))
-		{
-				CLEAR_TABLE_CLOSE_FILE;
-				log_error(L"error the data in the table is not monotonous.");
-				return result_error;
-		}
-
-		i++;
-		if (i > 99)
-		{
-			CLEAR_TABLE_CLOSE_FILE;
-			log_error(L"error file contains more than 100 rows of data.");
-			return result_error;
-		}
-	}
-}
-
 result_t XIMC_API set_correction_table(device_t id, const char* namefile)
 {
 	setlocale(LC_NUMERIC, "C");
@@ -1662,13 +1563,6 @@ result_t XIMC_API close_device (device_t* id)
 result_t XIMC_API reset_locks()
 {
 	/* nop */
-	return result_ok;
-}
-
-result_t XIMC_API ximc_fix_usbser_sys(const char* device_uri)
-{
-	fprintf(stderr, "WARN: Function ximc_fix_usbser_sys is deprecated\n");
-	fix_usbser_sys( device_uri );
 	return result_ok;
 }
 

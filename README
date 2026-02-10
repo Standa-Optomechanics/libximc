@@ -1,23 +1,48 @@
-For build and usage instructions please consult documentation
-at libximc/docs/doc-en or libximc/docs/doc-ru. Files are generated during library build. 
-Source files for documentation can be found at libximc/docs/doc-en/docmainpage or libximc/docs/doc-ru/docmainpage.
+## Building a library for Windows
 
-Building a library for Windows
+For building you need x64 Windows 7 or newer.
 
-Dependencies
+### Dependencies
+
+* Microsoft Visual C 2013 or newer
+* git, cmake, cygwin (installed in "C:/cygwin") with flex and bison preinstalled, MSYS2
+* MATLAB (optional), Code::Blocks (optional), Java (optional), Python (optional).
+
+#### General
+
+Used for building dependencies and the library itself.
 
 * Download and install GIT from https://git-scm.com in C:\Program Files\Git (should be the default).
 * Download and install CMake https://cmake.org in C:\Program Files (x86)\CMake. 
-You can put the 64 bit version in C:\Program Files\CMake, and then just copy it to C:\Program Files (x86).
-* Download and install MSYS2 into C:\MSYS2
-* Install JDK 7-9 64 bits if not installed. A proven Java distribution can be downloaded 
-https://sourceforge.net/projects/javaclientmsiinstallers/files/Java%20JDK%209%20Update%20464/jdk9.0.464.zip/download
-or https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html. Authorization is required to download from the second link.
-Prescribe the variable JDK_PATH
-Example: JDK is installed in C:\Program Files\Java\jdk-9.0.4 
-=> Start -> PC Software Computer -> Properties -> Additional system parameters -> Environment Variables -> System variables,
-there we create a variable JDK_HOME and JDK32_HOME with the value C:\Program Files\Java\jdk-9.0.4
-* It is necessary to install Microsoft Visual Studio 2013.
+* Download and install Microsoft Visual Studio 2013.
+* Install custom cygwin with preinstalled packages: flex, bison, etc. Unpack the archive in C:\cygwin and add C:\cygwin\bin to the PATH.
+
+#### Wrappers' dependencies
+
+Used for building wrappers such as java wrapper or matlab wrapper.
+
+* Install .NET Framework SP1 (for C# wrapper)
+* Install JDK 7-9 64 bits if not installed (for Java).
+  > A proven Java distribution can be downloaded 
+    https://sourceforge.net/projects/javaclientmsiinstallers/files/Java%20JDK%209%20Update%20464/jdk9.0.464.zip/download
+    or https://www.oracle.com/java/technologies/javase/javase9-archive-downloads.html. Authorization is required to download from the second link.
+    Prescribe the variable JDK_PATH
+    Example: JDK is installed in C:\Program Files\Java\jdk-9.0.4 
+    => Start -> PC Software Computer -> Properties -> Additional system parameters -> Environment Variables -> System variables,
+    there we create a variable JDK_HOME and JDK32_HOME with the value C:\Program Files\Java\jdk-9.0.4
+* Install MATLAB R2014b x64 (for MATLAB wrapper)
+
+#### Examples' dependencies
+
+* Download and install MSYS2 into C:\MSYS2 (for C examples, CodeBlocks).
+  > In MSYS2 shell install two packages: mingw-w64-i686-toolchain and mingw-w64-x86_64-toolchain:
+  > ```shell
+  > pacman -S mingw-w64-i686-toolchain
+  > pacman -S mingw-w64-x86_64-toolchain
+  > ```
+* Download and install CodeBlocks in C:\Program Files (x86)\CodeBlocks
+* Make sure JDK is installed (for Java examples, see Wrappers' dependencies)
+* Make sure .NET Framework is installed (for C# and VB.NET examples, see Wrappers' dependencies)
 
 To build, use the build system via build.bat. The system has its can print help menu: build.bat --help.
 
@@ -33,7 +58,11 @@ Build system usage example (building the library):
     build.bat libximc
 ```
 
-Building a library for Ubuntu (Debian based)
+## Building a library for Ubuntu (Debian based)
+
+For building you need Debian-based Linux
+
+#### General
 
 The following instruction has been tested on Ubuntu 18.04.
 
@@ -99,12 +128,38 @@ II. Build
     ./build.sh debs
 ```
 
+## Building a library for macOS
 
-Working with the library
+For building library you need macOS 10.15 or newer.
 
-* Cloning the repository: 
-  git clone https://github.com/Standa-Optomechanics/libximc
-* We switch to the desired state using git checkout
-* From the library folder, run the: 
-  build.bat
-* The result of the assembly can be taken in \ximc
+### Dependencies
+
+* brew, XCode 4 or newer, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool), pkg-config
+* Java (опционально), doxygen (опционально)
+
+### Build
+
+To build use the following commands:
+
+```shell
+    # Build dependencies
+    ./build.sh deps
+    
+    # Generate libximc sources
+    ./build.sh gen-libximc-sources
+
+    # Build the library
+    ./build.sh libximc
+
+    # Build wrappers
+    ./build.sh wrappers
+
+    # Build examples
+    ./build.sh examples
+
+    # Build documentation
+    ./build.sh docs
+
+    # Build deb-packages
+    ./build.sh debs
+```

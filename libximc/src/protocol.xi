@@ -1,4 +1,4 @@
-protocol "v20.13"
+protocol "v20.14"
 defaults with crc, answer, public
 
 /** \english
@@ -440,9 +440,9 @@ flagset FeedbackFlags:
 FEEDBACK_ENC_REVERSE			= 0x01	/**< \english Reverse count of encoder. \endenglish \russian Обратный счет у энкодера. \endrussian */
 FEEDBACK_ENC_ADAPTIVE_HOLDING	= 0x02	/**< \english Enables the adaptive holding algorithm. \endenglish \russian Включает алгоритм адаптивного удержания. \endrussian */
 FEEDBACK_ENC_FILTER_NONE		= 0x00	/**< \english Disable the internal filter of the encoder signal. \endenglish \russian Выключает внутренний фильтр сигнала энкодера. \endrussian */
-FEEDBACK_ENC_FILTER_WEAK		= 0x10	/**< \english Weak noise filtering: the maximum encoder signal frequency is 3 MHz. \endenglish \russian Слабая фильтрация шумов: максимальная частота сигнала энкодера 3 МГц */
-FEEDBACK_ENC_FILTER_MEDIUM		= 0x20	/**< \english Medium noise filtering: the maximum encoder signal frequency is 1 MHz. \endenglish \russian Средняя фильтрация шумов: максимальная частота сигнала энкодера 1 МГц */
-FEEDBACK_ENC_FILTER_STRONG		= 0x30	/**< \english Strong noise filtering: the maximum encoder signal frequency is 300 kHz. \endenglish \russian Сильная фильтрация шумов: максимальная частота сигнала энкодера 300 кГц */
+FEEDBACK_ENC_FILTER_WEAK		= 0x10	/**< \english Weak noise filtering: the maximum encoder signal frequency is 3 MHz. \endenglish \russian Слабая фильтрация шумов: максимальная частота сигнала энкодера 3 МГц. \endrussian */
+FEEDBACK_ENC_FILTER_MEDIUM		= 0x20	/**< \english Medium noise filtering: the maximum encoder signal frequency is 1 MHz. \endenglish \russian Средняя фильтрация шумов: максимальная частота сигнала энкодера 1 МГц. \endrussian */
+FEEDBACK_ENC_FILTER_STRONG		= 0x30	/**< \english Strong noise filtering: the maximum encoder signal frequency is 300 kHz. \endenglish \russian Сильная фильтрация шумов: максимальная частота сигнала энкодера 300 кГц. \endrussian */
 FEEDBACK_ENC_FILTER_BITS		= 0x30	/**< \english Bits responsible for setting the internal filter of the encoder signal. \endenglish \russian Биты, отвечающие за настройку внутреннего фильтра энкодерного сигнала. \endrussian */
 FEEDBACK_ENC_TYPE_AUTO			= 0x00	/**< \english Auto detect encoder type. \endenglish \russian Определяет тип энкодера автоматически. \endrussian */
 FEEDBACK_ENC_TYPE_SINGLE_ENDED	= 0x40	/**< \english Single-ended encoder. \endenglish \russian Недифференциальный энкодер. \endrussian */
@@ -1859,9 +1859,9 @@ fields:
 	* \english
 	* Read motor control settings.
 	*
-    * In case of CTL_MODE=1, joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* @param id An identifier of a device
 	* @param[out] control_settings structure contains settings motor control by joystick or buttons left/right.
 	* \endenglish
@@ -1881,11 +1881,11 @@ fields:
 	*/
 /** $XIW
 	* \english
-	* Read motor control settings.
+	* Set motor control settings.
 	*
-    * In case of CTL_MODE=1,  joystick motor control is enabled. In this mode, the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, joystick motor control is enabled. In this mode, the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* @param id An identifier of a device
 	* @param[in] control_settings structure contains motor control settings.
 	* \endenglish
@@ -1909,9 +1909,9 @@ fields:
 	*
 	* This structure contains control parameters.
 	*
-    * In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* \endenglish
 	* \russian
 	* Настройки управления.
@@ -1929,11 +1929,11 @@ fields:
 	*/
 /** $XIRC
 	* \english
-	* Set calibrated motor control settings.
+	* Read motor control settings with user units.
 	*
-    * In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* @param id An identifier of a device
 	* @param[out] control_settings_calb structure contains user unit motor control settings.
 	* @param calibration user unit settings
@@ -1955,11 +1955,11 @@ fields:
 	*/
 /** $XIWC
 	* \english
-	* Set motor control settings.
+	* Set motor control settings with user units.
 	*
-    * In case of CTL_MODE=1, joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* @param id An identifier of a device
 	* @param[in] control_settings_calb structure contains motor control settings.
 	* @param calibration user unit settings
@@ -1985,9 +1985,9 @@ fields:
 	*
 	* This structure contains control parameters.
 	*
-    * In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
+	* In case of CTL_MODE=1, the joystick motor control is enabled. In this mode, while the joystick is maximally displaced, the engine tends to move at MaxSpeed[i]. i=0 if another value hasn't been set at the previous usage. To change the speed index "i", use the buttons.
 	*
-    * In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], the motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
+	* In case of CTL_MODE=2, the motor is controlled by the left/right buttons. When you click on the button, the motor starts moving in the appropriate direction at a speed MaxSpeed[0]. After Timeout[i], the motor moves at speed MaxSpeed[i+1]. At the transition between MaxSpeed[i] and MaxSpeed[i+1] the motor just accelerates/decelerates as usual.
 	* \endenglish
 	* \russian
 	* Настройки управления с использованием пользовательских единиц.
@@ -2021,21 +2021,21 @@ fields:
 	* Read joystick settings.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
 	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
-        * correspond to zero speed (a "soft stop" command is issued continuously),
+	* correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
 	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
-        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
+	* The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[out] joystick_settings structure contains joystick settings
 	* \endenglish
 	* \russian
 	* Чтение настроек джойстика.
-        * При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
+	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
 	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
-        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
+	* где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
 	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
@@ -2049,11 +2049,11 @@ fields:
 	* Set joystick position.
 	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
 	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
-        * correspond to zero speed (a "soft stop" command is issued continuously),
+	* correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
 	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
-        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
+	* The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	* See the Joystick control section on https://doc.xisupport.com/en/8smc5-usb/8SMCn-USB/Technical_specification/Additional_features/Joystick_control.html for more information.
 	* @param id An identifier of a device
 	* @param[in] joystick_settings structure contains joystick settings
@@ -2063,7 +2063,7 @@ fields:
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
 	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
-        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
+	* где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
 	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума. Подробнее см. раздел "Управление с помощью джойстика" на сайте
@@ -2077,13 +2077,13 @@ fields:
 	* Joystick settings.
 	*
 	* This structure contains joystick parameters.
-        * If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
+	* If joystick position falls outside DeadZone limits, a movement begins. The speed is defined by the joystick's position
 	* in the range from the DeadZone limit to the maximum deviation. Joystick positions inside DeadZone limits
-        * correspond to zero speed (a "soft stop" command is issued continuously),
+	* correspond to zero speed (a "soft stop" command is issued continuously),
 	* and positions beyond Low and High limits correspond to MaxSpeed[i] or -MaxSpeed[i] (see command SCTL),
 	* where i = 0 by default and can be changed with the left/right buttons (see command SCTL).
 	* If the next speed in the list is zero (both integer and microstep parts), the button press is ignored.
-        * The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
+	* The first speed in the list shouldn't be zero. DeadZone is defined in 0.1% units.
 	*
 	* The relationship between the deviation and the rate is exponential, which allows for high mobility and accuracy without speed mode switching.
 	* \endenglish
@@ -2093,11 +2093,11 @@ fields:
 	* При отклонении джойстика более чем на DeadZone от центрального положения начинается движение со скоростью,
 	* определяемой отклонением джойстика от DeadZone до 100% отклонения, причем отклонению DeadZone соответствует
 	* нулевая скорость (при этом постоянно выполняется команда "soft stop"), а 100% отклонения соответствует MaxSpeed [i] (см. команду SCTL),
-        * где i=0, если предыдущим использованием этого режима не было выбрано другое i.
+	* где i=0, если предыдущим использованием этого режима не было выбрано другое i.
 	* Если следующая скорость в таблице скоростей нулевая (целая и микрошаговая части), то перехода на неё не происходит.
 	* Первая скорость в списке не должна быть нулевой. DeadZone вычисляется в десятых долях процента отклонения
 	* от центра (JoyCenter) до правого или левого максимума.
-        * Зависимость между отклонением и скоростью экспоненциальная,
+	* Зависимость между отклонением и скоростью экспоненциальная,
 	* что позволяет без переключения режимов скорости сочетать высокую подвижность и точность.
 	* \endrussian
 	* @see set_joystick_settings
@@ -2117,15 +2117,15 @@ fields:
 	* \english
 	* Read control position settings (used with stepper motor only).
 	* When controlling the step motor with an encoder (CTP_BASE=0), it is possible to detect the loss of steps. The controller knows the number of steps per revolution (GENG::StepsPerRev) and the encoder resolution (GFBS::IPT). When the control is enabled (CTP_ENABLED is set), the controller stores the current position in the steps of SM and the current position of the encoder. Next, the encoder position is converted into steps at each step, and if the difference between the current position in steps and the encoder position is greater than CTPMinError, the flag STATE_CTP_ERROR is set.
-    *
-    * Alternatively, the stepper motor may be controlled with the speed sensor (CTP_BASE 1). In this mode, at the active edges of the input clock, the controller stores the current value of steps. Then, at each revolution, the controller checks how many steps have been passed. When the difference is over the CTPMinError, the STATE_CTP_ERROR flag is set.
+	*
+	* Alternatively, the stepper motor may be controlled with the speed sensor (CTP_BASE 1). In this mode, at the active edges of the input clock, the controller stores the current value of steps. Then, at each revolution, the controller checks how many steps have been passed. When the difference is over the CTPMinError, the STATE_CTP_ERROR flag is set.
 	* @param id An identifier of a device
 	* @param[out] ctp_settings structure contains position control settings.
 	* \endenglish
 	* \russian
 	* Чтение настроек контроля позиции(для шагового двигателя).
 	* При управлении ШД с энкодером (CTP_BASE 0) появляется возможность обнаруживать потерю шагов. Контроллер знает кол-во шагов на оборот (GENG::StepsPerRev) и разрешение энкодера (GFBS::IPT). При включении контроля (флаг CTP_ENABLED), контроллер запоминает текущую позицию в шагах ШД и текущую позицию энкодера. Далее, на каждом шаге позиция энкодера преобразовывается в шаги и, если разница оказывается больше CTPMinError, устанавливается флаг STATE_CTP_ERROR.
-    * При управлении ШД с датчиком оборотов (CTP_BASE 1), позиция контролируется по нему. По активному фронту на входе синхронизации контроллер запоминает текущее значение шагов. Далее, при каждом обороте проверяет, на сколько шагов сместились. При рассогласовании более CTPMinError устанавливается флаг STATE_CTP_ERROR.
+	* При управлении ШД с датчиком оборотов (CTP_BASE 1), позиция контролируется по нему. По активному фронту на входе синхронизации контроллер запоминает текущее значение шагов. Далее, при каждом обороте проверяет, на сколько шагов сместились. При рассогласовании более CTPMinError устанавливается флаг STATE_CTP_ERROR.
 	* @param id идентификатор устройства
 	* @param[out] ctp_settings структура, содержащая настройки контроля позиции
 	* \endrussian
@@ -2515,50 +2515,59 @@ fields:
 /**  $XIR
 	* \english
 	* Read engine advanced settings.
-	* @see set_engine_advansed_setup
+	*
+	* Manufacturer only.
+	* @see set_engine_advanced_setup
 	* @param id An identifier of a device
-	* @param[out] engine_advansed_setup EAS settings
+	* @param[out] engine_advanced_setup EAS settings
 	* \endenglish
 	* \russian
 	* Чтение расширенных настроек.
-	* @see set_engine_advansed_setup
+	*
+	* Только для производителя.
+	* @see set_engine_advanced_setup
 	* @param id идентификатор устройства
-	* @param[out] engine_advansed_setup настройки EAS
+	* @param[out] engine_advanced_setup настройки EAS
 	* \endrussian
 	*/
 /**  $XIW
 	* \english
 	* Set engine advanced settings.
-	* @see get_engine_advansed_setup
+	*
+	* Manufacturer only.
+	* @see get_engine_advanced_setup
 	* @param id An identifier of a device
-	* @param[in] engine_advansed_setup EAS settings
+	* @param[in] engine_advanced_setup EAS settings
 	* \endenglish
 	* \russian
-	* Запись расширенных настроек. 
-	* @see get_engine_advansed_setup
+	* Запись расширенных настроек.
+	*
+	* Только для производителя.
+	* @see get_engine_advanced_setup
 	* @param id идентификатор устройства
-	* @param[in] engine_advansed_setup настройки EAS
+	* @param[in] engine_advanced_setup настройки EAS
 	* \endrussian
 	*/
 /**  $XIS
 	* \english
 	* EAS settings.
 	*
-	* This structure is intended for setting parameters of algorithms that cannot be attributed to standard Kp, Ki, Kd, and L, R, Km.
+	* Manufacturer only. This structure is intended for setting parameters of algorithms that cannot be attributed to standard Kp, Ki, Kd, and L, R, Km.
 	* \endenglish
 	* \russian
 	* Настройки EAS.
-	* Эта структура предназначена для настройки параметров алгоритмов, которые невозможно отнести к стандартным Kp, Ki, Kd и L, R, Km.
+	*
+	* Только для производителя. Эта структура предназначена для настройки параметров алгоритмов, которые невозможно отнести к стандартным Kp, Ki, Kd и L, R, Km.
 	* Эти данные хранятся во flash памяти контроллера.
 	* \endrussian
-	* @see set_engine_advansed_setup
-	* @see get_engine_advansed_setup
+	* @see set_engine_advanced_setup
+	* @see get_engine_advanced_setup
 	*/
-command "engine_advansed_setup" universal "eas" (54)
+command "engine_advanced_setup" universal "eas" (54)
 fields:	
-	int16u stepcloseloop_Kw			/**< \english Mixing ratio of the actual and set speed, range [0, 100], default value 50. \endenglish \russian Коэффициент смешения реальной и заданной скорости, диапазон [0, 100], значение по умолчанию 50. \endrussian */
-	int16u stepcloseloop_Kp_low		/**< \english Position feedback in the low-speed zone, range [0, 65535], default value 1000. \endenglish \russian Обратная связь по позиции в зоне малых скоростей, диапазон [0, 65535], значение по умолчанию 1000. \endrussian */
-	int16u stepcloseloop_Kp_high	/**< \english Position feedback in the high-speed zone, range [0, 65535], default value 33. \endenglish \russian Обратная связь по позиции в зоне больших скоростей, диапазон [0, 65535], значение по умолчанию 33. \endrussian */
+	int16u stepcloseloop_Kw			/**< \english Manufacturer only. Mixing ratio of the actual and set speed, range [0, 100], default value 50. \endenglish \russian Только для производителя. Коэффициент смешения реальной и заданной скорости, диапазон [0, 100], значение по умолчанию 50. \endrussian */
+	int16u stepcloseloop_Kp_low		/**< \english Manufacturer only. Position feedback in the low-speed zone, range [0, 65535], default value 1000. \endenglish \russian Только для производителя. Обратная связь по позиции в зоне малых скоростей, диапазон [0, 65535], значение по умолчанию 1000. \endrussian */
+	int16u stepcloseloop_Kp_high	/**< \english Manufacturer only. Position feedback in the high-speed zone, range [0, 65535], default value 33. \endenglish \russian Только для производителя. Обратная связь по позиции в зоне больших скоростей, диапазон [0, 65535], значение по умолчанию 33. \endrussian */
 	reserved 42
 
 /**  $XIR
@@ -2627,7 +2636,7 @@ fields:
 	* \english
 	* Immediately stops the engine, moves it to the STOP state, and sets switches to BREAK mode (windings are short-circuited). The holding regime is deactivated for DC motors, keeping current in the windings for stepper motors (to control it, see Power management settings).
 	*
-    * When this command is called, the ALARM flag is reset.
+	* When this command is called, the ALARM flag is reset.
 	* @param id An identifier of a device
 	* \endenglish
 	* \russian
@@ -2810,17 +2819,17 @@ fields:
 	* \english
 	* Moving to home position.
 	*
-    * Moving algorithm:
+	* Moving algorithm:
 	*
-    * 1) Moves the motor according to the speed FastHome, uFastHome and flag HOME_DIR_FAST until the limit switch if the HOME_STOP_ENDS flag is set. Or moves the motor until the input synchronization signal occurs if the flag HOME_STOP_SYNC is set. Or moves until the revolution sensor signal occurs if the flag HOME_STOP_REV_SN is set.
+	* 1) Moves the motor according to the speed FastHome, uFastHome and flag HOME_DIR_FAST until the limit switch if the HOME_STOP_ENDS flag is set. Or moves the motor until the input synchronization signal occurs if the flag HOME_STOP_SYNC is set. Or moves until the revolution sensor signal occurs if the flag HOME_STOP_REV_SN is set.
 	*
-    * 2) Then moves according to the speed SlowHome, uSlowHome and flag HOME_DIR_SLOW until the input clock signal occurs if the flag HOME_MV_SEC is set. If the flag HOME_MV_SEC is reset, skip this step.
+	* 2) Then moves according to the speed SlowHome, uSlowHome and flag HOME_DIR_SLOW until the input clock signal occurs if the flag HOME_MV_SEC is set. If the flag HOME_MV_SEC is reset, skip this step.
 	*
-    * 3) Then shifts the motor according to the speed FastHome, uFastHome and the flag HOME_DIR_SLOW by HomeDelta distance, uHomeDelta.
-    * 
-    * See GHOM/SHOM commands' description for details on home flags.
+	* 3) Then shifts the motor according to the speed FastHome, uFastHome and the flag HOME_DIR_SLOW by HomeDelta distance, uHomeDelta.
 	*
-    * Moving settings can be set by set_home_settings/set_home_settings_calb.
+	* See GHOM/SHOM commands' description for details on home flags.
+	*
+	* Moving settings can be set by set_home_settings/set_home_settings_calb.
 	* @param id An identifier of a device
 	* \endenglish
 	* \russian
@@ -3434,7 +3443,7 @@ without crc, lock
 	* Write device serial number and hardware version to the controller's flash memory.
 	* Along with the new serial number and hardware version, a "Key" is transmitted.
 	* The SN and hardware version are changed and saved when keys match.
-	* Can be used by the manufacturer only.
+	* Can be used by the manufacturer only. Used from the loader only.
 	* @param id An identifier of a device
 	* @param[in] serial_number structure contains new serial number and secret key.
 	* \endenglish
@@ -3442,18 +3451,18 @@ without crc, lock
 	* Запись серийного номера и версии железа во flash память контроллера.
 	* Вместе с новым серийным номером и версией железа передаётся "Ключ",
 	* только при совпадении которого происходит изменение и сохранение.
-	* Функция используется только производителем.
+	* Функция используется только производителем. Используется только загрузчиком.
 	* @param id идентификатор устройства
 	* @param[in] serial_number структура, содержащая серийный номер, версию железа и ключ.
 	* \endrussian
 	*/
 /**  $XIS
 	* \english
-	* The structure contains a new serial number, hardware version, and valid key. The SN and hardware version are changed and saved when the transmitted key matches the stored key. It can be used by the manufacturer only.
+	* The structure contains a new serial number, hardware version, and valid key. The SN and hardware version are changed and saved when the transmitted key matches the stored key. It can be used by the manufacturer only. Used from the loader only.
 	* \endenglish
 	* \russian
 	* Структура с серийным номером и версией железа.
-	* Вместе с новым серийным номером и версией железа передаётся "Ключ", только при совпадении которого происходит изменение и сохранение. Функция используется только производителем.
+	* Вместе с новым серийным номером и версией железа передаётся "Ключ", только при совпадении которого происходит изменение и сохранение. Функция используется только производителем. Используется только загрузчиком.
 	* \endrussian
 	*/
 command "serial_number" writer "sser" (50)
@@ -4195,7 +4204,7 @@ fields:
 
 /** $XIW
 		* \english
-		* Command initiates the transfer of control to firmware. This command is also available in the firmware for compatibility. Manufacturer only.
+		* Command initiates the transfer of control to firmware. This command is also available in the firmware for compatibility. Manufacturer only. Used from the loader only.
 		* Result = RESULT_OK, if the transition from the loader to the firmware is possible. After the response to this command, the transition is executed.
 		* Result = RESULT_NO_FIRMWARE if the firmware is not found.
 		* Result = RESULT_ALREADY_IN_FIRMWARE if this command is called from the firmware.
@@ -4203,7 +4212,7 @@ fields:
 		* @param[out] sresult command result
 		* \endenglish
 		* \russian
-		* Команда инициирует передачу управления прошивке. Эта команда так же доступна из прошивки, для совместимости. Только для производителя.
+		* Команда инициирует передачу управления прошивке. Эта команда так же доступна из прошивки, для совместимости. Только для производителя. Используется только загрузчиком.
 		* Result = RESULT_OK, если переход из загрузчика в прошивку возможен. После ответа на эту команду выполняется переход.
 		* Result = RESULT_NO_FIRMWARE, если прошивка не найдена.
 		* Result = RESULT_ALREADY_IN_FIRMWARE, если эта команда была вызвана из прошивки.
@@ -4248,40 +4257,40 @@ fields:
 	reserved 2
 
 /** $XIR
-  * \english
-  * This value is unique to each individual device, but is not a random value. Manufacturer only.
-  * This unique device identifier can be used to initiate secure boot processes or as a serial number for USB or other end applications.
-  * @param id An identifier of a device
-  * @param[out] globally_unique_identifier the result of fields 0-3 concatenated defines the unique 128-bit device identifier.
-  * \endenglish
-  * \russian
-  * Считывает уникальный идентификатор каждого чипа, это значение не является случайным. Только для производителя.
-  * Уникальный идентификатор может быть использован в качестве инициализационного вектора
-  * для операций шифрования бутлоадера или в качестве серийного номера для USB и других применений.
-  * @param id идентификатор устройства
-  * @param[out] globally_unique_identifier результат полей 0-3 определяет уникальный 128-битный идентификатор.
-  * \endrussian
-  */
+	* \english
+	* This value is unique to each individual device, but is not a random value. Manufacturer only.
+	* This unique device identifier can be used to initiate secure boot processes or as a serial number for USB or other end applications.
+	* @param id An identifier of a device
+	* @param[out] globally_unique_identifier the result of fields 0-3 concatenated defines the unique 128-bit device identifier.
+	* \endenglish
+	* \russian
+	* Считывает уникальный идентификатор каждого чипа, это значение не является случайным. Только для производителя.
+	* Уникальный идентификатор может быть использован в качестве инициализационного вектора
+	* для операций шифрования бутлоадера или в качестве серийного номера для USB и других применений.
+	* @param id идентификатор устройства
+	* @param[out] globally_unique_identifier результат полей 0-3 определяет уникальный 128-битный идентификатор.
+	* \endrussian
+	*/
 /** $XIS
-  * \english
-  * Globally unique identifier. Manufacturer only.
-  * \endenglish
-  * \russian
-  * Глобальный уникальный идентификатор. Только для производителя.
-  * \endrussian
-  */
+	* \english
+	* Globally unique identifier. Manufacturer only.
+	* \endenglish
+	* \russian
+	* Глобальный уникальный идентификатор. Только для производителя.
+	* \endrussian
+	*/
 command "globally_unique_identifier" reader "guid" (40)
 with public
 fields:
-  int32u UniqueID0 /**< \english Unique ID 0. \endenglish \russian Уникальный ID 0. \endrussian */
-  int32u UniqueID1 /**< \english Unique ID 1. \endenglish \russian Уникальный ID 1. \endrussian */
-  int32u UniqueID2 /**< \english Unique ID 2. \endenglish \russian Уникальный ID 2. \endrussian */
-  int32u UniqueID3 /**< \english Unique ID 3. \endenglish \russian Уникальный ID 3. \endrussian */
-  reserved 18
+	int32u UniqueID0 /**< \english Unique ID 0. \endenglish \russian Уникальный ID 0. \endrussian */
+	int32u UniqueID1 /**< \english Unique ID 1. \endenglish \russian Уникальный ID 1. \endrussian */
+	int32u UniqueID2 /**< \english Unique ID 2. \endenglish \russian Уникальный ID 2. \endrussian */
+	int32u UniqueID3 /**< \english Unique ID 3. \endenglish \russian Уникальный ID 3. \endrussian */
+	reserved 18
 
 /** $XIR
 	* \english
-	* Check for firmware on device. Manufacturer only.
+	* Check for firmware on device. Manufacturer only. Used from the loader only.
 	* Result = RESULT_NO_FIRMWARE if the firmware is not found.
 	* Result = RESULT_HAS_FIRMWARE if the firmware has been found.
 	* @param name a name of device
@@ -4289,7 +4298,7 @@ fields:
 	* \endenglish
 	* \russian
 	* Команда определяет наличие в контроллере ПО. Только для производителя.
-	* Данная команда доступна так же из прошивки.
+	* Данная команда доступна так же из прошивки. Используется только загрузчиком.
 	* Result = RESULT_NO_FIRMWARE, если прошивка не найдена.
 	* Result = RESULT_HAS_FIRMWARE, если прошивка найдена.
 	* @param name имя устройства
@@ -4309,7 +4318,7 @@ answer:
 	* Result = RESULT_OK, if the command loader.
 	* Result = RESULT_HARD_ERROR if there was a mistake at the time of the command.
 	* The Result is not available through the library write_key(). The function processes it internally.
-	* Can be used by the manufacturer only.
+	* Can be used by the manufacturer only. Used from the loader only.
 	* @param Name a name of device
 	* @param[in] Key protection key.
 	* \endenglish
@@ -4318,7 +4327,7 @@ answer:
 	* Result = RESULT_OK, если команда выполнена загрузчиком.
 	* Result = RESULT_HARD_ERROR, если во время выполнения команды произошла ошибка.
 	* Result не доступен через функцию библиотеки write_key, значение поля обрабатывается внутри функции.
-	* Функция используется только производителем.
+	* Функция используется только производителем. Используется только загрузчиком.
 	* @param Name имя устройства
 	* @param[in] Key ключ защиты.
 	* \endrussian
@@ -4335,7 +4344,7 @@ answer:
 
 /** $XIR
 	* \english
-	* Command to open a ISP session (in-system programming) when downloading the firmware.
+	* Command to open a ISP session (in-system programming) when downloading the firmware. Used from the loader only.
 	* Result = RESULT_OK if the command loader.
 	* Result = RESULT_SOFT_ERROR if an error occurred at the time of the command.
 	* The Result is not available through the library command_update_firmware(). The function processes it internally.
@@ -4343,7 +4352,7 @@ answer:
 	* @param[out] ret non-zero if the loader completes the command.
 	* \endenglish
 	* \russian
-	* Команда служит для открытия сеанса ISP (in-system programming) при загрузке прошивки.
+	* Команда служит для открытия сеанса ISP (in-system programming) при загрузке прошивки. Используется только загрузчиком.
 	* Result = RESULT_OK, если команда выполнена загрузчиком.
 	* Result = RESULT_SOFT_ERROR, если во время выполнения команды произошла ошибка.
 	* Result не доступен через функцию библиотеки command_update_firmware, значение
@@ -4363,7 +4372,7 @@ answer:
 
 /** $XIR
 	* \english
-	* Command to close the ISP session (in-system programming) when loading firmware.
+	* Command to close the ISP session (in-system programming) when loading firmware. Used from the loader only.
 	* Result = RESULT_OK if the command loader.
 	* Result = RESULT_HARD_ERROR if a hardware error occurred at the time of the command.
 	* Result = RESULT_SOFT_ERROR if a software error occurred at the time of the command.
@@ -4372,7 +4381,7 @@ answer:
 	* @param[out] ret non-zero if the loader completed the command.
 	* \endenglish
 	* \russian
-	* Команда служит для закрытия сеанса ISP (in-system programming) при загрузке прошивки.
+	* Команда служит для закрытия сеанса ISP (in-system programming) при загрузке прошивки. Используется только загрузчиком.
 	* Result = RESULT_OK, если команда выполнена загрузчиком.
 	* Result = RESULT_HARD_ERROR, если во время выполнения команды произошла аппаратная ошибка.
 	* Result = RESULT_SOFT_ERROR, если во время выполнения команды произошла программная ошибка.
@@ -4394,13 +4403,13 @@ answer:
 /** $XIW
 	* \english
 	* Writes encoded firmware to the controller's flash memory.
-	* The result of each packet write is not available. The overall result is available when the firmware upload is finished.
+	* The result of each packet write is not available. The overall result is available when the firmware upload is finished. Used from the loader only.
 	* @param[in] Data[128] Encoded firmware
 	* \endenglish
 	* \russian
 	* Записывает данные (прошивку) во Flash память контроллера.
 	* Не возвращает результат выполнения, хотя может завершаться ошибкой.
-	* Ошибочность заливки и тип ошибки можно узнать при завершении заливки.
+	* Ошибочность заливки и тип ошибки можно узнать при завершении заливки. Используется только загрузчиком.
 	* @param[in] Data[128] Закодированная прошивка
 	* \endrussian
 	*/

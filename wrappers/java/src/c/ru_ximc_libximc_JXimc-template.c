@@ -241,27 +241,6 @@ JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_reset_1locks
 
 /*
  * Class:     ru_ximc_libximc_JXimc
- * Method:    ximc_fix_usbser_sys
- * Signature: (Ljava/lang/String;)V
- */
-JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_ximc_1fix_1usbser_1sys
-  (JNIEnv *env, jclass cthis, jstring name)
-{
-	result_t result;
-	const char* str_name;
-	XIMC_UNUSED(cthis);
-	str_name = (*env)->GetStringUTFChars(env, name, NULL);
-	if (!str_name)
-		return;
-
-	result = ximc_fix_usbser_sys(str_name);
-
-  (*env)->ReleaseStringUTFChars(env, name, str_name);
-	handle_result(env, result);
-}
-
-/*
- * Class:     ru_ximc_libximc_JXimc
  * Method:    goto_firmware
  * Signature: (I)Z
  */
@@ -561,18 +540,3 @@ JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_command_1wait_1for_1stop
 	handle_result(env, result);
 }
 
-/*
- * Class:     ru_ximc_libximc_JXimc
- * Method:    set_bindy_key
- * Signature: 
- */
-JNIEXPORT void JNICALL Java_ru_ximc_libximc_JXimc_set_1bindy_1key
-  (JNIEnv *env, jclass cthis, jstring keyfilepath)
-{
-	result_t result;
-	const char* str_path = (*env)->GetStringUTFChars(env, keyfilepath, NULL);;
-	XIMC_UNUSED(cthis);
-
-	result = set_bindy_key(str_path);
-	handle_result(env, result);
-}

@@ -66,7 +66,16 @@ def _load_lib():
     elif os_kind == "darwin":
         ximc_root_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../../..")
         method = CDLL
-        libs = ("libximc",)
+        # macOS kludge :_(
+        #
+        # Now look, the old python 3.6 and `build` module cannot handle libximc.framework's softlinks paths properly,
+        # little pieces of shit... >_< !!! That's why we need to use dereference, that kill "symlinking". But that
+        # dereferencing causes the linker to realy think libximc located in libximc.framework instead of
+        # libximc.framework/Versions/Current/libximc. That affects the @loader_path (inner macOS-specific variable) that
+        # lead to inability to load some required libraries from the framework correctly.
+        # So, just hate old python and `build`. And hope one day it'll be updated and we can use ("libximc") instead of
+        # what you can see below.
+        libs = ("Versions/Current/libximc",)
         paths = [os.path.join(os.path.dirname(os.path.abspath(__file__)), "../library-files/macosx/libximc.framework"),
                  os.path.join(ximc_root_path, "macosx/libximc.framework")]
     else:
@@ -693,7 +702,7 @@ class emf_settings_t(Structure):
         ("BackEMFFlags", c_uint),
     ]
 
-class engine_advansed_setup_t(Structure):
+class engine_advanced_setup_t(Structure):
     _fields_ = [
         ("stepcloseloop_Kw", c_uint),
         ("stepcloseloop_Kp_low", c_uint),

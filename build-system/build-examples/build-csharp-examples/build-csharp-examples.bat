@@ -89,22 +89,22 @@ echo +++++++++++++ Building example %NAME% for Win32
 copy %XIMCNET_DLL_32% %EXAMPLES_SRC_DIR%\
 %MSBUILD% %EXAMPLES_SRC_DIR%\%NAME%.sln /p:Configuration=%CONFIGURATION% /p:Platform=Win32
 if not %errorlevel% == 0 goto FAIL
-mkdir %EXAMPLES_DIST_DIR%\%NAME%-compiled-win32
-copy %EXAMPLES_SRC_DIR%\compiled-win32\* %EXAMPLES_DIST_DIR%\%NAME%-compiled-win32\*
+mkdir %EXAMPLES_DIST_DIR%\compiled-win32
+copy %EXAMPLES_SRC_DIR%\compiled-win32\* %EXAMPLES_DIST_DIR%\compiled-win32\*
 if not %errorlevel% == 0 goto FAIL
 
 echo +++++++++++++ Building example %NAME% for x64
 copy %XIMCNET_DLL_64% %EXAMPLES_SRC_DIR%
 %MSBUILD% %EXAMPLES_SRC_DIR%\%NAME%.sln /p:Configuration=%CONFIGURATION% /p:Platform=x64
 if not %errorlevel% == 0 goto FAIL
-mkdir %EXAMPLES_DIST_DIR%\%NAME%-compiled-win64
-copy %EXAMPLES_SRC_DIR%\compiled-win64\* %EXAMPLES_DIST_DIR%\%NAME%-compiled-win64\*
+mkdir %EXAMPLES_DIST_DIR%\compiled-win64
+copy %EXAMPLES_SRC_DIR%\compiled-win64\* %EXAMPLES_DIST_DIR%\compiled-win64\*
 if not %errorlevel% == 0 goto FAIL
 
-del %EXAMPLES_DIST_DIR%\%NAME%-compiled-win32\test_CSharp.exe.config
-del %EXAMPLES_DIST_DIR%\%NAME%-compiled-win32\test_CSharp.pdb
-del %EXAMPLES_DIST_DIR%\%NAME%-compiled-win64\test_CSharp.exe.config
-del %EXAMPLES_DIST_DIR%\%NAME%-compiled-win64\test_CSharp.pdb
+del %EXAMPLES_DIST_DIR%\compiled-win32\test_CSharp.exe.config
+del %EXAMPLES_DIST_DIR%\compiled-win32\test_CSharp.pdb
+del %EXAMPLES_DIST_DIR%\compiled-win64\test_CSharp.exe.config
+del %EXAMPLES_DIST_DIR%\compiled-win64\test_CSharp.pdb
 goto :eof
 
 

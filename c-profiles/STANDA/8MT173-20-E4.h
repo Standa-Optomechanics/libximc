@@ -367,12 +367,12 @@ static inline result_t set_profile_8MT173_20_E4(device_t id)
     }
   }
 
-  engine_advansed_setup_t engine_advansed_setup;
-  memset((void*)&engine_advansed_setup, 0, sizeof(engine_advansed_setup_t));
-  engine_advansed_setup.stepcloseloop_Kw = 50;
-  engine_advansed_setup.stepcloseloop_Kp_low = 1000;
-  engine_advansed_setup.stepcloseloop_Kp_high = 33;
-  result = set_engine_advansed_setup(id, &engine_advansed_setup);
+  engine_advanced_setup_t engine_advanced_setup;
+  memset((void*)&engine_advanced_setup, 0, sizeof(engine_advanced_setup_t));
+  engine_advanced_setup.stepcloseloop_Kw = 50;
+  engine_advanced_setup.stepcloseloop_Kp_low = 1000;
+  engine_advanced_setup.stepcloseloop_Kp_high = 33;
+  result = set_engine_advanced_setup(id, &engine_advanced_setup);
 
   if (result != result_ok)
   {

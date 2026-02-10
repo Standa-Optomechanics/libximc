@@ -64,26 +64,12 @@ if "%1"=="" (
     goto :eof
 )
 if "%1"=="--help" (
-    echo "Usage: %SCRIPT_NAME% %STAGE_NAME% [ C# | Java | Matlab ]"
-    echo "To build all wrappers just use %SCRIPT_NAME% %STAGE_NAME%"
-    echo ""
-    echo "OPTIONS:"
-    echo "  C#        - build C# wrapper"
-    echo "  Java      - build Java wrapper"
-    echo "  Matlab    - build Matlab wrapper"
-    echo "  clean     - remove all wrappers and related files"
-    echo ""
+    call :PRINT_HELP
+    goto :eof
 )
-echo "Unknown command %1."
-echo "Usage: %SCRIPT_NAME% %STAGE_NAME% [ C# | Java | Matlab ]"
-echo "To build all wrappers just use %SCRIPT_NAME% %STAGE_NAME%"
-echo ""
-echo "OPTIONS:"
-echo "  C#        - build C# wrapper"
-echo "  Java      - build Java wrapper"
-echo "  Matlab    - build Matlab wrapper"
-echo "  clean     - remove all wrappers and related files"
-echo ""
+echo Unknown command %1.
+echo.
+call :PRINT_HELP
 goto FAIL
 
 
@@ -99,6 +85,18 @@ if exist %DISTDIR%\win64\wrappers rmdir /s/q %DISTDIR%\win64\wrappers
 echo ****************************************************
 echo *                       DONE                       *
 echo ****************************************************
+goto :eof
+
+:PRINT_HELP
+echo Usage: %SCRIPT_NAME% %STAGE_NAME% ^[ C# ^| Java ^| Matlab ^]
+echo To build all wrappers just use %SCRIPT_NAME% %STAGE_NAME%
+echo.
+echo OPTIONS:
+echo   C#        - build C# wrapper
+echo   Java      - build Java wrapper
+echo   Matlab    - build Matlab wrapper
+echo   clean     - remove all wrappers and related files
+echo.
 goto :eof
 
 

@@ -2651,7 +2651,7 @@ class emf_settings_t:
 
 
 # Legacy
-class engine_advansed_setup_t:
+class engine_advanced_setup_t:
     def __init__(
             self,
             stepcloseloop_Kw: int = NOT_INITIALIZED,
@@ -2709,7 +2709,7 @@ class engine_advansed_setup_t:
         return result
 
 
-class engine_advanced_setup_t(engine_advansed_setup_t):
+class engine_advanced_setup_t(engine_advanced_setup_t):
     pass
 
 

@@ -6,7 +6,6 @@ EXPORTS
 	command_update_firmware @502
 	write_key @503
 	open_device @504
-	load_correction_table @505
 	close_device @506
 	probe_device @507
 	enumerate_devices @508
@@ -23,7 +22,6 @@ EXPORTS
 	ximc_version @520
 	logging_callback_stderr_wide @521
 	logging_callback_stderr_narrow @522
-	ximc_fix_usbser_sys @529
 	get_enumerate_device_serial @530
 	get_enumerate_device_information @531
 	get_status_calb @533
@@ -33,4 +31,3 @@ EXPORTS
 	get_enumerate_device_network_information @537
 	command_wait_for_stop @538
 	command_homezero @539
-	set_bindy_key @540

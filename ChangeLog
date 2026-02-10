@@ -1,3 +1,14 @@
+libximc (3.0.2-1)
+  * Released: Tue, 16 Dec 2025 17:35:00 +0300
+  * Version bump
+  * Bug: Fixed a typo in advanced, #86669
+  * Bug: Fix Python wrapper bug for windows, #125240
+  * Bug: Corrected names of folders with examples, #126213
+  * Bug: Documentation corrected, #126215
+  * Bug: Driver installation fixed, #126682
+  * Bug: Fixed the example with movement in notebook, #126909
+  * Feature: Deprecated functions removed, #127560
+
 libximc (3.0.1-1)
   * Released: Fri, 31 Oct 2025 21:42:00 +0300
   * Version bump

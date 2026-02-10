@@ -51,7 +51,7 @@ pipeline {
         axes {
           axis {
             name 'BUILDOS'
-            values 'debian32', 'osx', 'win' //'debian64', 'debian32', 'debianarm', 'suse64', 'suse32',
+            values 'debian64', 'osx', 'win' //'debianarm'
           }
         }
         stages {
@@ -251,8 +251,8 @@ pipeline {
               script {
                 if (env.BUILDOS == 'win') {
                   bat "dir"
-                  bat "C:/MSYS2/usr/bin/tar -C dist -cf result-%BUILDOS%.tar ximc examples"
-                } else if (env.BUILDOS == 'osx' || env.BUILDOS == 'debian32') {
+                  bat "C:/cygwin/bin/tar -C dist -cf result-%BUILDOS%.tar ximc examples"
+                } else if (env.BUILDOS == 'osx' || env.BUILDOS == 'debian64') {
                   sh  "tar -C dist -cf result-${BUILDOS}.tar ximc"
                 } else {
                   echo "There is no stashing algorithm for ${env.BUILDOS}! No stash will be created."
@@ -279,8 +279,7 @@ pipeline {
       }
       steps {
         // Get all stashed archives
-        //unstash "result-debian64"
-        unstash "result-debian32"
+        unstash "result-debian64"
         unstash "result-win"
         unstash "result-osx"
         script {

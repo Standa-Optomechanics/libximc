@@ -41,7 +41,6 @@ public class JXimc {
 	public static native void probe_device (String name);
 
 	public static native void reset_locks ();
-	public static native void ximc_fix_usbser_sys (String name);
 	public static native boolean goto_firmware(int id);
 	public static native boolean has_firmware(String name);
 	public static native void write_key(String name, byte[] key);
@@ -63,7 +62,6 @@ public class JXimc {
 	public static native device_information_t get_device_information (int id);
 	
 	public static native void command_wait_for_stop(int id, int wait_interval_ms);
-	public static native void set_bindy_key(String keyfilepath);
 }
 
 // vim: ts=4 shiftwidth=4

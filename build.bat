@@ -109,7 +109,7 @@ echo $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 goto :eof
 
 :PRINT_HELP
-echo Usage: %SCRIPT_NAME% ^[ clean ^| deps ^| gen-libximc-sources ^| libximc ^| wrappers ^| examples ^| docs ^| --help ^]
+echo Usage: %SCRIPT_NAME% ^[ clean ^| deps ^| gen-libximc-sources ^| libximc ^| wrappers ^| examples ^| --help ^]
 echo For full build just use %SCRIPT_NAME%.
 echo Use %SCRIPT_NAME% COMMAND --help to see detailed info.
 echo.
@@ -120,7 +120,6 @@ echo   gen-libximc-sources - generate libximc source code
 echo   libximc             - build the library
 echo   wrappers            - build wrappers
 echo   examples            - build examples
-echo   docs                - build documentation
 echo.
 goto :eof
 

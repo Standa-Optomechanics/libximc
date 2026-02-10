@@ -193,7 +193,6 @@ result_t XIMC_API get_enumerate_device_network_information(device_enumeration_t 
 result_t XIMC_API get_enumerate_device_serial(device_enumeration_t device_enumeration, int device_index, uint32_t* serial);
 result_t XIMC_API get_enumerate_device_stage_name(device_enumeration_t device_enumeration, int device_index, stage_name_t* stage_name);
 result_t XIMC_API probe_device(const char* uri);
-result_t XIMC_API set_bindy_key(const char* keyfile_path);
 
 
 /* Function declaration */

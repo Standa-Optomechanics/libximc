@@ -8,9 +8,16 @@
  *
  * Libximc is **thread safe**, cross-platform library for working with 8SMC4-USB and 8SMC5-USB controllers.
  *
- * Full documentation about controllers is <a href="https://doc.xisupport.com">there</a>
+ * Full documentation about controllers is <a href="https://doc.xisupport.com">there</a>.
  *
  * Full documentation about libximc API is available on the page <a href="https://libximc.xisupport.com/doc-en/ximc_8h.html">ximc.h.</a>
+ *
+ * The `libximc` library is now available on <a href="https://pypi.org/project/libximc/">PyPI</a>, and can be installed directly using pip:
+ * @code{.bash}
+ * pip install libximc
+ * @endcode
+ *
+ * This simplifies the use of the library in Python projects without the need for manual building.
  *
  * \section what_the_controller_does What the controller does
  *
@@ -20,7 +27,7 @@
  *
  * \section what_can_do_library What can do libximc library
  *
- * - Libximc manages controller using interfaces: USB 2.0, RS232 and Ethernet, also uses a common and proven virtual serial port interface, so you can work with motor control modules through this library under almost all operating systems, including Windows, Linux and MacOS X
+ * - Libximc manages controller using interfaces: USB 2.0, RS232 and Ethernet, also uses a common and proven virtual serial port interface, so you can work with motor control modules through this library under almost all operating systems, including Windows, Linux and macOS
  * - Libximc library supports plug/unplug on the fly. Each device can be controlled only by one program at once. <b>Multiple processes (programs) that control one device simultaneously are not allowed!</b>
  *
  * \warning
@@ -38,87 +45,15 @@
  *
  * \section about_sec About library
  *
- * This document contains all information about libximc library.
- * It utilizes well known virtual COM-port interface, so you can use it on Windows, Linux, MacOS X for Intel and Apple Silicon (via Rosetta 2) including 64-bit versions.
+ * This document contains all the information about the libximc library, except for the building instructions, which you can find in the README.md file at the root of the GitHub repository: https://github.com/Standa-Optomechanics/libximc.
+ * It utilizes well known virtual COM-port interface, so you can use it on Windows, Linux, macOS for Intel and Apple Silicon (via Rosetta 2) including 64-bit versions.
  * Multi-platform programming library supports plug/unplug on the fly. <br>
  * <b>Each device can be controlled only by one program at once. Multiple processes (programs) that control one device simultaneously are not allowed.</b>
  *
  * \subsection sysreq_usage Supported OS and environment requirements:
- * - MacOS X 10.15 or newer
+ * - macOS 10.15 or newer
  * - Windows 7 or newer
- * - Linux debian-based. DEB package is built against Debian Buster
- * - Linux debian-based ARM. DEB package is built on Armbian 5.75 with aarch64 architecture.
- *
- * Build requirements:
- * - Windows: Microsoft Visual C++ 2013 or newer, MATLAB, Code::Blocks, Java, Python, cygwin with tar, bison, flex, curl, 7z mingw
- * - UNIX: gcc 4 or newer, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
- * - MacOS X: XCode 4 or newer, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
- *
- * \page building_sec How to rebuild library
- *
- * \section building_win Building on Windows
- *
- * Requirements: 64-bit windows (build script builds both architectures), cygwin (must be installed to a default path).
- *
- * To build the library with documentation, wrappers and examples, invoke a script:
- * \code
- * 	build.bat
- * \endcode
- * 
- * Or if you want to build only the library:
- * \code
- *  build.bat deps
- *  build.bat gen-libximc-sources
- *  build.bat libximc
- * \endcode
- *
- * Grab packages from ./dist/win32 and ./dist/win64 
- *
- * To build debug version of the library set environment variable "DEBUG" to "true" before running the build script.
- *
- * \section building_unix_deb Building on debian-based linux systems
- * Requirement: 64-bit and 32-bit debian system, ubuntu
- * Typical set of packages:
- * \code
- * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
- * \endcode
- *
- * It's required to match library and host architecture: 32-bit library can be built only at 32-bit host,
- * 64-bit library - only at 64-bit host.
- *
- * To build library and package invoke a script:
- * \code
- * 	./build.sh deps
- *  ./build.sh gen-libximc-sources
- *  ./build.sh libximc
- * \endcode
- *
- * Grab packages from ./ximc/deb and locally installed binaries from ./dist/local.
- *
- * \section building_osx_generic Building on MacOS X
- *
- * To build and package a script invoke a script:
- * \code
- * 	./build.sh deps
- *  ./build.sh gen-libximc-sources
- *  ./build.sh libximc
- * \endcode
- *
- * Built library (classical and framework), examples (classical and .app), documentation
- * are located at ./ximc/macosx, locally installed binaries from ./dist/local.
- *
- * \section building_unix Building on generic UNIX
- *
- * Generic version could be built with standard autotools.
- * \code
- * 	./build.sh
- * \endcode
- * Built files (library, headers, documentation) are installed to ./dist/local directory.
- * It is a generic developer build. Sometimes you need to specify additional parameters to
- * command line for your machine. Please look to following OS sections.
- *
- * \section building_src Source code access
- * The source codes of the libximc library can be found on <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
+ * - Linux debian-based
  *
  * \page howtouse_sec How to use with...
  *
@@ -128,7 +63,7 @@
  * on VB.NET - in 'examples/test_VBNET', for matlab - 'examples/test_MATLAB', for Java - 'examples/test_Java',
  * for Python - 'examples/test_Python'.
  * Libraries, header files and other necessary files are located in the directories 'ximc/win32', 'ximc/win64','ximc/macosx' and the like.
- * The developer kit also includes already compiled examples: testapp and testappeasy x32 and x64 bits for windows and only x64 bits for macOS X,
+ * The developer kit also includes already compiled examples: testapp and testappeasy x32 and x64 bits for windows and only x64 bits for macOS,
  * test_CSharp, test_VBNET, test_Java - cross-platform, test_MATLAB and test_Python do not require compilation.
  *
  * \note
@@ -189,7 +124,7 @@
  * \subsection howtouse_c_xcode_sec XCode
  *
  * testapp should be built with XCode project testapp.xcodeproj. 
- * Library is a MacOS X framework, and at example application it's bundled inside testapp.app
+ * Library is a macOS framework, and at example application it's bundled inside testapp.app
  *
  * Then launch application testapp.app and check activity output in Console.app.
  * 
@@ -200,7 +135,7 @@
  *
  * Make sure that libximc (rpm or deb) is installed at your system.
  * Installation of package should be performed with a package manager of operating system.
- * On MacOS X a framework is provided.
+ * On macOS a framework is provided.
  *
  * Note that user should belong to system group which allows access to a serial port (dip or serial, for example).
  *
@@ -210,7 +145,7 @@
  * \endcode
  *
  * In case of cross-compilation (target architecture differs from the current system architecture)
- * feed -m64 or -m32 flag to compiler. On MacOS X it's needed to use -arch flag instead to build an universal binary.
+ * feed -m64 or -m32 flag to compiler. On macOS it's needed to use -arch flag instead to build an universal binary.
  * Please consult a compiler documentation.
  *
  * Then launch the application as:
@@ -218,7 +153,7 @@
  * 	make run
  * \endcode
  *
- * Note: make run on MacOS X copies a library to the current directory.
+ * Note: make run on macOS copies a library to the current directory.
  * If you want to use library from
  * the custom directory please be sure to specify LD_LIBRARY_PATH or DYLD_LIBRARY_PATH to
  * the directory with the library. 
@@ -259,7 +194,7 @@
  * \code
  * 	javac -classpath /usr/share/java/libjximc.jar -Xlint ru/ximc/TestJava.java
  * \endcode
- * or for Windows or MacOS X
+ * or for Windows or macOS
  * \code
  * 	javac -classpath libjximc.jar -Xlint ru/ximc/TestJava.java
  * \endcode
@@ -289,7 +224,7 @@
  *
  * Before launch:
  *
- * On MacOS X: copy ximc/macosx/libximc.framework, ximc/macosx/wrappers/ximcm.h,
+ * On macOS: copy ximc/macosx/libximc.framework, ximc/macosx/wrappers/ximcm.h,
  * ximc/ximc.h to the directory examples/test_MATLAB. Install XCode compatible with Matlab.
  *
  * On Linux: install libximc*deb and libximc-dev*dev of target architecture.
@@ -362,7 +297,7 @@
  * \section userunit_corr Coordinate correction table for more accurate positioning
  *
  * Some functions for working with user units support coordinate transformation using a correction table.
- * To load a table from a file, the load_correction_table() function is used. Its description contains the functions and their data supporting correction.
+ * To load a table from a file, the set_correction_table() function is used. Its description contains the functions and their data supporting correction.
  *
  * \note
  * For data fields which are corrected in case of loading of the table in the description of the field is written - corrected by the table.

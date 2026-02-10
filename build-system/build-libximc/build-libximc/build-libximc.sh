@@ -51,6 +51,9 @@ unset COPYFILE_DISABLE
 if [ "$OS_NAME" = "Darwin" ] ; then
     echo Copying the result to output directory...
     mkdir -p "$LIBSDIR"
+    echo Fixing library dependency paths...
+    install_name_tool -change libxiwrapper.dylib    @loader_path/Frameworks/libxiwrapper.dylib  "$DISTDIR/local/lib/libximc.framework/Versions/7/libximc"
+    install_name_tool -change libbindy.dylib        @loader_path/Frameworks/libbindy.dylib      "$DISTDIR/local/lib/libximc.framework/Versions/7/libximc"
     cp -R "$DISTDIR/local/lib/libximc.framework" "$LIBSDIR"
     echo '----------------------------------------------------'
     echo '           BUILDING LIBXIMC IS COMPLETED            '

@@ -33,8 +33,6 @@ namespace ximc
 		
 		[DllImport("libximc.dll")]
 		public static extern Result reset_locks ();
-		[DllImport("libximc.dll", CharSet = CharSet.Ansi)]
-		public static extern Result ximc_fix_usbser_sys ([MarshalAs(UnmanagedType.LPStr)] String name);
 		[DllImport("libximc.dll")]
 		public static extern Result get_device_information (int id, out device_information_t device_information);
 		[DllImport("libximc.dll")]
@@ -90,9 +88,6 @@ namespace ximc
 	
 		[DllImport("libximc.dll")]
 		public static extern Result command_wait_for_stop(int id, int wait_interval_ms);
-
-		[DllImport("libximc.dll")]
-		public static extern Result set_bindy_key([MarshalAs(UnmanagedType.LPStr)] String keyfilepath);
 	};
 
 };

@@ -1,6 +1,6 @@
 Summary: Library for controlling DC brush motor
 Name: libximc7
-Version: 3.0.1
+Version: 3.0.2
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: BSD
@@ -73,6 +73,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libximc.so
 
 %changelog
+
+* Tue Dec 16 2025 XIMC <8smc4@standa.lt> - 3.0.2
+- version bump
+- Bug: Fixed a typo in advanced, #86669
+- Bug: Fix Python wrapper bug for windows, #125240
+- Bug: Corrected names of folders with examples, #126213
+- Bug: Documentation corrected, #126215
+- Bug: Driver installation fixed, #126682
+- Bug: Fixed the example with movement in notebook, #126909
+- Feature: Deprecated functions removed, #127560
 
 * Fri Oct 31 2025 XIMC <8smc4@standa.lt> - 3.0.1
 - version bump

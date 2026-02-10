@@ -415,12 +415,12 @@ def set_profile_8MT195Z_240_25_DC(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
-    engine_advansed_setup = engine_advansed_setup_t()
+    engine_advanced_setup = engine_advanced_setup_t()
 
-    engine_advansed_setup.stepcloseloop_Kw = 50
-    engine_advansed_setup.stepcloseloop_Kp_low = 1000
-    engine_advansed_setup.stepcloseloop_Kp_high = 33
-    result = lib.set_engine_advansed_setup(id, byref(engine_advansed_setup))
+    engine_advanced_setup.stepcloseloop_Kw = 50
+    engine_advanced_setup.stepcloseloop_Kp_low = 1000
+    engine_advanced_setup.stepcloseloop_Kp_high = 33
+    result = lib.set_engine_advanced_setup(id, byref(engine_advanced_setup))
 
     if result != Result.Ok:
         if worst_result == Result.Ok or worst_result == Result.ValueError:

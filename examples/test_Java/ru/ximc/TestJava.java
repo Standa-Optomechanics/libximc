@@ -87,6 +87,9 @@ class TestJava
 				JXimc.command_left(device);
 
 				JXimc.msec_sleep(5*1000);
+
+				JXimc.command_stop(device);
+
 				printState(JXimc.get_status(device));
 
 				JXimc.status_t status = JXimc.get_status(device);

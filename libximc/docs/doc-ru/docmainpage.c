@@ -8,10 +8,17 @@
  *
  * Libximc - <b>потокобезопасная,</b> кросс-платформенная библиотека для работы с контроллерами 8SMC4-USB и 8SMC5-USB.
  *
- * Полная документация по контроллерам доступна по <a href="https://doc.xisupport.com">ссылке</a>
+ * Полная документация по контроллерам доступна по <a href="https://doc.xisupport.com">ссылке</a>.
  *
- * Полная документация по API libximc доступна на странице <a href="https://libximc.xisupport.com/doc-ru/ximc_8h.html"> ximc.h.</a>
- * 
+ * Полная документация по API libximc доступна на странице <a href="https://libximc.xisupport.com/doc-ru/ximc_8h.html">ximc.h.</a>
+ *
+ * Библиотека `libximc` теперь доступна на <a href="https://pypi.org/project/libximc/">PyPI</a>, и её можно установить напрямую через pip:
+ * @code{.bash}
+ * pip install libximc
+ * @endcode
+ *
+ * Это упрощает использование библиотеки в Python-проектах без необходимости ручной сборки.
+ *
  * \section what_the_controller_does Что делает контроллер 8SMC4-USB и 8SMC5-USB
  *
  * - Поддерживает входные и выходные сигналы синхронизации для обеспечения совместной работы нескольких устройств в рамках сложной системы;
@@ -38,87 +45,16 @@
  *
  * \section about_sec О библиотеке
  *
- * Этот документ содержит всю необходимую информацию о библиотеке libximc. 
- * Библиотека libximc использует распространенный и проверенный интерфейс виртуального последовательного порта, поэтому вы можете работать с модулями управления моторами через эту библиотеку практически под всеми ОС: Windows, Linux, MacOS X для Intel и Apple Silicon (с использованием Rosetta 2), в том числе с 64-битными версиями.
+ * Этот документ содержит всю информацию о библиотеке libximc, за исключением инструкций по сборке, которые вы можете найти в файле README.md в корневом каталоге репозитория GitHub: https://github.com/Standa-Optomechanics/libximc.
+ * Библиотека libximc использует распространенный и проверенный интерфейс виртуального последовательного порта, поэтому вы можете работать с модулями управления моторами через эту библиотеку практически под всеми ОС: Windows, Linux, macOS для Intel и Apple Silicon (с использованием Rosetta 2), в том числе с 64-битными версиями.
  * Библиотека поддерживает подключение и отключение устройств "на лету". <br>
  * <b>C одним устройством в каждый момент может работать не более одного экземпляра управляющей программы - множественный доступ управляющих программ к одному и тому же устройству не допускается!</b>
  *
  * \subsection sysreq_usage Поддерживаемые операционные системы и требования к окружению:
  *
- * - MacOS X 10.15 или новее
+ * - macOS 10.15 или новее
  * - Windows 7 или новее
- * - Linux на основе debian. DEB собирается на Debian Buster
- * - Linux на основе debian ARM. DEB собирается на Armbian 5.75 c архитектурой aarch64.
- *
- * Требования сборки:
- * - Windows: Microsoft Visual C++ 2013 или новее, MATLAB, Code::Blocks, Java, Python, cygwin с tar, bison, flex, curl, 7z. mingw
- * - UNIX: gcc 4 или новее, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
- * - Mac OS X: XCode 4 или новее, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
- * - JDK 7 - 9
- *
- * \page building_sec Как пересобрать библиотеку
- *
- * \section building_win Сборка для ОС Windows
- *
- * Требования: 64-битный windows (сборочный скрипт собирает обе архитектуры), cygwin (должен быть установлен в пути по умолчанию).
- * 
- * Для полной сборки библиотеки с примерами, адаптеры и документацией запустите скрипт:
- * \code
- *  build.bat
- * \endcode
- * 
- * В случае же сборки только библиотеки используйте:
- * \code
- *  build.bat deps
- *  build.bat gen-libximc-sources
- *  build.bat libximc
- * \endcode
- * 
- * Собранные файлы располагаются в ./dist/win32 и ./dist/win64
- *
- * Если вы хотите собрать отладочную версию библиотеки, то перед запуском скрипта сборки установите переменную окружения "DEBUG" в значение "true".
- *
- * \section building_unix_deb Сборка для Linux на основе Debian
- * Полный набор пакетов: 
- * \code
- * 	sudo apt-get install build-essential make cmake curl git ruby1.9.1 autotools-dev automake autoconf libtool doxygen bison flex debhelper lintian texlive texlive-latex-extra texlive-latex texlive-fonts-extra texlive-lang-cyrillic java-1_7_0-openjdk java-1_7_0-openjdk-devel default-jre-headless default-jdk openjdk-6-jdk rpm-build rpm-devel rpmlint pkg-config check dh-autoreconf hardening-wrapper libfl-dev lsb-release 
- * \endcode
- *
- * Необходимо соблюдать парность архитектуры библиотеки и системы: 32-битная библиотека может быть собрана только на 32-битной системе,
- * а 64-битная - только на 64-битной.
- *
- * Для сборки библиотеки и пакета запустите скрипт:
- * \code
- * 	./build.sh deps
- *  ./build.sh gen-libximc-sources
- *  ./build.sh libximc
- * \endcode
- * 
-  * Пакеты располагаются в ./ximc/deb, локально установленные файлы - в ./dist/local.
- *
- * \section building_osx_framework Сборка для MacOS X
- *
- * Для сборки библиотеки и пакета запустите скрипт:
- * \code
- * 	./build.sh deps
- *  ./build.sh gen-libximc-sources
- *  ./build.sh libximc
- * \endcode
- *
- * Собранная библиотека (классическая и фреймворк), приложения (классическая и фреймворк) и документация
- * располагаются в ./ximc/macosx, локально установленные файлы - в ./dist/local.
- *
- * \section building_unix Сборка для UNIX
- *
- * Обобщенная версия собирается обычными autotools.
- * \code
- *   ./build.sh
- * \endcode
- * Собранные файлы (библиотека, заголовочные файлы, документация) устанавливаются в локальную директорию  ./dist/local.
- * Это сборка для разработчика, при необходимости можно указать дополнительные параметры командной строки для вашей системы.
- *
-  * \section building_src Доступ к исходным кодам
- * Исходные коды библиотеки libximc можно найти на <a href="https://github.com/Standa-Optomechanics/libximc">github</a>.
+ * - Linux на основе Debian
  *
  * \page howtouse_sec Как использовать с...
  *
@@ -185,7 +121,7 @@
  * \subsection howtouse_c_xcode_sec XCode
  *
  * testapp должен быть собран проектом XCode testapp.xcodeproj. Используйте конфигурацию Release.
- * Библиотека поставляется в формате MacOS X framework, в той же директории находится собранное тестовое приложение testapp.app.
+ * Библиотека поставляется в формате macOS framework, в той же директории находится собранное тестовое приложение testapp.app.
  *
  * Запустите приложение testapp.app проверьте его работу в Console.app.
  * 
@@ -195,7 +131,7 @@
  *
  * Убедитесь, что libximc (с помощью rpm или deb) установлена на вашей системе. 
  * Пакеты должны устанавливаться с помощью package manager'а вашей ОС.
- * Для MacOS X предоставляется фреймворк.
+ * Для macOS предоставляется фреймворк.
  *
  * Убедитесь, что пользователь принадлежит к группе, позволяющей доступ к COM-порту (например, dip или serial).
  *
@@ -205,7 +141,7 @@
  * \endcode
  *
  * Для кросс-компиляции (архитектура целевой системы отличается от архитектуры хоста) следует передать флаг -m64 или -m32
- * компилятору. Для сборки universal binary на MacOS X необходимо использовать вместо этого флаг -arch. 
+ * компилятору. Для сборки universal binary на macOS необходимо использовать вместо этого флаг -arch. 
  * Обратитесь к документации компилятора.
  *
  * Затем запустите приложение с помощью:
@@ -213,7 +149,7 @@
  * 	make run
  * \endcode
  *
- * Примечание: make run на MacOS X копирует библиотеку в текущую директорию. 
+ * Примечание: make run на macOS копирует библиотеку в текущую директорию. 
  * Если вы хотите использовать библиотеку из другой директории, пожалуйста укажите в LD_LIBRARY_PATH или DYLD_LIBRARY_PATH 
  * путь к директории с библиотекой.
  *
@@ -252,7 +188,7 @@
  * \code
  * 	javac -classpath /usr/share/java/libjximc.jar -Xlint ru/ximc/TestJava.java
  * \endcode
- * или для Windows или MacOS X:
+ * или для Windows или macOS:
  * \code
  * 	javac -classpath libjximc.jar -Xlint ru/ximc/TestJava.java
  * \endcode
@@ -281,7 +217,7 @@
  *
  * Перед запуском:
  *
- * На MacOS X: скопируйте ximc/macosx/libximc.framework, ximc/macosx/wrappers/ximcm.h,
+ * На macOS: скопируйте ximc/macosx/libximc.framework, ximc/macosx/wrappers/ximcm.h,
  * ximc/ximc.h в директорию examples/test_MATLAB. Установите XCode, совместимый с Matlab
  *
  * На Linux: установите libximc*deb и libximc-dev*deb нужной архитектуры.
@@ -356,7 +292,7 @@
  * \section userunit_corr Таблица коррекции координат для более точного позиционирования
  *
  * Некоторые функции для работы с пользовательскими единицами поддерживают преобразование координат с использованием корректировочной таблицы.
- * Для загрузки таблицы из файла используется функция load_correction_table(). В ее описании описаны функции и их данные поддерживающие коррекцию движения.
+ * Для загрузки таблицы из файла используется функция set_correction_table(). В ее описании описаны функции и их данные поддерживающие коррекцию движения.
  *
  * \note
  * Для полей данных которые корректируются в случае загрузки таблицы в описании поля записано - корректируется таблицей.

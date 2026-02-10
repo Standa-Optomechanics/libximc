@@ -1460,31 +1460,3 @@ result_t XIMC_API probe_device(const char* uri)
 	return unlocker_global(result);
 }
 
-
-result_t XIMC_API set_bindy_key(const char* keyfile_path)
-{
-#ifdef HAVE_XIWRAPPER
-#if defined(WIN32) || defined(WIN64)
-	if (_access(keyfile_path, 0) != -1)
-#else
-	if (access(keyfile_path, 0) != -1)
-#endif
-	{
-		if (!bindy_setkey(keyfile_path)) {
-			log_error(L"Network layer setkey failed");
-			return result_error;
-		}
-	}
-	else {
-		log_warning(L"Bindy keyfile '%hs' not found. The default data will be used", keyfile_path);
-		if (!bindy_setkey(":memory:")) {
-			log_error(L"Network layer setkey failed");
-			return result_error;
-		}
-		//return result_error;
-	}
-	return result_ok;
-#else
-	return result_error;
-#endif
-}
