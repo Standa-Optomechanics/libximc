@@ -73,7 +73,7 @@ def set_profile_ST5918L3008(lib, id):
 
     engine_settings = engine_settings_t()
 
-    engine_settings.NomVoltage = 1
+    engine_settings.NomVoltage = 0
     engine_settings.NomCurrent = 2100
     engine_settings.NomSpeed = 5000
     engine_settings.uNomSpeed = 0
@@ -148,7 +148,7 @@ def set_profile_ST5918L3008(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_ST5918L3008(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.003599999938160181
-    pid_settings.Kif = 0.03799999877810478
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.0036
+    pid_settings.Kif = 0.038
+    pid_settings.Kdf = 2.8e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_ST5918L3008(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -400,9 +430,9 @@ def set_profile_ST5918L3008(lib, id):
 
     emf_settings = emf_settings_t()
 
-    emf_settings.L = 0.013000000268220901
-    emf_settings.R = 2.5999999046325684
-    emf_settings.Km = 0.015599999576807022
+    emf_settings.L = 0.013
+    emf_settings.R = 2.6
+    emf_settings.Km = 0.0156
     class BackEMFFlags_:
         BACK_EMF_KM_AUTO = 4
         BACK_EMF_RESISTANCE_AUTO = 2
@@ -446,7 +476,7 @@ def set_profile_ST5918L3008(lib, id):
     stage_information = stage_information_t()
 
     stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([83, 84, 53, 57, 49, 56, 76, 51, 48, 48, 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -455,10 +485,10 @@ def set_profile_ST5918L3008(lib, id):
 
     stage_settings = stage_settings_t()
 
-    stage_settings.LeadScrewPitch = 0
-    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
+    stage_settings.LeadScrewPitch = 1
+    stage_settings.Units = bytes([100, 101, 103, 114, 101, 101, 0, 0])
     stage_settings.MaxSpeed = 0
-    stage_settings.TravelRange = 0
+    stage_settings.TravelRange = 360
     stage_settings.SupplyVoltageMin = 0
     stage_settings.SupplyVoltageMax = 0
     stage_settings.MaxCurrentConsumption = 0
@@ -505,7 +535,7 @@ def set_profile_ST5918L3008(lib, id):
     motor_settings.SpeedConstant = 0
     motor_settings.SpeedTorqueGradient = 0
     motor_settings.MechanicalTimeConstant = 0
-    motor_settings.MaxSpeed = 0
+    motor_settings.MaxSpeed = 5000
     motor_settings.MaxCurrent = 0
     motor_settings.MaxCurrentTime = 0
     motor_settings.NoLoadCurrent = 0
@@ -528,11 +558,11 @@ def set_profile_ST5918L3008(lib, id):
 
     encoder_settings = encoder_settings_t()
 
-    encoder_settings.MaxOperatingFrequency = 0
+    encoder_settings.MaxOperatingFrequency = 100
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
-    encoder_settings.PPR = 0
+    encoder_settings.PPR = 1000
     class EncoderSettings_:
         ENCSET_REVOLUTIONSENSOR_ACTIVE_HIGH = 256
         ENCSET_REVOLUTIONSENSOR_PRESENT = 64
@@ -581,8 +611,8 @@ def set_profile_ST5918L3008(lib, id):
 
     gear_settings = gear_settings_t()
 
-    gear_settings.ReductionIn = 0
-    gear_settings.ReductionOut = 0
+    gear_settings.ReductionIn = 1
+    gear_settings.ReductionOut = 1
     gear_settings.RatedInputTorque = 0
     gear_settings.RatedInputSpeed = 0
     gear_settings.MaxOutputBacklash = 0
@@ -614,7 +644,7 @@ def set_profile_ST5918L3008(lib, id):
         TS_TYPE_SEMICONDUCTOR = 2
         TS_TYPE_THERMOCOUPLE = 1
         TS_TYPE_UNKNOWN = 0
-    accessories_settings.TSSettings = TSSettings_.TS_TYPE_UNKNOWN
+    accessories_settings.TSSettings = TSSettings_.TS_TYPE_THERMOCOUPLE | TSSettings_.TS_TYPE_UNKNOWN
     class LimitSwitchesSettings_:
         LS_SHORTED = 16
         LS_SW2_ACTIVE_LOW = 8

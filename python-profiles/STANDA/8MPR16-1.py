@@ -58,8 +58,8 @@ def set_profile_8MPR16_1(lib, id):
 
     move_settings.Speed = 500
     move_settings.uSpeed = 0
-    move_settings.Accel = 2000
-    move_settings.Decel = 4000
+    move_settings.Accel = 500
+    move_settings.Decel = 1000
     move_settings.AntiplaySpeed = 500
     move_settings.uAntiplaySpeed = 0
     class MoveFlags_:
@@ -73,9 +73,9 @@ def set_profile_8MPR16_1(lib, id):
 
     engine_settings = engine_settings_t()
 
-    engine_settings.NomVoltage = 300
+    engine_settings.NomVoltage = 1200
     engine_settings.NomCurrent = 180
-    engine_settings.NomSpeed = 1000
+    engine_settings.NomSpeed = 1920
     engine_settings.uNomSpeed = 0
     class EngineFlags_:
         ENGINE_LIMIT_RPM = 128
@@ -137,7 +137,7 @@ def set_profile_8MPR16_1(lib, id):
         POWER_SMOOTH_CURRENT = 4
         POWER_OFF_ENABLED = 2
         POWER_REDUCT_ENABLED = 1
-    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_REDUCT_ENABLED
+    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_OFF_ENABLED | PowerFlags_.POWER_REDUCT_ENABLED
     result = lib.set_power_settings(id, byref(power_settings))
 
     if result != Result.Ok:
@@ -148,7 +148,7 @@ def set_profile_8MPR16_1(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MPR16_1(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.003599999938160181
-    pid_settings.Kif = 0.03799999877810478
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.00359999993816018
+    pid_settings.Kif = 0.0379999987781048
+    pid_settings.Kdf = 2.80000003840541e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -329,7 +329,7 @@ def set_profile_8MPR16_1(lib, id):
         CONTROL_MODE_OFF = 0
     control_settings.Flags = Flags_.CONTROL_MODE_LR | Flags_.CONTROL_MODE_OFF
     control_settings.DeltaPosition = 1
-    control_settings.uDeltaPosition = 0
+    control_settings.uDeltaPosition = 2
     result = lib.set_control_settings(id, byref(control_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MPR16_1(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 

@@ -17,7 +17,7 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
         FEEDBACK_ENC_TYPE_SINGLE_ENDED = 64
         FEEDBACK_ENC_REVERSE = 1
         FEEDBACK_ENC_TYPE_AUTO = 0
-    feedback_settings.FeedbackFlags = FeedbackFlags_.FEEDBACK_ENC_TYPE_DIFFERENTIAL | FeedbackFlags_.FEEDBACK_ENC_REVERSE | FeedbackFlags_.FEEDBACK_ENC_TYPE_AUTO
+    feedback_settings.FeedbackFlags = FeedbackFlags_.FEEDBACK_ENC_TYPE_DIFFERENTIAL | FeedbackFlags_.FEEDBACK_ENC_TYPE_AUTO
     feedback_settings.CountsPerTurn = 285000
     result = lib.set_feedback_settings(id, byref(feedback_settings))
 
@@ -58,8 +58,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     move_settings.Speed = 210
     move_settings.uSpeed = 0
-    move_settings.Accel = 10000
-    move_settings.Decel = 10000
+    move_settings.Accel = 1053
+    move_settings.Decel = 1053
     move_settings.AntiplaySpeed = 210
     move_settings.uAntiplaySpeed = 0
     class MoveFlags_:
@@ -74,7 +74,7 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
     engine_settings = engine_settings_t()
 
     engine_settings.NomVoltage = 1200
-    engine_settings.NomCurrent = 2700
+    engine_settings.NomCurrent = 2270
     engine_settings.NomSpeed = 421
     engine_settings.uNomSpeed = 0
     class EngineFlags_:
@@ -86,8 +86,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
         ENGINE_MAX_SPEED = 4
         ENGINE_CURRENT_AS_RMS = 2
         ENGINE_REVERSE = 1
-    engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_LIMIT_CURR | EngineFlags_.ENGINE_ACCEL_ON
-    engine_settings.Antiplay = 23839
+    engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_LIMIT_CURR | EngineFlags_.ENGINE_ACCEL_ON | EngineFlags_.ENGINE_REVERSE
+    engine_settings.Antiplay = 398431
     class MicrostepMode_:
         MICROSTEP_MODE_FRAC_256 = 9
         MICROSTEP_MODE_FRAC_128 = 8
@@ -148,7 +148,7 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 200
+    pid_settings.Kpf = 40
     pid_settings.Kif = 0.25
-    pid_settings.Kdf = 0.625
+    pid_settings.Kdf = 0.52
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -445,8 +475,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 84, 76, 51, 48, 48, 45, 52, 48, 48, 45, 76, 69, 110, 49, 45, 50, 48, 48, 0, 0, 0, 83])
+    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([56, 77, 84, 76, 51, 48, 48, 45, 52, 48, 48, 45, 76, 69, 110, 49, 45, 50, 48, 48, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -456,7 +486,7 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
     stage_settings = stage_settings_t()
 
     stage_settings.LeadScrewPitch = 57
-    stage_settings.Units = bytes([0, 109, 0, 114, 101, 101, 0, 0])
+    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
     stage_settings.MaxSpeed = 400
     stage_settings.TravelRange = 400
     stage_settings.SupplyVoltageMin = 0
@@ -472,8 +502,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 111, 116, 105, 111, 110, 32, 67, 111, 110, 116, 114, 111, 108, 32, 80])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -487,7 +517,7 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
         MOTOR_TYPE_DC = 2
         MOTOR_TYPE_STEP = 1
         MOTOR_TYPE_UNKNOWN = 0
-    motor_settings.MotorType = MotorType_.MOTOR_TYPE_STEP | MotorType_.MOTOR_TYPE_UNKNOWN
+    motor_settings.MotorType = MotorType_.MOTOR_TYPE_UNKNOWN
     motor_settings.ReservedField = 0
     motor_settings.Poles = 0
     motor_settings.Phases = 0
@@ -518,8 +548,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     encoder_information = encoder_information_t()
 
-    encoder_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    encoder_information.PartNumber = bytes([0, 54, 45, 69, 65, 83, 89, 45, 49, 48, 50, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_encoder_information(id, byref(encoder_information))
 
     if result != Result.Ok:
@@ -571,8 +601,8 @@ def set_profile_8MTL300_400_LEn1_200(lib, id):
 
     gear_information = gear_information_t()
 
-    gear_information.Manufacturer = bytes([0, 97, 120, 111, 110, 32, 109, 111, 116, 111, 114, 0, 0, 0, 0, 0])
-    gear_information.PartNumber = bytes([0, 52, 52, 48, 50, 55, 0, 58, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    gear_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    gear_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_gear_information(id, byref(gear_information))
 
     if result != Result.Ok:

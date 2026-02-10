@@ -58,8 +58,8 @@ def set_profile_8MKVDOM_1(lib, id):
 
     move_settings.Speed = 2000
     move_settings.uSpeed = 0
-    move_settings.Accel = 2000
-    move_settings.Decel = 5000
+    move_settings.Accel = 1000
+    move_settings.Decel = 2000
     move_settings.AntiplaySpeed = 2000
     move_settings.uAntiplaySpeed = 0
     class MoveFlags_:
@@ -73,9 +73,9 @@ def set_profile_8MKVDOM_1(lib, id):
 
     engine_settings = engine_settings_t()
 
-    engine_settings.NomVoltage = 360
+    engine_settings.NomVoltage = 1200
     engine_settings.NomCurrent = 670
-    engine_settings.NomSpeed = 5000
+    engine_settings.NomSpeed = 2000
     engine_settings.uNomSpeed = 0
     class EngineFlags_:
         ENGINE_LIMIT_RPM = 128
@@ -137,7 +137,7 @@ def set_profile_8MKVDOM_1(lib, id):
         POWER_SMOOTH_CURRENT = 4
         POWER_OFF_ENABLED = 2
         POWER_REDUCT_ENABLED = 1
-    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_REDUCT_ENABLED
+    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_OFF_ENABLED | PowerFlags_.POWER_REDUCT_ENABLED
     result = lib.set_power_settings(id, byref(power_settings))
 
     if result != Result.Ok:
@@ -148,7 +148,7 @@ def set_profile_8MKVDOM_1(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MKVDOM_1(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.006000000052154064
-    pid_settings.Kif = 0.05000000074505806
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.00600000005215406
+    pid_settings.Kif = 0.0500000007450581
+    pid_settings.Kdf = 2.80000003840541e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MKVDOM_1(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -400,14 +430,14 @@ def set_profile_8MKVDOM_1(lib, id):
 
     emf_settings = emf_settings_t()
 
-    emf_settings.L = 0.005400000140070915
-    emf_settings.R = 7.400000095367432
-    emf_settings.Km = 0.0024999999441206455
+    emf_settings.L = 0.00540000014007092
+    emf_settings.R = 7.40000009536743
+    emf_settings.Km = 0.00249999994412065
     class BackEMFFlags_:
         BACK_EMF_KM_AUTO = 4
         BACK_EMF_RESISTANCE_AUTO = 2
         BACK_EMF_INDUCTANCE_AUTO = 1
-    emf_settings.BackEMFFlags = BackEMFFlags_.BACK_EMF_KM_AUTO | BackEMFFlags_.BACK_EMF_RESISTANCE_AUTO | BackEMFFlags_.BACK_EMF_INDUCTANCE_AUTO
+
     result = lib.set_emf_settings(id, byref(emf_settings))
 
     if result != Result.Ok:
@@ -445,8 +475,8 @@ def set_profile_8MKVDOM_1(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 75, 86, 68, 79, 77, 45, 49, 0, 0, 0, 82, 0, 53, 0, 0, 52, 48, 68, 45, 69, 65, 83])
+    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -455,10 +485,10 @@ def set_profile_8MKVDOM_1(lib, id):
 
     stage_settings = stage_settings_t()
 
-    stage_settings.LeadScrewPitch = 0.25
-    stage_settings.Units = bytes([0, 109, 0, 114, 101, 101, 0, 0])
+    stage_settings.LeadScrewPitch = 0
+    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
     stage_settings.MaxSpeed = 0
-    stage_settings.TravelRange = 6
+    stage_settings.TravelRange = 0
     stage_settings.SupplyVoltageMin = 0
     stage_settings.SupplyVoltageMax = 0
     stage_settings.MaxCurrentConsumption = 0
@@ -472,8 +502,8 @@ def set_profile_8MKVDOM_1(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -487,7 +517,7 @@ def set_profile_8MKVDOM_1(lib, id):
         MOTOR_TYPE_DC = 2
         MOTOR_TYPE_STEP = 1
         MOTOR_TYPE_UNKNOWN = 0
-    motor_settings.MotorType = MotorType_.MOTOR_TYPE_STEP | MotorType_.MOTOR_TYPE_UNKNOWN
+    motor_settings.MotorType = MotorType_.MOTOR_TYPE_UNKNOWN
     motor_settings.ReservedField = 0
     motor_settings.Poles = 0
     motor_settings.Phases = 0
@@ -505,7 +535,7 @@ def set_profile_8MKVDOM_1(lib, id):
     motor_settings.SpeedConstant = 0
     motor_settings.SpeedTorqueGradient = 0
     motor_settings.MechanicalTimeConstant = 0
-    motor_settings.MaxSpeed = 5000
+    motor_settings.MaxSpeed = 0
     motor_settings.MaxCurrent = 0
     motor_settings.MaxCurrentTime = 0
     motor_settings.NoLoadCurrent = 0
@@ -518,8 +548,8 @@ def set_profile_8MKVDOM_1(lib, id):
 
     encoder_information = encoder_information_t()
 
-    encoder_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    encoder_information.PartNumber = bytes([0, 54, 45, 69, 65, 83, 89, 45, 49, 48, 50, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_encoder_information(id, byref(encoder_information))
 
     if result != Result.Ok:
@@ -532,7 +562,7 @@ def set_profile_8MKVDOM_1(lib, id):
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
-    encoder_settings.PPR = 1000
+    encoder_settings.PPR = 0
     class EncoderSettings_:
         ENCSET_REVOLUTIONSENSOR_ACTIVE_HIGH = 256
         ENCSET_REVOLUTIONSENSOR_PRESENT = 64
@@ -581,8 +611,8 @@ def set_profile_8MKVDOM_1(lib, id):
 
     gear_settings = gear_settings_t()
 
-    gear_settings.ReductionIn = 1
-    gear_settings.ReductionOut = 1
+    gear_settings.ReductionIn = 0
+    gear_settings.ReductionOut = 0
     gear_settings.RatedInputTorque = 0
     gear_settings.RatedInputSpeed = 0
     gear_settings.MaxOutputBacklash = 0
@@ -614,7 +644,7 @@ def set_profile_8MKVDOM_1(lib, id):
         TS_TYPE_SEMICONDUCTOR = 2
         TS_TYPE_THERMOCOUPLE = 1
         TS_TYPE_UNKNOWN = 0
-    accessories_settings.TSSettings = TSSettings_.TS_TYPE_THERMOCOUPLE | TSSettings_.TS_TYPE_UNKNOWN
+    accessories_settings.TSSettings = TSSettings_.TS_TYPE_UNKNOWN
     class LimitSwitchesSettings_:
         LS_SHORTED = 16
         LS_SW2_ACTIVE_LOW = 8

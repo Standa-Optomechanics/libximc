@@ -28,11 +28,11 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     home_settings = home_settings_t()
 
     home_settings.FastHome = 500
-    home_settings.uFastHome = 0
+    home_settings.uFastHome = 1
     home_settings.SlowHome = 500
-    home_settings.uSlowHome = 0
+    home_settings.uSlowHome = 1
     home_settings.HomeDelta = 500
-    home_settings.uHomeDelta = 0
+    home_settings.uHomeDelta = 1
     class HomeFlags_:
         HOME_USE_FAST = 256
         HOME_STOP_SECOND_BITS = 192
@@ -57,11 +57,11 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     move_settings = move_settings_t()
 
     move_settings.Speed = 1000
-    move_settings.uSpeed = 0
-    move_settings.Accel = 2000
-    move_settings.Decel = 4000
+    move_settings.uSpeed = 2
+    move_settings.Accel = 1000
+    move_settings.Decel = 2000
     move_settings.AntiplaySpeed = 1000
-    move_settings.uAntiplaySpeed = 0
+    move_settings.uAntiplaySpeed = 2
     class MoveFlags_:
         RPM_DIV_1000 = 1
 
@@ -73,9 +73,9 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
 
     engine_settings = engine_settings_t()
 
-    engine_settings.NomVoltage = 1
+    engine_settings.NomVoltage = 1200
     engine_settings.NomCurrent = 1200
-    engine_settings.NomSpeed = 5000
+    engine_settings.NomSpeed = 2000
     engine_settings.uNomSpeed = 0
     class EngineFlags_:
         ENGINE_LIMIT_RPM = 128
@@ -148,7 +148,7 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -183,9 +183,9 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
         ENDER_SWAP = 1
     edges_settings.EnderFlags = EnderFlags_.ENDER_SW2_ACTIVE_LOW | EnderFlags_.ENDER_SW1_ACTIVE_LOW | EnderFlags_.ENDER_SWAP
     edges_settings.LeftBorder = 125
-    edges_settings.uLeftBorder = 0
+    edges_settings.uLeftBorder = 1
     edges_settings.RightBorder = 23875
-    edges_settings.uRightBorder = 0
+    edges_settings.uRightBorder = 2
     result = lib.set_edges_settings(id, byref(edges_settings))
 
     if result != Result.Ok:
@@ -197,9 +197,9 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.003599999938160181
-    pid_settings.Kif = 0.03799999877810478
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.00359999993816018
+    pid_settings.Kif = 0.0379999987781048
+    pid_settings.Kdf = 2.80000003840541e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -300,8 +300,8 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     control_settings.MaxSpeed[7] = 0
     control_settings.MaxSpeed[8] = 0
     control_settings.MaxSpeed[9] = 0
-    control_settings.uMaxSpeed[0] = 0
-    control_settings.uMaxSpeed[1] = 0
+    control_settings.uMaxSpeed[0] = 2
+    control_settings.uMaxSpeed[1] = 2
     control_settings.uMaxSpeed[2] = 0
     control_settings.uMaxSpeed[3] = 0
     control_settings.uMaxSpeed[4] = 0
@@ -329,7 +329,7 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
         CONTROL_MODE_OFF = 0
     control_settings.Flags = Flags_.CONTROL_MODE_LR | Flags_.CONTROL_MODE_OFF
     control_settings.DeltaPosition = 1
-    control_settings.uDeltaPosition = 0
+    control_settings.uDeltaPosition = 2
     result = lib.set_control_settings(id, byref(control_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -445,8 +475,8 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.Manufacturer = bytes([83, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([56, 77, 84, 49, 54, 55, 86, 45, 50, 53, 76, 83, 45, 86, 83, 83, 52, 50, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -455,15 +485,15 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
 
     stage_settings = stage_settings_t()
 
-    stage_settings.LeadScrewPitch = 0
-    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
-    stage_settings.MaxSpeed = 0
-    stage_settings.TravelRange = 0
-    stage_settings.SupplyVoltageMin = 0
-    stage_settings.SupplyVoltageMax = 0
+    stage_settings.LeadScrewPitch = 0.5
+    stage_settings.Units = bytes([109, 109, 0, 0, 0, 0, 0, 0])
+    stage_settings.MaxSpeed = 5
+    stage_settings.TravelRange = 25
+    stage_settings.SupplyVoltageMin = 12
+    stage_settings.SupplyVoltageMax = 36
     stage_settings.MaxCurrentConsumption = 0
-    stage_settings.HorizontalLoadCapacity = 0
-    stage_settings.VerticalLoadCapacity = 0
+    stage_settings.HorizontalLoadCapacity = 30
+    stage_settings.VerticalLoadCapacity = 7
     result = lib.set_stage_settings(id, byref(stage_settings))
 
     if result != Result.Ok:
@@ -505,7 +535,7 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     motor_settings.SpeedConstant = 0
     motor_settings.SpeedTorqueGradient = 0
     motor_settings.MechanicalTimeConstant = 0
-    motor_settings.MaxSpeed = 0
+    motor_settings.MaxSpeed = 5000
     motor_settings.MaxCurrent = 0
     motor_settings.MaxCurrentTime = 0
     motor_settings.NoLoadCurrent = 0
@@ -532,7 +562,7 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
-    encoder_settings.PPR = 0
+    encoder_settings.PPR = 1000
     class EncoderSettings_:
         ENCSET_REVOLUTIONSENSOR_ACTIVE_HIGH = 256
         ENCSET_REVOLUTIONSENSOR_PRESENT = 64
@@ -581,10 +611,10 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
 
     gear_settings = gear_settings_t()
 
-    gear_settings.ReductionIn = 0
-    gear_settings.ReductionOut = 0
+    gear_settings.ReductionIn = 5
+    gear_settings.ReductionOut = 2
     gear_settings.RatedInputTorque = 0
-    gear_settings.RatedInputSpeed = 0
+    gear_settings.RatedInputSpeed = 1500
     gear_settings.MaxOutputBacklash = 0
     gear_settings.InputInertia = 0
     gear_settings.Efficiency = 0
@@ -614,7 +644,7 @@ def set_profile_8MT167V_25LS_VSS42(lib, id):
         TS_TYPE_SEMICONDUCTOR = 2
         TS_TYPE_THERMOCOUPLE = 1
         TS_TYPE_UNKNOWN = 0
-    accessories_settings.TSSettings = TSSettings_.TS_TYPE_UNKNOWN
+    accessories_settings.TSSettings = TSSettings_.TS_TYPE_THERMOCOUPLE | TSSettings_.TS_TYPE_UNKNOWN
     class LimitSwitchesSettings_:
         LS_SHORTED = 16
         LS_SW2_ACTIVE_LOW = 8

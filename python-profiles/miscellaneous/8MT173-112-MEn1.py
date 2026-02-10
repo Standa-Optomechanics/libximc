@@ -86,7 +86,7 @@ def set_profile_8MT173_112_MEn1(lib, id):
         ENGINE_MAX_SPEED = 4
         ENGINE_CURRENT_AS_RMS = 2
         ENGINE_REVERSE = 1
-    engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_ACCEL_ON | EngineFlags_.ENGINE_REVERSE
+    engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_ACCEL_ON
     engine_settings.Antiplay = 1800
     class MicrostepMode_:
         MICROSTEP_MODE_FRAC_256 = 9
@@ -148,7 +148,7 @@ def set_profile_8MT173_112_MEn1(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MT173_112_MEn1(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.006000000052154064
-    pid_settings.Kif = 0.05000000074505806
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.006
+    pid_settings.Kif = 0.05
+    pid_settings.Kdf = 2.8e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MT173_112_MEn1(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -400,9 +430,9 @@ def set_profile_8MT173_112_MEn1(lib, id):
 
     emf_settings = emf_settings_t()
 
-    emf_settings.L = 0.005400000140070915
-    emf_settings.R = 7.400000095367432
-    emf_settings.Km = 0.0024999999441206455
+    emf_settings.L = 0.0054
+    emf_settings.R = 7.4
+    emf_settings.Km = 0.0025
     class BackEMFFlags_:
         BACK_EMF_KM_AUTO = 4
         BACK_EMF_RESISTANCE_AUTO = 2
@@ -446,7 +476,7 @@ def set_profile_8MT173_112_MEn1(lib, id):
     stage_information = stage_information_t()
 
     stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 84, 49, 55, 51, 45, 49, 49, 50, 45, 77, 69, 110, 49, 0, 95, 52, 48, 68, 45, 69, 65, 83])
+    stage_information.PartNumber = bytes([56, 77, 84, 49, 55, 51, 45, 49, 49, 50, 45, 77, 69, 110, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -472,8 +502,8 @@ def set_profile_8MT173_112_MEn1(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -518,8 +548,8 @@ def set_profile_8MT173_112_MEn1(lib, id):
 
     encoder_information = encoder_information_t()
 
-    encoder_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    encoder_information.PartNumber = bytes([0, 54, 45, 69, 65, 83, 89, 45, 49, 48, 50, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_encoder_information(id, byref(encoder_information))
 
     if result != Result.Ok:
@@ -581,8 +611,8 @@ def set_profile_8MT173_112_MEn1(lib, id):
 
     gear_settings = gear_settings_t()
 
-    gear_settings.ReductionIn = 0
-    gear_settings.ReductionOut = 0
+    gear_settings.ReductionIn = 1
+    gear_settings.ReductionOut = 1
     gear_settings.RatedInputTorque = 0
     gear_settings.RatedInputSpeed = 0
     gear_settings.MaxOutputBacklash = 0
@@ -614,7 +644,7 @@ def set_profile_8MT173_112_MEn1(lib, id):
         TS_TYPE_SEMICONDUCTOR = 2
         TS_TYPE_THERMOCOUPLE = 1
         TS_TYPE_UNKNOWN = 0
-    accessories_settings.TSSettings = TSSettings_.TS_TYPE_UNKNOWN
+    accessories_settings.TSSettings = TSSettings_.TS_TYPE_THERMOCOUPLE | TSSettings_.TS_TYPE_UNKNOWN
     class LimitSwitchesSettings_:
         LS_SHORTED = 16
         LS_SW2_ACTIVE_LOW = 8

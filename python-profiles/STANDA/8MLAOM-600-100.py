@@ -27,11 +27,11 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     home_settings = home_settings_t()
 
-    home_settings.FastHome = 100
+    home_settings.FastHome = 240
     home_settings.uFastHome = 0
     home_settings.SlowHome = 10
     home_settings.uSlowHome = 0
-    home_settings.HomeDelta = 1600
+    home_settings.HomeDelta = 1200
     home_settings.uHomeDelta = 0
     class HomeFlags_:
         HOME_USE_FAST = 256
@@ -56,11 +56,11 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     move_settings = move_settings_t()
 
-    move_settings.Speed = 200
+    move_settings.Speed = 600
     move_settings.uSpeed = 0
-    move_settings.Accel = 2000
-    move_settings.Decel = 4000
-    move_settings.AntiplaySpeed = 200
+    move_settings.Accel = 600
+    move_settings.Decel = 1200
+    move_settings.AntiplaySpeed = 33
     move_settings.uAntiplaySpeed = 0
     class MoveFlags_:
         RPM_DIV_1000 = 1
@@ -73,9 +73,9 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     engine_settings = engine_settings_t()
 
-    engine_settings.NomVoltage = 1
+    engine_settings.NomVoltage = 1200
     engine_settings.NomCurrent = 2120
-    engine_settings.NomSpeed = 400
+    engine_settings.NomSpeed = 1200
     engine_settings.uNomSpeed = 0
     class EngineFlags_:
         ENGINE_LIMIT_RPM = 128
@@ -87,7 +87,7 @@ def set_profile_8MLAOM_600_100(lib, id):
         ENGINE_CURRENT_AS_RMS = 2
         ENGINE_REVERSE = 1
     engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_ACCEL_ON
-    engine_settings.Antiplay = 55
+    engine_settings.Antiplay = 7
     class MicrostepMode_:
         MICROSTEP_MODE_FRAC_256 = 9
         MICROSTEP_MODE_FRAC_128 = 8
@@ -148,7 +148,7 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -181,10 +181,10 @@ def set_profile_8MLAOM_600_100(lib, id):
         ENDER_SW2_ACTIVE_LOW = 4
         ENDER_SW1_ACTIVE_LOW = 2
         ENDER_SWAP = 1
-    edges_settings.EnderFlags = EnderFlags_.ENDER_SW2_ACTIVE_LOW | EnderFlags_.ENDER_SW1_ACTIVE_LOW | EnderFlags_.ENDER_SWAP
-    edges_settings.LeftBorder = -1520
+    edges_settings.EnderFlags = EnderFlags_.ENDER_SW2_ACTIVE_LOW | EnderFlags_.ENDER_SW1_ACTIVE_LOW
+    edges_settings.LeftBorder = 0
     edges_settings.uLeftBorder = 0
-    edges_settings.RightBorder = 1520
+    edges_settings.RightBorder = 9600
     edges_settings.uRightBorder = 0
     result = lib.set_edges_settings(id, byref(edges_settings))
 
@@ -197,9 +197,9 @@ def set_profile_8MLAOM_600_100(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.003599999938160181
-    pid_settings.Kif = 0.03799999877810478
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.00359999993816018
+    pid_settings.Kif = 0.0379999987781048
+    pid_settings.Kdf = 2.80000003840541e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -290,8 +290,8 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     control_settings = control_settings_t()
 
-    control_settings.MaxSpeed[0] = 20
-    control_settings.MaxSpeed[1] = 200
+    control_settings.MaxSpeed[0] = 600
+    control_settings.MaxSpeed[1] = 0
     control_settings.MaxSpeed[2] = 0
     control_settings.MaxSpeed[3] = 0
     control_settings.MaxSpeed[4] = 0
@@ -386,9 +386,39 @@ def set_profile_8MLAOM_600_100(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -445,8 +475,8 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 76, 65, 79, 77, 45, 54, 48, 48, 45, 49, 48, 48, 0, 0, 0, 52, 48, 68, 45, 69, 65, 83])
+    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([56, 77, 76, 65, 79, 77, 45, 54, 48, 48, 45, 49, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -456,7 +486,7 @@ def set_profile_8MLAOM_600_100(lib, id):
     stage_settings = stage_settings_t()
 
     stage_settings.LeadScrewPitch = 1
-    stage_settings.Units = bytes([0, 109, 0, 114, 101, 101, 0, 0])
+    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
     stage_settings.MaxSpeed = 1
     stage_settings.TravelRange = 8
     stage_settings.SupplyVoltageMin = 0
@@ -472,8 +502,8 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -487,7 +517,7 @@ def set_profile_8MLAOM_600_100(lib, id):
         MOTOR_TYPE_DC = 2
         MOTOR_TYPE_STEP = 1
         MOTOR_TYPE_UNKNOWN = 0
-    motor_settings.MotorType = MotorType_.MOTOR_TYPE_STEP | MotorType_.MOTOR_TYPE_UNKNOWN
+    motor_settings.MotorType = MotorType_.MOTOR_TYPE_UNKNOWN
     motor_settings.ReservedField = 0
     motor_settings.Poles = 0
     motor_settings.Phases = 0
@@ -518,8 +548,8 @@ def set_profile_8MLAOM_600_100(lib, id):
 
     encoder_information = encoder_information_t()
 
-    encoder_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    encoder_information.PartNumber = bytes([0, 54, 45, 69, 65, 83, 89, 45, 49, 48, 50, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_encoder_information(id, byref(encoder_information))
 
     if result != Result.Ok:
@@ -582,7 +612,7 @@ def set_profile_8MLAOM_600_100(lib, id):
     gear_settings = gear_settings_t()
 
     gear_settings.ReductionIn = 1
-    gear_settings.ReductionOut = 1
+    gear_settings.ReductionOut = 6
     gear_settings.RatedInputTorque = 0
     gear_settings.RatedInputSpeed = 0
     gear_settings.MaxOutputBacklash = 0

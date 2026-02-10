@@ -1,3 +1,11 @@
+libximc7 (2.14.32-1) unstable; urgency=low
+
+  * Version bump
+  * Bug: get_status_impl removed from the documentation, #103448
+  * Bug: Profiles updated, #113543
+
+ -- XIMC <8smc4@standa.lt>  Fri, 12 Dec 2025 13:55:22 +0300
+
 libximc7 (2.14.31-1) unstable; urgency=low
 
   * Version bump

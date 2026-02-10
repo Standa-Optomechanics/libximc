@@ -98,8 +98,8 @@ def set_profile_8MT184V_13DC(lib, id):
         MICROSTEP_MODE_FRAC_4 = 3
         MICROSTEP_MODE_FRAC_2 = 2
         MICROSTEP_MODE_FULL = 1
-    engine_settings.MicrostepMode = MicrostepMode_.MICROSTEP_MODE_FULL
-    engine_settings.StepsPerRev = 1
+
+    engine_settings.StepsPerRev = 0
     result = lib.set_engine_settings(id, byref(engine_settings))
 
     if result != Result.Ok:
@@ -148,7 +148,7 @@ def set_profile_8MT184V_13DC(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -292,7 +292,7 @@ def set_profile_8MT184V_13DC(lib, id):
 
     control_settings.MaxSpeed[0] = 24
     control_settings.MaxSpeed[1] = 241
-    control_settings.MaxSpeed[2] = 2411
+    control_settings.MaxSpeed[2] = 2412
     control_settings.MaxSpeed[3] = 0
     control_settings.MaxSpeed[4] = 0
     control_settings.MaxSpeed[5] = 0
@@ -386,9 +386,39 @@ def set_profile_8MT184V_13DC(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -400,8 +430,8 @@ def set_profile_8MT184V_13DC(lib, id):
 
     emf_settings = emf_settings_t()
 
-    emf_settings.L = 0.07000000029802322
-    emf_settings.R = 5.099999904632568
+    emf_settings.L = 0.07
+    emf_settings.R = 5.1
     emf_settings.Km = 0
     class BackEMFFlags_:
         BACK_EMF_KM_AUTO = 4
@@ -445,8 +475,8 @@ def set_profile_8MT184V_13DC(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 84, 49, 56, 52, 86, 45, 49, 51, 68, 67, 0, 0, 89, 90, 0, 0, 0, 0, 0, 69, 65, 83])
+    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([56, 77, 84, 49, 56, 52, 86, 45, 49, 51, 68, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -456,8 +486,8 @@ def set_profile_8MT184V_13DC(lib, id):
     stage_settings = stage_settings_t()
 
     stage_settings.LeadScrewPitch = 0.25
-    stage_settings.Units = bytes([0, 109, 0, 114, 101, 101, 0, 0])
-    stage_settings.MaxSpeed = 0.15000000596046448
+    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
+    stage_settings.MaxSpeed = 0.15
     stage_settings.TravelRange = 13
     stage_settings.SupplyVoltageMin = 0
     stage_settings.SupplyVoltageMax = 0
@@ -472,8 +502,8 @@ def set_profile_8MT184V_13DC(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 111, 116, 105, 111, 110, 32, 67, 111, 110, 116, 114, 111, 108, 32, 80])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -487,7 +517,7 @@ def set_profile_8MT184V_13DC(lib, id):
         MOTOR_TYPE_DC = 2
         MOTOR_TYPE_STEP = 1
         MOTOR_TYPE_UNKNOWN = 0
-    motor_settings.MotorType = MotorType_.MOTOR_TYPE_STEP | MotorType_.MOTOR_TYPE_UNKNOWN
+    motor_settings.MotorType = MotorType_.MOTOR_TYPE_UNKNOWN
     motor_settings.ReservedField = 0
     motor_settings.Poles = 0
     motor_settings.Phases = 0
@@ -528,11 +558,11 @@ def set_profile_8MT184V_13DC(lib, id):
 
     encoder_settings = encoder_settings_t()
 
-    encoder_settings.MaxOperatingFrequency = 0
+    encoder_settings.MaxOperatingFrequency = 7
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
-    encoder_settings.PPR = 0
+    encoder_settings.PPR = 16
     class EncoderSettings_:
         ENCSET_REVOLUTIONSENSOR_ACTIVE_HIGH = 256
         ENCSET_REVOLUTIONSENSOR_PRESENT = 64
@@ -581,10 +611,10 @@ def set_profile_8MT184V_13DC(lib, id):
 
     gear_settings = gear_settings_t()
 
-    gear_settings.ReductionIn = 0
-    gear_settings.ReductionOut = 0
+    gear_settings.ReductionIn = 134
+    gear_settings.ReductionOut = 1
     gear_settings.RatedInputTorque = 0
-    gear_settings.RatedInputSpeed = 0
+    gear_settings.RatedInputSpeed = 5000
     gear_settings.MaxOutputBacklash = 0
     gear_settings.InputInertia = 0
     gear_settings.Efficiency = 0
@@ -614,7 +644,7 @@ def set_profile_8MT184V_13DC(lib, id):
         TS_TYPE_SEMICONDUCTOR = 2
         TS_TYPE_THERMOCOUPLE = 1
         TS_TYPE_UNKNOWN = 0
-    accessories_settings.TSSettings = TSSettings_.TS_TYPE_UNKNOWN
+    accessories_settings.TSSettings = TSSettings_.TS_TYPE_THERMOCOUPLE | TSSettings_.TS_TYPE_UNKNOWN
     class LimitSwitchesSettings_:
         LS_SHORTED = 16
         LS_SW2_ACTIVE_LOW = 8

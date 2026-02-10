@@ -137,7 +137,7 @@ def set_profile_8MT167M_25LS(lib, id):
         POWER_SMOOTH_CURRENT = 4
         POWER_OFF_ENABLED = 2
         POWER_REDUCT_ENABLED = 1
-    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_REDUCT_ENABLED
+    power_settings.PowerFlags = PowerFlags_.POWER_SMOOTH_CURRENT | PowerFlags_.POWER_OFF_ENABLED | PowerFlags_.POWER_REDUCT_ENABLED
     result = lib.set_power_settings(id, byref(power_settings))
 
     if result != Result.Ok:
@@ -148,7 +148,7 @@ def set_profile_8MT167M_25LS(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MT167M_25LS(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 0.006000000052154064
-    pid_settings.Kif = 0.05000000074505806
-    pid_settings.Kdf = 2.8000000384054147e-05
+    pid_settings.Kpf = 0.006
+    pid_settings.Kif = 0.05
+    pid_settings.Kdf = 2.8e-05
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MT167M_25LS(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -400,14 +430,14 @@ def set_profile_8MT167M_25LS(lib, id):
 
     emf_settings = emf_settings_t()
 
-    emf_settings.L = 0.005400000140070915
-    emf_settings.R = 7.400000095367432
-    emf_settings.Km = 0.0024999999441206455
+    emf_settings.L = 0.0054
+    emf_settings.R = 7.4
+    emf_settings.Km = 0.0025
     class BackEMFFlags_:
         BACK_EMF_KM_AUTO = 4
         BACK_EMF_RESISTANCE_AUTO = 2
         BACK_EMF_INDUCTANCE_AUTO = 1
-    emf_settings.BackEMFFlags = BackEMFFlags_.BACK_EMF_KM_AUTO | BackEMFFlags_.BACK_EMF_RESISTANCE_AUTO | BackEMFFlags_.BACK_EMF_INDUCTANCE_AUTO
+
     result = lib.set_emf_settings(id, byref(emf_settings))
 
     if result != Result.Ok:
@@ -445,8 +475,8 @@ def set_profile_8MT167M_25LS(lib, id):
 
     stage_information = stage_information_t()
 
-    stage_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.Manufacturer = bytes([83, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    stage_information.PartNumber = bytes([56, 77, 84, 49, 54, 55, 77, 45, 50, 53, 76, 83, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -455,15 +485,15 @@ def set_profile_8MT167M_25LS(lib, id):
 
     stage_settings = stage_settings_t()
 
-    stage_settings.LeadScrewPitch = 0
-    stage_settings.Units = bytes([0, 0, 0, 0, 0, 0, 0, 0])
-    stage_settings.MaxSpeed = 0
-    stage_settings.TravelRange = 0
-    stage_settings.SupplyVoltageMin = 0
-    stage_settings.SupplyVoltageMax = 0
+    stage_settings.LeadScrewPitch = 0.25
+    stage_settings.Units = bytes([109, 109, 0, 0, 0, 0, 0, 0])
+    stage_settings.MaxSpeed = 6
+    stage_settings.TravelRange = 25
+    stage_settings.SupplyVoltageMin = 12
+    stage_settings.SupplyVoltageMax = 36
     stage_settings.MaxCurrentConsumption = 0
-    stage_settings.HorizontalLoadCapacity = 0
-    stage_settings.VerticalLoadCapacity = 0
+    stage_settings.HorizontalLoadCapacity = 30
+    stage_settings.VerticalLoadCapacity = 7
     result = lib.set_stage_settings(id, byref(stage_settings))
 
     if result != Result.Ok:
@@ -505,7 +535,7 @@ def set_profile_8MT167M_25LS(lib, id):
     motor_settings.SpeedConstant = 0
     motor_settings.SpeedTorqueGradient = 0
     motor_settings.MechanicalTimeConstant = 0
-    motor_settings.MaxSpeed = 0
+    motor_settings.MaxSpeed = 5000
     motor_settings.MaxCurrent = 0
     motor_settings.MaxCurrentTime = 0
     motor_settings.NoLoadCurrent = 0
@@ -532,7 +562,7 @@ def set_profile_8MT167M_25LS(lib, id):
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
-    encoder_settings.PPR = 0
+    encoder_settings.PPR = 1000
     class EncoderSettings_:
         ENCSET_REVOLUTIONSENSOR_ACTIVE_HIGH = 256
         ENCSET_REVOLUTIONSENSOR_PRESENT = 64

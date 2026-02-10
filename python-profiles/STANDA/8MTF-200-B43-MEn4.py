@@ -27,11 +27,11 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     home_settings = home_settings_t()
 
-    home_settings.FastHome = 500
+    home_settings.FastHome = 100
     home_settings.uFastHome = 0
-    home_settings.SlowHome = 500
+    home_settings.SlowHome = 100
     home_settings.uSlowHome = 0
-    home_settings.HomeDelta = 1000000
+    home_settings.HomeDelta = 1000
     home_settings.uHomeDelta = 0
     class HomeFlags_:
         HOME_USE_FAST = 256
@@ -47,7 +47,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
         HOME_MV_SEC_EN = 4
         HOME_DIR_SECOND = 2
         HOME_DIR_FIRST = 1
-    home_settings.HomeFlags = HomeFlags_.HOME_USE_FAST | HomeFlags_.HOME_STOP_SECOND_REV | HomeFlags_.HOME_STOP_FIRST_BITS | HomeFlags_.HOME_DIR_SECOND
+    home_settings.HomeFlags = HomeFlags_.HOME_USE_FAST | HomeFlags_.HOME_STOP_SECOND_REV | HomeFlags_.HOME_STOP_FIRST_BITS | HomeFlags_.HOME_MV_SEC_EN | HomeFlags_.HOME_DIR_SECOND
     result = lib.set_home_settings(id, byref(home_settings))
 
     if result != Result.Ok:
@@ -56,10 +56,10 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     move_settings = move_settings_t()
 
-    move_settings.Speed = 450
+    move_settings.Speed = 100
     move_settings.uSpeed = 0
-    move_settings.Accel = 12000
-    move_settings.Decel = 15000
+    move_settings.Accel = 1200
+    move_settings.Decel = 1500
     move_settings.AntiplaySpeed = 450
     move_settings.uAntiplaySpeed = 0
     class MoveFlags_:
@@ -87,7 +87,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
         ENGINE_CURRENT_AS_RMS = 2
         ENGINE_REVERSE = 1
     engine_settings.EngineFlags = EngineFlags_.ENGINE_LIMIT_RPM | EngineFlags_.ENGINE_ACCEL_ON | EngineFlags_.ENGINE_REVERSE
-    engine_settings.Antiplay = -30474
+    engine_settings.Antiplay = 35062
     class MicrostepMode_:
         MICROSTEP_MODE_FRAC_256 = 9
         MICROSTEP_MODE_FRAC_128 = 8
@@ -98,7 +98,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
         MICROSTEP_MODE_FRAC_4 = 3
         MICROSTEP_MODE_FRAC_2 = 2
         MICROSTEP_MODE_FULL = 1
-    engine_settings.MicrostepMode = MicrostepMode_.MICROSTEP_MODE_FULL
+
     engine_settings.StepsPerRev = 6
     result = lib.set_engine_settings(id, byref(engine_settings))
 
@@ -148,7 +148,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     secure_settings.LowUpwrOff = 800
     secure_settings.CriticalIpwr = 4000
-    secure_settings.CriticalUpwr = 5500
+    secure_settings.CriticalUpwr = 5000
     secure_settings.CriticalT = 800
     secure_settings.CriticalIusb = 450
     secure_settings.CriticalUusb = 520
@@ -197,9 +197,9 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
     pid_settings.KpU = 0
     pid_settings.KiU = 0
     pid_settings.KdU = 0
-    pid_settings.Kpf = 10
-    pid_settings.Kif = 0.012000000104308128
-    pid_settings.Kdf = 0.05000000074505806
+    pid_settings.Kpf = 30
+    pid_settings.Kif = 0.03
+    pid_settings.Kdf = 0.08
     result = lib.set_pid_settings(id, byref(pid_settings))
 
     if result != Result.Ok:
@@ -386,9 +386,39 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
         if worst_result == Result.Ok or worst_result == Result.ValueError:
             worst_result = result
 
+    network_settings = network_settings_t()
+
+    network_settings.DHCPEnabled = 1
+    network_settings.IPv4Address[0] = 255
+    network_settings.IPv4Address[1] = 255
+    network_settings.IPv4Address[2] = 255
+    network_settings.IPv4Address[3] = 255
+    network_settings.SubnetMask[0] = 0
+    network_settings.SubnetMask[1] = 0
+    network_settings.SubnetMask[2] = 0
+    network_settings.SubnetMask[3] = 0
+    network_settings.DefaultGateway[0] = 0
+    network_settings.DefaultGateway[1] = 0
+    network_settings.DefaultGateway[2] = 0
+    network_settings.DefaultGateway[3] = 0
+    result = lib.set_network_settings(id, byref(network_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
+    password_settings = password_settings_t()
+
+    password_settings.UserPassword = bytes([48, 48, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    result = lib.set_password_settings(id, byref(password_settings))
+
+    if result != Result.Ok:
+        if worst_result == Result.Ok or worst_result == Result.ValueError:
+            worst_result = result
+
     controller_name = controller_name_t()
 
-    controller_name.ControllerName = bytes([0, 113, 238, 119, 36, 0, 72, 0, 3, 0, 0, 0, 144, 108, 79, 0])
+    controller_name.ControllerName = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     class CtrlFlags_:
         EEPROM_PRECEDENCE = 1
 
@@ -446,7 +476,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
     stage_information = stage_information_t()
 
     stage_information.Manufacturer = bytes([83, 116, 97, 110, 100, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    stage_information.PartNumber = bytes([56, 77, 84, 70, 45, 50, 48, 48, 45, 66, 52, 51, 45, 77, 69, 110, 52, 0, 49, 48, 48, 0, 65, 83])
+    stage_information.PartNumber = bytes([56, 77, 84, 70, 45, 50, 48, 48, 45, 66, 52, 51, 45, 77, 69, 110, 52, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_stage_information(id, byref(stage_information))
 
     if result != Result.Ok:
@@ -456,7 +486,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
     stage_settings = stage_settings_t()
 
     stage_settings.LeadScrewPitch = 2
-    stage_settings.Units = bytes([109, 109, 0, 114, 101, 101, 0, 0])
+    stage_settings.Units = bytes([109, 109, 0, 0, 0, 0, 0, 0])
     stage_settings.MaxSpeed = 30
     stage_settings.TravelRange = 200
     stage_settings.SupplyVoltageMin = 12
@@ -472,8 +502,8 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     motor_information = motor_information_t()
 
-    motor_information.Manufacturer = bytes([0, 111, 116, 105, 111, 110, 32, 67, 111, 110, 116, 114, 111, 108, 32, 80])
-    motor_information.PartNumber = bytes([0, 67, 45, 105, 45, 52, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    motor_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_motor_information(id, byref(motor_information))
 
     if result != Result.Ok:
@@ -487,7 +517,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
         MOTOR_TYPE_DC = 2
         MOTOR_TYPE_STEP = 1
         MOTOR_TYPE_UNKNOWN = 0
-    motor_settings.MotorType = MotorType_.MOTOR_TYPE_STEP | MotorType_.MOTOR_TYPE_UNKNOWN
+    motor_settings.MotorType = MotorType_.MOTOR_TYPE_UNKNOWN
     motor_settings.ReservedField = 0
     motor_settings.Poles = 0
     motor_settings.Phases = 0
@@ -518,8 +548,8 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     encoder_information = encoder_information_t()
 
-    encoder_information.Manufacturer = bytes([0, 97, 120, 111, 110, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-    encoder_information.PartNumber = bytes([0, 54, 45, 69, 65, 83, 89, 45, 49, 48, 50, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    encoder_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_encoder_information(id, byref(encoder_information))
 
     if result != Result.Ok:
@@ -528,7 +558,7 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     encoder_settings = encoder_settings_t()
 
-    encoder_settings.MaxOperatingFrequency = 0
+    encoder_settings.MaxOperatingFrequency = 720
     encoder_settings.SupplyVoltageMin = 0
     encoder_settings.SupplyVoltageMax = 0
     encoder_settings.MaxCurrentConsumption = 0
@@ -571,8 +601,8 @@ def set_profile_8MTF_200_B43_MEn4(lib, id):
 
     gear_information = gear_information_t()
 
-    gear_information.Manufacturer = bytes([0, 97, 120, 111, 110, 32, 109, 111, 116, 111, 114, 0, 0, 0, 0, 0])
-    gear_information.PartNumber = bytes([0, 52, 52, 48, 50, 55, 0, 58, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    gear_information.Manufacturer = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    gear_information.PartNumber = bytes([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     result = lib.set_gear_information(id, byref(gear_information))
 
     if result != Result.Ok:

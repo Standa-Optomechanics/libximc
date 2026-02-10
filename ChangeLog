@@ -1,3 +1,9 @@
+libximc (2.14.32-1)
+  * Released: Fri, 12 Dec 2025 13:55:22 +0300
+  * Version bump
+  * Bug: get_status_impl removed from the documentation, #103448
+  * Bug: Profiles updated, #113543
+
 libximc (2.14.31-1)
   * Released: Mon, 25 Aug 2025 10:44:29 +0300
   * Version bump
