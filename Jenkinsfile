@@ -15,7 +15,7 @@ pipeline {
 
   triggers {
     // enable weekly rebuilds
-    cron('H H(16-17) * * 5')
+    cron('H H(20-22) * * 5')
   }
 
   options {

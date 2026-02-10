@@ -8,19 +8,26 @@
  *
  * Libximc is **thread safe**, cross-platform library for working with 8SMC4-USB and 8SMC5-USB controllers.
  *
- * Full documentation about controllers is <a href="https://doc.xisupport.com">there</a>
+ * Full documentation about controllers is <a href="https://doc.xisupport.com">there</a>.
  *
  * Full documentation about libximc API is available on the page <a href="https://libximc.xisupport.com/doc-en/ximc_8h.html">ximc.h.</a>
  *
+ * The `libximc` library is now available on <a href="https://pypi.org/project/libximc/">PyPI</a>, and can be installed directly using pip:
+ * @code{.bash}
+ * pip install libximc
+ * @endcode
+ *
+ * This simplifies the use of the library in Python projects without the need for manual building.
+ *
  * \section what_the_controller_does What the controller does
  *
- * - Supports input and output synchronization signals to ensure the joint operation of multiple devices within a complex system ;.
+ * - Supports input and output synchronization signals to ensure the joint operation of multiple devices within a complex system.
  * - Works with all compact stepper motors with a winding current of up to 3 A, without feedback, as well as with stepper motors equipped with an encoder in the feedback circuit, including a linear encoder on the positioner.
  * - Manages controller using ready-made <a href="https://files.xisupport.com/Software.en.html#xilab">xilab software</a> or using examples which allow rapid development using C++, C#, .NET, Delphi, Visual Basic, Xcode, Python, Matlab, Java, LabWindows and LabVIEW.
  *
  * \section what_can_do_library What can do libximc library
  *
- * - Libximc manages controller using interfaces: USB 2.0, RS232 and Ethernet, also uses a common and proven virtual serial port interface, so you can work with motor control modules through this library under almost all operating systems, including Windows, Linux and MacOS X
+ * - Libximc manages controller using interfaces: USB 2.0, RS232 and Ethernet, also uses a common and proven virtual serial port interface, so you can work with motor control modules through this library under almost all operating systems, including Windows, Linux and MacOS X.
  * - Libximc library supports plug/unplug on the fly. Each device can be controlled only by one program at once. <b>Multiple processes (programs) that control one device simultaneously are not allowed!</b>
  *
  * \warning
@@ -28,7 +35,7 @@
  *
  * Please read the <a href="https://libximc.xisupport.com/doc-en/intro_sec.html">Introduction</a> to start work with library.
  *
- * To use libximc in your project please consult with <a href="https://libximc.xisupport.com/doc-en/howtouse_sec.html"> How to use with...</a>
+ * To use libximc in your project please consult with <a href="https://libximc.xisupport.com/doc-en/howtouse_sec.html">How to use with...</a>
  *
  * \section assistance Assistance
  *
@@ -51,9 +58,10 @@
  * - Linux rpm-based. RPM is built against OpenSUSE 12
  *
  * Build requirements:
- * - Windows: Microsoft Visual C++ 2013 or newer, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin with tar, bison, flex, curl, 7z mingw
+ * - Windows: Microsoft Visual C++ 2013, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin with tar, bison, flex, curl, 7z mingw
  * - UNIX: gcc 4 or newer, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - MacOS X: XCode 4 or newer, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
+ * - JDK 7 - 9
  *
  * \page building_sec How to rebuild library
  *
@@ -66,7 +74,7 @@
  * 	./build.bat
  * \endcode
  *
- * Grab packages from ./deb/win32 and ./deb/win64 
+ * Grab packages from ./deb/win32 and ./deb/win64.
  *
  * To build debug version of the library set environment variable "DEBUG" to "true" before running the build script.
  *

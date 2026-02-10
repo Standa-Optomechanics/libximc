@@ -1,3 +1,14 @@
+libximc7 (2.14.29-1) unstable; urgency=low
+
+  * Version bump
+  * Feature: Add info about coordinates/speeds in encoder mode, #86970
+  * Feature: Fix the description of the measurement_t structure, #91883
+  * Feature: Fix valid Python versions in examples, #114532
+  * Bug: Fix calb functions when device is missing, #115036
+  * Bug: Add a check for VC C++ 2013 installation to the libximc Python, #115359
+
+ -- XIMC <8smc4@standa.lt>  Tue, 06 May 2025 13:00:44 +0300
+
 libximc7 (2.14.28-1) unstable; urgency=low
 
   * Version bump

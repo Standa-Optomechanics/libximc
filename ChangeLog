@@ -1,15 +1,24 @@
+libximc (2.14.29-1)
+  * Released: Tue, 06 May 2025 13:00:44 +0300
+  * Version bump
+  * Feature: Add info about coordinates/speeds in encoder mode, #86970
+  * Feature: Fix the description of the measurement_t structure, #91883
+  * Feature: Fix valid Python versions in examples, #114532
+  * Bug: Fix calb functions when device is missing, #115036
+  * Bug: Add a check for VC C++ 2013 installation to the libximc Python, #115359
+
 libximc (2.14.28-1)
   * Released: Thu, 20 Feb 2025 10:46:59 +0300
   * Version bump
   * Bug: Fix documentation a little
   * Bug: Fix python binding bug with uninitialized structures, #105984
   * Bug: Add errcode return while trying to set calb.coeff. A to 0, #91948
+
 libximc (2.14.27-1)
   * Released: Wed, 28 Aug 2024 16:36:02 +0300
   * Version bump
   * Add pauses into examples, #99322
   * Mark USB voltage and current values as deprecated, #103346
-
 
 libximc (2.14.26-1)
   * Released: Tue, 06 Aug 2024 16:07:42 +0300

@@ -373,7 +373,7 @@ LOW_UPWR_PROTECTION			= 0x02	/**< \english If this flag is set, turn off the mot
 H_BRIDGE_ALERT				= 0x04	/**< \english If this flag is set then turn off the power unit with a signal problem in one of the transistor bridge. \endenglish \russian Если установлен, то выключать силовую часть при сигнале неполадки в одном из транзисторных мостов.\endrussian */
 ALARM_ON_BORDERS_SWAP_MISSET= 0x08	/**< \english If this flag is set, enter Alarm state on borders swap misset \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала c противоположного концевого выключателя.\endrussian */
 ALARM_FLAGS_STICKING		= 0x10	/**< \english If this flag is set, only a STOP command can turn all alarms to 0 \endenglish \russian Если флаг установлен, то только по команде STOP возможен сброс всех флагов ALARM.\endrussian */
-USB_BREAK_RECONNECT			= 0x20 /**< \english If this flag is set, the USB brake reconnect module will be enabled \endenglish \russian Если флаг установлен, то будет включен блок перезагрузки USB при поломке связи.\endrussian */
+USB_BREAK_RECONNECT			= 0x20 /**< \english Deprecated. If this flag is set, the USB brake reconnect module will be enabled \endenglish \russian Устарело. Если флаг установлен, то будет включен блок перезагрузки USB при поломке связи.\endrussian */
 ALARM_WINDING_MISMATCH		= 0x40 /**< \english If this flag is set, enter Alarm state when windings mismatch \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала рассогласования обмоток \endrussian */
 ALARM_ENGINE_RESPONSE		= 0x80 /**< \english If this flag is set, enter the Alarm state on response of the engine control action \endenglish \russian Если флаг установлен, то войти в состояние Alarm при получении сигнала ошибки реакции двигателя на управляющее воздействие  \endrussian */
 
@@ -1036,14 +1036,58 @@ fields:
 	*/
 command "move_settings" universal "mov" (30)
 fields:
-	calb float Speed					/**< \english Target speed. \endenglish \russian Заданная скорость. \endrussian */
+	calb float Speed /**< 
+	 * \english 
+	 * Speed 
+	 * - For stepper motor without encoder — in steps per second.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Скорость 
+	 * - для шагового двигателя без энкодера — в шагах в секунду.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int32u Speed					/**< \english Target speed (for stepper motor: steps/s, for DC: rpm). Range: 0..100000. \endenglish \russian Заданная скорость (для ШД: шагов/c, для DC: rpm). Диапазон: 0..100000. \endrussian */
 	normal int8u uSpeed					/**< \english Target speed in microstep fractions/s. The microstep size and the range of valid values for this field depend on the selected step division mode (see the MicrostepMode field in engine_settings). Used with a stepper motor only. \endenglish \russian Заданная скорость в единицах деления микрошага в секунду. Величина микрошага и диапазон допустимых значений для данного поля зависят от выбранного режима деления шага (см. поле MicrostepMode в engine_settings). Используется только с шаговым мотором. \endrussian */
-	calb float Accel					/**< \english Motor shaft acceleration, steps/s^2 (stepper motor) or RPM/s (DC). \endenglish \russian Ускорение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). \endrussian */
+	calb float Accel /**< 
+	 * \english 
+	 * Acceleration: 
+	 * - For stepper motor without encoder — in steps per second^2.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Ускорение  
+	 * - для шагового двигателя без энкодера — в шагах в секунду^2.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int16u Accel					/**< \english Motor shaft acceleration, steps/s^2 (stepper motor) or RPM/s (DC). Range: 1..65535. \endenglish \russian Ускорение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). Диапазон: 1..65535. \endrussian */
-	calb float Decel					/**< \english Motor shaft deceleration, steps/s^2 (stepper motor) or RPM/s (DC). \endenglish \russian Торможение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду(DC). \endrussian */
+	calb float Decel /**< 
+	 * \english 
+	 * Deceleration  
+	 * - For stepper motor without encoder — in steps per second^2.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Торможение  
+	 * - для шагового двигателя без энкодера — в шагах в секунду^2.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int16u Decel					/**< \english Motor shaft deceleration, steps/s^2 (stepper motor) or RPM/s (DC). Range: 1..65535. \endenglish \russian Торможение, заданное в шагах в секунду^2 (ШД) или в оборотах в минуту за секунду (DC). Диапазон: 1..65535. \endrussian */
-	calb float AntiplaySpeed			/**< \english Speed in antiplay mode. \endenglish \russian Скорость в режиме антилюфта. \endrussian */
+	calb float AntiplaySpeed /**< 
+	 * \english 
+	 * Antiplay speed  
+	 * - For stepper motor without encoder — in steps per second.  
+	 * - When using encoder (including DC/BLDC) — in revolutions per minute (RPM).  
+	 * \endenglish 
+	 * \russian 
+	 * Скорость в режиме антилюфта  
+	 * - для шагового двигателя без энкодера — в шагах в секунду.  
+	 * - при использовании энкодера (включая DC/BLDC) — в оборотах в минуту (RPM).  
+	 * \endrussian 
+	 */
 	normal int32u AntiplaySpeed			/**< \english Speed in antiplay mode, full steps/s (stepper motor) or RPM (DC). Range: 0..100000. \endenglish \russian Скорость в режиме антилюфта, заданная в целых шагах/c (ШД) или в оборотах/с(DC). Диапазон: 0..100000. \endrussian */
 	normal int8u uAntiplaySpeed			/**< \english Speed in antiplay mode, microsteps/s. The microstep size and the range of valid values for this field depend on the selected step division mode (see the MicrostepMode field in engine_settings). Used with a stepper motor only. \endenglish \russian Скорость в режиме антилюфта, выраженная в микрошагах в секунду. Величина микрошага и диапазон допустимых значений для данного поля зависят от выбранного режима деления шага (см. поле MicrostepMode в engine_settings). Используется только с шаговым мотором. \endrussian */
 	int8u flag MoveFlags of MoveFlags	/**< \english Flags that control movement settings. This is a bit mask for bitwise operations. \endenglish \russian Флаги, управляющие настройкой движения. Это битовая маска для побитовых операций. \endrussian */
@@ -3198,18 +3242,18 @@ command "start_measurements" writer "stms" (4)
 	*/
 /** $XIS
 	* \english
-	* The buffer holds no more than 25 points. The exact length of the received buffer is stored in the Length field.
+	* The structure contains a sequence of measured axis motion parameters - velocities and position errors. The time step between consecutive measurements is 1 ms.
 	* \endenglish
 	* \russian
-	* Буфер вмещает не более 25и точек. Точная длина полученного буфера отражена в поле Length.
+	* Структура содержит последовательность измеренных параметров движения оси – скоростей и ошибок по позиции. Шаг по времени между двумя последовательными измерениями - 1 мс.
 	* \endrussian
 	* @see measurements
 	*/
 command "measurements" reader "getm" (216)
 fields:
-  int32s Speed [25]   /**< \english Current speed in microsteps per second (whole steps are recalculated considering the current step division mode) or encoder counts per second. \endenglish \russian Текущая скорость в микрошагах в секунду (целые шаги пересчитываются с учетом текущего режима деления шага) или отсчетах энкодера в секунду. \endrussian */
-  int32s Error [25]   /**< \english Current error in microsteps per second (whole steps are recalculated considering the current step division mode) or encoder counts per second. \endenglish \russian Текущая ошибка следования в микрошагах в секунду (целые шаги пересчитываются с учетом текущего режима деления шага) или отсчетах энкодера в секунду. \endrussian */
-  int32u Length       /**< \english Length of actual data in buffer. \endenglish \russian Длина фактических данных в буфере. \endrussian */
+  int32s Speed [25]   /**< \english Sequence of measured speeds (in encoder counts/s or microsteps/sec, depending on the motor type and control mode) \endenglish \russian Последовательность измеренных скоростей (в отсчётах энкодера/сек или микрошагах/сек, в зависимости от типа двигателя и режима управления) \endrussian */
+  int32s Error [25]   /**< \english Position error in microsteps (whole steps are recalculated considering the current step division mode) or encoder counts. \endenglish \russian Последовательность измеренных ошибок позиции (в отсчётах энкодера или микрошагах, в зависимости от типа двигателя и режима управления) \endrussian */
+  int32u Length       /**< \english Actual sequence length. The values contained in cells Length, Length+1, ...24 shall not be interpreted as measurement results. \endenglish \russian Фактическая длина последовательности. Значения, содержащиеся в ячейках Length, Length + 1, ...24, не должны интерпретироваться в качестве результатов измерений. \endrussian */
   reserved 6
 
 /** $XIR

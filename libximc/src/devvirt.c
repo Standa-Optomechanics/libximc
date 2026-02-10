@@ -51,6 +51,8 @@ typedef struct /* BCDFlashParamsStr. This structure is for parameters that are s
 	semf_cmd_str SEMF;
 	seas_cmd_str SEAS;
 	sest_cmd_str SEST;
+	snet_cmd_str SNET;
+	spwd_cmd_str SPWD;
 	uint32_t crc; 
 
 } BCDFlashParamsStr;
@@ -406,6 +408,8 @@ static uint16_t GetData(const uint8_t *in_buf, size_t data_size, uint8_t *out_bu
 			S(CTL, Flash);
 			S(JOY, Flash);
 			S(CTP, Flash);
+			S(NET, Flash);
+			S(PWD, Flash);
 
 			default:
 			   memcpy(out_buf,"errc",COMMAND_LENGTH);
@@ -550,6 +554,8 @@ static uint16_t GetData(const uint8_t *in_buf, size_t data_size, uint8_t *out_bu
 		G(GRI, Stage);
 		G(GRS, Stage);
 		G(ACC, Stage);
+		G(NET, Flash);
+		G(PWD, Flash);
 
 		default:
 		   /* Command length is assumed to be four as it is "errc" size */
@@ -749,6 +755,19 @@ void create_empty_state (AllParamsStr* blob, const char* serial)
 	/* SNAM settings */
 	bcd->SNMF.ControllerName[0] = 0;
 	bcd->SNMF.CtrlFlags = EEPROM_PRECEDENCE;
+
+	/* SNET settings */
+	bcd->SNET.DHCPEnabled = 0;
+	for (i = 0; i < 4; i++) {
+		bcd->SNET.IPv4Address[i] = 0;
+		bcd->SNET.SubnetMask[i] = 0;
+		bcd->SNET.DefaultGateway[i] = 0;
+	}
+
+	/* SPWD settings */
+	for (i = 0; i < 20; i++) {
+		bcd->SPWD.UserPassword[i] = 0;
+	}
 
 	/* GETI setting */
 	memcpy(&blob->BCDInfo.DEVICE_INFO.Manufacturer, "XIMC", 4);

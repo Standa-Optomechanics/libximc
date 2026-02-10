@@ -250,16 +250,79 @@ extern "C"
 	//@}
 
 
-	/**
+    /**
 		\english
 		* Calibration structure
+		*
+		* Where to find all values for calculations?
+		* - XILab (don’t forget to load the profile for your positioner. The profile should match the full name of your positioner, e.g., 8MT173-25-MEn1.cfg):
+		*   - In XILab settings, go to the "User units" tab. Divide the second number by the first one — this is your A coefficient.
+		*   - In the "DC motor" / "BLDC motor" / "Stepper motor" tab (depending on your motor type), find the "Encoder counts per turn" field and use it in the formula for calculating coefficient B.
+		* - Profile file (open with any text editor; make sure it matches the full name of your positioner, e.g., 8MT173-25-MEn1.cfg):
+		*   - Find Step_multiplier= and Unit_multiplier=. Divide the second by the first — this is your A coefficient.
+		*   - Find Encoder_CPT= and use this value in the B coefficient formula instead of ENCODER_COUNTS_PER_TURN.
+
+		* How to calculate Speed, Accel, Decel, and AntiplaySpeed in user units when using a stepper motor with encoder or DC/BLDC motor?
+		* 1. Load the correct profile in XILab for your positioner (e.g., 8MT173-25-MEn1.cfg).
+		* 2. Enable Feedback encoder mode if not already enabled.
+		* 3. Enter speed in the "Working speed" field in user units.
+		* 4. In the "User units" tab, disable the "User units" flag to see RPM.
+		* 5. Multiply the RPM value from "Working speed" by coefficient B.
+		*    Example: 480 * 0.0000009375 = 0.00045. This value for the 8MT173-25-MEn1 in Encoder mode equals 2 mm/s.
+		*
+		*    Acceleration, deceleration, and antiplay speed are calculated the same way.
 		\endenglish
+
 		\russian
 		* Структура калибровок
-		\endrussian	 */
+		*
+		* Где найти все значения для расчета? 
+		* - XILab (не забудьте загрузить профиль для вашего позиционера. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg): 
+		*   - В настройках XILab перейдите во вкладку user units. Разделите второе число на первое — это и будет коэффициент A
+		*   - В настройках XILab, перейдите во вкладку DC motor/BLDC motor/Stepper motor (зависит от используемого типа двигателя). Подставьте значение из поля Encoder counts per turn в формулу подсчета B коэффициента
+		* - Профиль (откройте профиль любым текстовым редактором. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg): 
+		*   - Найдите в файле профиля поля Step_multiplier= и Unit_multiplier=. Разделите второе число на первое — это и будет коэффициент A
+		*   - Найдите в файле профиля поле Encoder_CPT=. Подставьте значение из этого поля в формулу подсчета B коэффициента вместо ENCODER_COUNTS_PER_TURN
+
+		* Как посчитать Speed, Accel, Decel и AntiplaySpeed в пользовательских единицах при использовании шагового двигателя с энкодером или DC/BLDC двигателей? 
+		* 1. Используя XILab, загрузите профиль для вашего позиционера. Профиль должен соответствовать полному названию вашего позиционера. Например: 8MT173-25-MEn1.cfg
+		* 2. Включите режим Feedback encoder, если он не был включен ранее
+		* 3. Вводите скорость в пользовательских единицах в поле Working speed
+		* 4. Во вкладке User units выключите флаг User units. Это позволит видеть значение в поле Working speed в RPM
+		* 5. Умножьте значение из поля Working speed (в RPM) на коэффициент B. Например: 480 * 0.0000009375 = 0.00045. Значение 0.00045 для позиционера 8MT173-25-MEn1 в режиме Encoder будет равно скорости 2 мм/сек
+		*
+		* Ускорение, замедление и скорость в режиме антилюфта считаются аналогично
+		\endrussian	*/
 	typedef struct calibration_t
 	{
-		double A; 		/**< \english Conversion factor which is equal number of millimeters (or other units) per one step. Should be non-zero positive. \endenglish \russian Коэффициент преобразования, равный количеству миллиметров (или других единиц) на один шаг. Должен быть отличным от нуля и положительным. \endrussian */
+		double A; /**<
+		 * \english
+		 * Conversion coefficient equal to the number of millimeters (or other user units) per one step.
+		 * Must be non-zero and positive.
+		 * Used for position and movement conversion.
+		 * - For stepper motor without encoder, only one coefficient A is used. Conversion formula: [user_unit/steps].
+		 *   Example: 800 steps = 1 mm, then A = 1/800 = 0.00125
+		 * - When using a stepper motor with encoder or DC/BLDC motors, the position is set in counts,
+		 *   but speed, acceleration/deceleration, and antiplay speed are set in RPM,
+		 *   so two coefficients are required:
+		 *   - A. Conversion for position: [user_unit/counts]. Example: 16000 counts = 1 mm, then A = 1/16000 = 0.0000625
+		 *   - B. Conversion for speed, acceleration/deceleration, and antiplay speed: [60/ENCODER_COUNTS_PER_TURN * A].
+		 *     Example: 60 / 4000 * 0.0000625 = 0.0000009375
+		 * \endenglish
+		 * \russian
+		 * Коэффициент преобразования, равный количеству миллиметров (или других пользовательских единиц) на один шаг.
+		 * Должен быть отличным от нуля и положительным.
+		 * Используется для пересчёта положений и перемещений.
+		 * - Для шагового двигателя без энкодера используется только один коэффициент A. Формула пересчёта: [user_unit/steps].
+		 *   Пример: 800 шагов = 1 мм, тогда A = 1/800 = 0.00125
+		 * - При использовании шагового двигателя с энкодером или двигателей DC/BLDC позиция задаётся в counts,
+		 *   но скорость, ускорение/замедление и скорость в режиме антилюфта задаются в RPM,
+		 *   поэтому требуются два коэффициента:
+		 *   - A. Формула пересчёта для позиции: [user_unit/counts]. Пример: 16000 counts = 1 мм, тогда A = 1/16000 = 0.0000625
+		 *   - B. Формула пересчёта для скорости, ускорения/замедления и скорости в режиме антилюфта: [60/ENCODER_COUNTS_PER_TURN * A].
+		 *     Пример: 60 / 4000 * 0.0000625 = 0.0000009375
+		 * \endrussian
+		 */
 		unsigned int MicrostepMode;			/**< \english Controller setting which is determine a step division mode \endenglish \russian Настройка контроллера, определяющая режим пошагового деления. \endrussian */
 	} calibration_t;
 
@@ -399,8 +462,8 @@ extern "C"
 		* In case of USB-COM port, the "port" is the OS device URI. For example, "xi-com:\\\\\.\\COM3" in Windows (note that double-backslash will be transformed to single-backslash) or "xi-com:///dev/ttyACM0" in Linux/Mac.
 		* In case of network device, the "host" is an IPv4 address or fully qualified domain URI (FQDN), "serial" is the device serial number in hexadecimal system.
 		* For example, "xi-net://192.168.0.1/00001234" or "xi-net://hostname.com/89ABCDEF".
-		* In case of UDP protocol, use "xi-udp://<ip/host>:<port>.
-		* For example, "xi-udp://192.168.0.1:1818".
+		* In case of TCP protocol, use "xi-tcp://<ip/host>:<port>.
+		* For example, "xi-tcp://192.168.0.1:1818".
 		* In case of virtual device, the "abs_file_to_file" is the full path to the virtual device's file. If it doesn't exist, then it is created and initialized with default values.
 		* For example, "xi-emu:///C:/dir/file.bin" in Windows or "xi-emu:///home/user/file.bin" in Linux/Mac.
 		* \endenglish
@@ -412,8 +475,8 @@ extern "C"
 		* Например, "xi-com:\\\\\.\\COM3" в Windows (с учётом экранирования двойные обратные слэши преобразуются в одинарные) или "xi-com:///dev/ttyACM0" в Linux/Mac.
 		* Для сетевого устройства "host" это IPv4 адрес или полностью определённое имя домена, "serial" это серийный номер устройства в шестнадцатеричной системе.
 		* Например, "xi-net://192.168.0.1/00001234" или "xi-net://hostname.com/89ABCDEF".
-		* Для работы по UDP протоколу используйте "xi-udp://<ip/host>:<port>.
-		* Например, "xi-udp://192.168.0.1:1818".
+		* Для работы по TCP протоколу используйте "xi-tcp://<ip/host>:<port>.
+		* Например, "xi-tcp://192.168.0.1:1818".
 		* Для виртуального устройства "abs_file_to_file" это путь к файлу с сохраненным состоянием устройства. Если файл не существует, он будет создан и инициализирован значениями по умолчанию.
 		* Например, "xi-emu:///C:/dir/file.bin" в Windows или "xi-emu:///home/user/file.bin" в Linux/Mac.
 		* \endrussian

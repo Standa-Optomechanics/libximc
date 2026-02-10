@@ -4,12 +4,13 @@ This example demonstrates loading python profiles into the controller.
 
 ===== RUN =====
 	1. Change the current directory to examples/test_Python/profiletest. For libximc usage, the example uses a wrapper	module /ximc/crossplatform/wrappers/python/libximc.
-	2. Configuring dependencies on Linux:
+	2. Make sure that Microsoft Visual C++ Redistributable Package 2013 is installed on Windows.
+	3. Configuring dependencies on Linux:
 		- you can install all dependencies if you run the example using a script ./testpythonprofile.sh.
 		- you may need to set LD_LIBRARY_PATH to let Python find libraries using RPATH. For that use:
 			$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH: 'pwd'
-	3. You need Python2 or Python3 installed.
-	4. Run the example with the command:
+	4. You need Python2 or Python3 installed.
+	5. Run the example with the command:
 		$ python testpythonprofile.py
 
 ===== MODIFICATION =====
@@ -23,12 +24,13 @@ Rus.
  
 ===== ЗАПУСК =====
 	1. Перейдите в examples/test_Python/profiletest. Для использования библиотеки libximc в примере используется модуль-обёртка /ximc/crossplatform/wrappers/python/libximc.
-	2. 	Настройка зависимостей в Linux: 
+	2. Если вы работаете в Windows убедитесь, что Microsoft Visual C++ Redistributable Package 2013 установлен.
+	3. Настройка зависимостей в Linux: 
 		- можно ни чего не устанавливать, если запускать пример с помощью командного файла ./testpythonprofile.sh
 		- возможно, вам потребуется установить LD_LIBRARY_PATH, чтобы Python смог найти библиотеки с помощью RPATH. Для этого воспользуйтесь командой:
 			$ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'pwd'
-	3. Для запуска необходим установленный Python2 или Python3.
-	4. Запустите пример командой:
+	4. Для запуска необходим установленный Python2 или Python3.
+	5. Запустите пример командой:
 		$ python testpythonprofile.py
  
 ===== МОДИФИКАЦИЯ =====

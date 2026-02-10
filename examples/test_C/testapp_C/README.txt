@@ -29,7 +29,7 @@ On macOS: library is a Mac OS X framework, and at example application it’s bun
 ===== For run in CodeBlocks =====
 1. Before starting:
 	On Windows: 
-		You must use MS Visual C++ to compile. Make sure that the Microsoft Visual C++ Redistributable Package is installed.
+		You must use MS Visual C++ to compile. Make sure that the Microsoft Visual C++ Redistributable Package 2013 is installed.
 		The library with dependencies is located in the ximc/win** folders. The following files are required for the example to work: bindy.dll, libximc.dll, xiwrapper.dll.
 	On Linux: 
 		Install libximc*deb and libximc-dev*dev of the target architecture. Then copy ximc/ximc.h to the directory examples/test_C/testapp_C. Install gcc compatible with CodeBlocks.
@@ -71,7 +71,7 @@ macOS: библиотека для Mac OS поставляется в форма
 ===== Для работы с примером в среде CodeBlocks =====
 1. Перед запуском:
 	Windows: 
-		Для компиляции необходимо использовать MS Visual C++. Убедитесь, что Microsoft Visual C++ Redistributable Package установлен. 
+		Для компиляции необходимо использовать MS Visual C++. Убедитесь, что Microsoft Visual C++ Redistributable Package 2013 установлен. 
 		Библиотека с зависимостями находится в папках ximc/win**. Для работы примера неоходимы следующие файлы: bindy.dll, libximc.dll, xiwrapper.dll.
 	Linux: 
 		Установите libximc*deb и libximc-dev*dev целевой архитектуры. Затем скопируйте ximc/ximc.h в каталог examples/test_C/testapp_C. Установите gcc, совместимый с CodeBlocks.

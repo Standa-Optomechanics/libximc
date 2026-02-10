@@ -8,10 +8,17 @@
  *
  * Libximc - <b>потокобезопасная,</b> кросс-платформенная библиотека для работы с контроллерами 8SMC4-USB и 8SMC5-USB.
  *
- * Полная документация по контроллерам доступна по <a href="https://doc.xisupport.com">ссылке</a>
+ * Полная документация по контроллерам доступна по <a href="https://doc.xisupport.com">ссылке</a>.
  *
- * Полная документация по API libximc доступна на странице <a href="https://libximc.xisupport.com/doc-ru/ximc_8h.html"> ximc.h.</a>
- * 
+ * Полная документация по API libximc доступна на странице <a href="https://libximc.xisupport.com/doc-ru/ximc_8h.html">ximc.h.</a>
+ *
+ * Библиотека `libximc` теперь доступна на <a href="https://pypi.org/project/libximc/">PyPI</a>, и её можно установить напрямую через pip:
+ * @code{.bash}
+ * pip install libximc
+ * @endcode
+ *
+ * Это упрощает использование библиотеки в Python-проектах без необходимости ручной сборки.
+ *
  * \section what_the_controller_does Что делает контроллер 8SMC4-USB и 8SMC5-USB
  *
  * - Поддерживает входные и выходные сигналы синхронизации для обеспечения совместной работы нескольких устройств в рамках сложной системы;
@@ -52,7 +59,7 @@
  * - Linux на основе rpm. RPM собирается на OpenSUSE 12
  *
  * Требования сборки:
- * - Windows: Microsoft Visual C++ 2013 или новее, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin с tar, bison, flex, curl, 7z. mingw
+ * - Windows: Microsoft Visual C++ 2013, MATLAB, Code::Blocks, Delphi, Java, Python, cygwin с tar, bison, flex, curl, 7z. mingw
  * - UNIX: gcc 4 или новее, gmake, doxygen, LaTeX, flex 2.5.30+, bison 2.3+, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - Mac OS X: XCode 4 или новее, doxygen, mactex, autotools (autoconf, autoheader, aclocal, automake, autoreconf, libtool)
  * - JDK 7 - 9
@@ -68,7 +75,7 @@
  * $ ./build.bat
  * \endcode
  * 
- * Собранные файлы располагаются в ./ximc/win32 и ./ximc/win64
+ * Собранные файлы располагаются в ./ximc/win32 и ./ximc/win64.
  *
  * Если вы хотите собрать отладочную версию библиотеки, то перед запуском скрипта сборки установите переменную окружения "DEBUG" в значение "true".
  *

@@ -1232,6 +1232,11 @@ result_t normal_correction(device_t* id, float* newPosition)
 
 	cPosition = *newPosition;
 	dm = get_metadata(*id);
+	if (!dm)
+	{
+		log_error(L"normal_correction cannot get metadata");
+		return 0;
+	}
 	correction = &(dm->table);	
 	
 	if ((dm->table.X == NULL) || (dm->table.dX == NULL))
@@ -1296,6 +1301,12 @@ result_t rewers_correction(device_t* id, float* newPosition)
 
 	cPosition = *newPosition;
 	dm = get_metadata(*id);
+	if (!dm)
+	{
+		log_error(L"rewers_correction cannot get metadata");
+		return 0;
+	}
+
 	correction = &(dm->table);
 
 	if ((dm->table.X == NULL) || (dm->table.dX == NULL))

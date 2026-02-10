@@ -1,6 +1,6 @@
 Summary: Library for controlling DC brush motor
 Name: libximc7
-Version: 2.14.28
+Version: 2.14.29
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: BSD
@@ -73,6 +73,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libximc.so
 
 %changelog
+
+* Tue May 06 2025 XIMC <8smc4@standa.lt> - 2.14.29
+- version bump
+- Feature: Add info about coordinates/speeds in encoder mode, #86970
+- Feature: Fix the description of the measurement_t structure, #91883
+- Feature: Fix valid Python versions in examples, #114532
+- Bug: Fix calb functions when device is missing, #115036
+- Bug: Add a check for VC C++ 2013 installation to the libximc Python, #115359
 
 * Thu Feb 20 2025 XIMC <8smc4@standa.lt> - 2.14.28
 - version bump

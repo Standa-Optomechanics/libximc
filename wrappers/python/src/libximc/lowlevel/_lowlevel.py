@@ -1,8 +1,7 @@
-from ctypes import *
 import os
-import platform
 import struct
 import sys
+from ctypes import *
 
 
 # Load library
@@ -19,19 +18,34 @@ def _near_script_path(libname):
     return join(abspath(dirname(__file__)), libname)
 
 
+def _check_if_vc2013_is_installed():
+    try:
+        CDLL("msvcr120.dll")
+    except OSError:
+        link = "https://aka.ms/highdpimfc2013x86enu" if _get_os_bit() == 32 else "https://aka.ms/highdpimfc2013x64enu"
+        error_msg = ("Microsoft Visual C++ Redistributable 2013 is not installed, this may lead to the DLL load "
+                     "failure. It can be downloaded at {}").format(link)
+        raise RuntimeError(error_msg)
+
+
+def _get_os_bit() -> int:
+    return 8 * struct.calcsize("P")
+
+
 def _load_lib():
     from platform import system, machine
     from os.path import join
-    import struct
     cwd = os.path.abspath(os.path.dirname(__file__))
     os_kind = system().lower()
     if os_kind == "windows":
+        _check_if_vc2013_is_installed()
+
         ximc_root_path = r"..\..\..\..\.."
         if sys.version_info[0] == 3 and sys.version_info[1] >= 8:
             method = lambda path: WinDLL(path, winmode=RTLD_GLOBAL)
         else:
             method = WinDLL
-        if 8 * struct.calcsize("P") == 32:
+        if _get_os_bit() == 32:
             libs = ("bindy.dll", "xiwrapper.dll", "libximc.dll")
             paths = [os.path.join(cwd, r"..\library-files\win32"), os.path.join(ximc_root_path, "win32")]
         else:
